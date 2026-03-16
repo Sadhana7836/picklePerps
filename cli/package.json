@@ -1,0 +1,58 @@
+{
+  "name": "pickleperps",
+  "version": "1.1.0",
+  "description": "Pickle Perps CLI - Trade tokens and real world assets on Mantle",
+  "type": "module",
+  "bin": {
+    "pickle": "./dist/index.js",
+    "pickle-trade-terminal": "./dist/tui/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/index.js",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "defi",
+    "trading",
+    "perpetuals",
+    "mantle",
+    "cli",
+    "rwa",
+    "crypto"
+  ],
+  "author": "Pickle Perps",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/debanjannnn/PicklePerps"
+  },
+  "homepage": "https://pickle-perps.vercel.app/",
+  "dependencies": {
+    "@types/figlet": "^1.7.0",
+    "bip39": "^3.1.0",
+    "blessed": "^0.1.81",
+    "blessed-contrib": "^4.11.0",
+    "boxen": "^8.0.1",
+    "chalk": "^5.4.1",
+    "cli-table3": "^0.6.5",
+    "commander": "^13.1.0",
+    "figlet": "^1.9.4",
+    "hdkey": "^2.1.0",
+    "inquirer": "^12.3.2",
+    "ora": "^8.2.0",
+    "viem": "^2.42.0"
+  },
+  "devDependencies": {
+    "@types/bip39": "^3.0.4",
+    "@types/blessed": "^0.1.27",
+    "@types/hdkey": "^2.0.1",
+    "@types/inquirer": "^9.0.7",
+    "@types/node": "^22.19.3",
+    "typescript": "~5.8.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

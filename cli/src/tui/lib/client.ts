@@ -1,0 +1,180 @@
+import {
+  createPublicClient,
+  createWalletClient,
+  http,
+  formatEther as viemFormatEther,
+  type PublicClient,
+  type WalletClient,
+  type Chain,
+} from 'viem';
+import { privateKeyToAccount } from 'viem/accounts';
+import { loadPrivateKey, getConfig } from './wallet.js';
+
+// Stellar Testnet chain definition
+export const mantleTestnet: Chain = {
+  id: 5003,
+  name: 'Stellar Testnet Testnet',
+  nativeCurrency: {
+    name: 'Stellar',
+    symbol: 'XLM',
+    decimals: 18,
+  },
+  rpcUrls: {
+    default: {
+      http: ['https://rpc.sepolia.mantle.xyz'],
+    },
+  },
+  blockExplorers: {
+    default: {
+      name: 'Stellar Testnet Explorer',
+      url: 'https://explorer.sepolia.mantle.xyz',
+    },
+  },
+  testnet: true,
+};
+
+// Contract addresses
+export const contracts = {
+  memeTokenFactory: '0x083c920Eb055997a4becf51d9854dCd441a40b3E' as `0x${string}`,
+  bondingCurveMarket: '0x93b268325A9862645c82b32229f3B52264750Ca2' as `0x${string}`,
+  perpetualTrading: '0x8081b646f349c049f2d5e8a400057d411dd657bd' as `0x${string}`,
+  copyTrading: '0x03f0b1dd70d5ad5c46fa8084965ccb5f89d9242c' as `0x${string}`,
+  rwaPerpetualTrading: '0xf7ee5d6fdebdc25e08ebffc8f77ec3a59a1403da' as `0x${string}`,
+};
+
+// Singleton public client
+let publicClient: PublicClient | null = null;
+
+export function getPublicClient(): PublicClient {
+  if (!publicClient) {
+    const config = getConfig();
+    const rpcUrl = config.rpcUrl || mantleTestnet.rpcUrls.default.http[0];
+
+    publicClient = createPublicClient({
+      chain: mantleTestnet,
+      transport: http(rpcUrl),
+    });
+  }
+  return publicClient;
+}
+
+// Create wallet client with password
+export async function getWalletClient(password: string): Promise<WalletClient> {
+  const privateKey = loadPrivateKey(password);
+  const account = privateKeyToAccount(privateKey as `0x${string}`);
+  const config = getConfig();
+  const rpcUrl = config.rpcUrl || mantleTestnet.rpcUrls.default.http[0];
+
+  return createWalletClient({
+    account,
+    chain: mantleTestnet,
+    transport: http(rpcUrl),
+  });
+}
+
+// Get native balance
+export async function getNativeBalance(address: string): Promise<bigint> {
+  const client = getPublicClient();
+  return client.getBalance({ address: address as `0x${string}` });
+}
+
+// ERC20 ABI for basic token operations
+const erc20ABI = [
+  {
+    inputs: [{ name: 'account', type: 'address' }],
+    name: 'balanceOf',
+    outputs: [{ type: 'uint256' }],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'name',
+    outputs: [{ type: 'string' }],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'symbol',
+    outputs: [{ type: 'string' }],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'decimals',
+    outputs: [{ type: 'uint8' }],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'totalSupply',
+    outputs: [{ type: 'uint256' }],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      { name: 'owner', type: 'address' },
+      { name: 'spender', type: 'address' },
+    ],
+    name: 'allowance',
+    outputs: [{ type: 'uint256' }],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      { name: 'spender', type: 'address' },
+      { name: 'amount', type: 'uint256' },
+    ],
+    name: 'approve',
+    outputs: [{ type: 'bool' }],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+] as const;
+
+// Get token info
+export async function getTokenInfo(tokenAddress: string): Promise<{
+  name: string;
+  symbol: string;
+  decimals: number;
+  totalSupply: bigint;
+}> {
+  const client = getPublicClient();
+  const address = tokenAddress as `0x${string}`;
+
+  const [name, symbol, decimals, totalSupply] = await Promise.all([
+    client.readContract({ address, abi: erc20ABI, functionName: 'name' }),
+    client.readContract({ address, abi: erc20ABI, functionName: 'symbol' }),
+    client.readContract({ address, abi: erc20ABI, functionName: 'decimals' }),
+    client.readContract({ address, abi: erc20ABI, functionName: 'totalSupply' }),
+  ]);
+
+  return {
+    name: name as string,
+    symbol: symbol as string,
+    decimals: decimals as number,
+    totalSupply: totalSupply as bigint,
+  };
+}
+
+// Get token balance
+export async function getTokenBalance(tokenAddress: string, walletAddress: string): Promise<bigint> {
+  const client = getPublicClient();
+
+  const balance = await client.readContract({
+    address: tokenAddress as `0x${string}`,
+    abi: erc20ABI,
+    functionName: 'balanceOf',
+    args: [walletAddress as `0x${string}`],
+  });
+
+  return balance as bigint;
+}
+
+// Re-export formatEther
+export const formatEther = viemFormatEther;
