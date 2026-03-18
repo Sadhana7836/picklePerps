@@ -38,7 +38,11 @@ export async function callContract(
     // Simulate only (read-only call)
     const simResult = await server.simulateTransaction(tx);
     if (StellarSdk.SorobanRpc.Api.isSimulationSuccess(simResult)) {
-      return scValToNative(simResult.result!.retval);
+      try {
+        return scValToNative(simResult.result!.retval);
+      } catch {
+        return null;
+      }
     }
     // Extract error details from simulation
     const errorMsg = StellarSdk.SorobanRpc.Api.isSimulationError(simResult)
@@ -110,7 +114,12 @@ export async function callContract(
   }
 
   if (getResult.status === 'SUCCESS') {
-    return getResult.returnValue ? scValToNative(getResult.returnValue) : null;
+    try {
+      return getResult.returnValue ? scValToNative(getResult.returnValue) : null;
+    } catch {
+      // SDK version mismatch on return value parsing (e.g. Address ScVal) — tx succeeded
+      return null;
+    }
   }
 
   // Transaction FAILED — extract details

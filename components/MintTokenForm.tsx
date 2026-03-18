@@ -211,76 +211,72 @@ export function MintTokenForm() {
 
           {/* Social Links (Optional) */}
           <div className="space-y-3">
-              <label className="block text-xs text-[#666] uppercase">Social Links (Optional)</label>
+            <label className="block text-xs text-[#666] uppercase">Social Links (Optional)</label>
 
-              {/* Website */}
-              <div className="relative">
-                <Globe className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#555]" />
-                <input
-                  type="url"
-                  value={website}
-                  onChange={(e) => setWebsite(e.target.value)}
-                  placeholder="https://yourtoken.com"
-                  className="w-full pl-10 pr-4 py-2.5 bg-[var(--background)] border border-[#222] rounded-lg text-sm text-white placeholder-[#444] focus:outline-none focus:border-[var(--accent-green)]/50"
-                />
-              </div>
-
-              {/* X (Twitter) */}
-              <div className="relative">
-                <svg
-                  viewBox="0 0 24 24"
-                  className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#555]"
-                  fill="currentColor"
-                >
-                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                </svg>
-                <input
-                  type="text"
-                  value={twitter}
-                  onChange={(e) => setTwitter(e.target.value)}
-                  placeholder="@yourtoken or https://x.com/yourtoken"
-                  className="w-full pl-10 pr-4 py-2.5 bg-[var(--background)] border border-[#222] rounded-lg text-sm text-white placeholder-[#444] focus:outline-none focus:border-[var(--accent-green)]/50"
-                />
-              </div>
-
-              {/* Telegram */}
-              <div className="relative">
-                <Send className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#555]" />
-                <input
-                  type="text"
-                  value={telegram}
-                  onChange={(e) => setTelegram(e.target.value)}
-                  placeholder="@yourtoken or https://t.me/yourtoken"
-                  className="w-full pl-10 pr-4 py-2.5 bg-[var(--background)] border border-[#222] rounded-lg text-sm text-white placeholder-[#444] focus:outline-none focus:border-[var(--accent-green)]/50"
-                />
-              </div>
+            {/* Website */}
+            <div className="relative">
+              <Globe className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#555]" />
+              <input
+                type="url"
+                value={website}
+                onChange={(e) => setWebsite(e.target.value)}
+                placeholder="https://yourtoken.com"
+                className="w-full pl-10 pr-4 py-2.5 bg-[var(--background)] border border-[#222] rounded-lg text-sm text-white placeholder-[#444] focus:outline-none focus:border-[var(--accent-green)]/50"
+              />
             </div>
+
+            {/* X (Twitter) */}
+            <div className="relative">
+              <svg viewBox="0 0 24 24" className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#555]" fill="currentColor">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+              </svg>
+              <input
+                type="text"
+                value={twitter}
+                onChange={(e) => setTwitter(e.target.value)}
+                placeholder="@yourtoken or https://x.com/yourtoken"
+                className="w-full pl-10 pr-4 py-2.5 bg-[var(--background)] border border-[#222] rounded-lg text-sm text-white placeholder-[#444] focus:outline-none focus:border-[var(--accent-green)]/50"
+              />
+            </div>
+
+            {/* Telegram */}
+            <div className="relative">
+              <Send className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#555]" />
+              <input
+                type="text"
+                value={telegram}
+                onChange={(e) => setTelegram(e.target.value)}
+                placeholder="@yourtoken or https://t.me/yourtoken"
+                className="w-full pl-10 pr-4 py-2.5 bg-[var(--background)] border border-[#222] rounded-lg text-sm text-white placeholder-[#444] focus:outline-none focus:border-[var(--accent-green)]/50"
+              />
+            </div>
+          </div>
 
           {/* Creator Allocation Slider */}
           <div>
-              <label className="text-xs text-[#666] mb-2 block uppercase">Your Allocation (Anti-Rug)</label>
-              <div className="flex items-center gap-4">
-                <input
-                  type="range"
-                  min="1"
-                  max="10"
-                  value={creatorAllocation}
-                  onChange={(e) => setCreatorAllocation(Number(e.target.value))}
-                  className="flex-1 h-2 bg-[#222] rounded-lg appearance-none cursor-pointer accent-[var(--accent-green)]"
-                />
-                <span className="text-[var(--accent-green)] font-semibold text-sm w-12">{creatorAllocation}%</span>
-              </div>
-              <div className="flex justify-between mt-2 text-xs">
-                <span className="text-[#555]">You: {creatorAllocation}%</span>
-                <span className="text-[#555]">Bonding Curve: {100 - creatorAllocation}%</span>
-              </div>
+            <label className="text-xs text-[#666] mb-2 block uppercase">Your Allocation (Anti-Rug)</label>
+            <div className="flex items-center gap-4">
+              <input
+                type="range"
+                min="1"
+                max="10"
+                value={creatorAllocation}
+                onChange={(e) => setCreatorAllocation(Number(e.target.value))}
+                className="flex-1 h-2 bg-[#222] rounded-lg appearance-none cursor-pointer accent-[var(--accent-primary)]"
+              />
+              <span className="text-[var(--accent-primary)] font-semibold text-sm w-12">{creatorAllocation}%</span>
             </div>
+            <div className="flex justify-between mt-2 text-xs">
+              <span className="text-[#555]">You: {creatorAllocation}%</span>
+              <span className="text-[#555]">Bonding Curve: {100 - creatorAllocation}%</span>
+            </div>
+          </div>
 
           {/* Info Box */}
-          <div className="bg-[var(--sidebar-bg)] rounded-lg p-4 space-y-2">
+          <div className="bg-[var(--background)] border border-[#222] rounded-lg p-4 space-y-2">
             <div className="flex justify-between text-sm">
               <span className="text-[#555]">Minting Fee</span>
-              <span className="text-[var(--accent-green)] font-medium">{data.mintingFee} XLM</span>
+              <span className="text-[var(--accent-primary)] font-medium">{data.mintingFee} XLM</span>
             </div>
             <div className="flex justify-between text-sm">
               <span className="text-[#555]">You Receive</span>
@@ -292,7 +288,7 @@ export function MintTokenForm() {
             </div>
             <div className="flex justify-between text-sm">
               <span className="text-[#555]">Bonding Curve</span>
-              <span className="text-[var(--accent-green)]">{100 - creatorAllocation}% listed</span>
+              <span className="text-[var(--accent-primary)]">{100 - creatorAllocation}% listed</span>
             </div>
           </div>
 
@@ -300,7 +296,7 @@ export function MintTokenForm() {
           <button
             type="submit"
             disabled={!name || !symbol || !imageFile || state.isLoading}
-            className="w-full py-3.5 bg-[var(--accent-green)] hover:bg-[var(--accent-green)] text-black font-semibold rounded-lg text-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full py-3.5 bg-[var(--accent-primary)] hover:opacity-90 text-black font-semibold rounded-lg text-sm transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Create Token
           </button>
@@ -317,11 +313,11 @@ export function MintTokenForm() {
           <div className="flex items-center justify-between mb-2">
             <span className="text-[10px] text-[#666] uppercase">Transaction</span>
             {state.isConfirming && <span className="text-[10px] text-[var(--accent-yellow)]">Confirming...</span>}
-            {state.isConfirmed && <span className="text-[10px] text-[var(--accent-green)]">Confirmed</span>}
+            {state.isConfirmed && <span className="text-[10px] text-[var(--accent-primary)]">Confirmed</span>}
           </div>
           <div className="flex items-center gap-2">
             <p className="text-xs font-mono text-white truncate flex-1">{state.hash}</p>
-            <a href={`https://stellar.expert/explorer/testnet/tx/${state.hash}`} target="_blank" rel="noopener noreferrer" className="text-[var(--accent-green)]">
+            <a href={`https://stellar.expert/explorer/testnet/tx/${state.hash}`} target="_blank" rel="noopener noreferrer" className="text-[var(--accent-primary)]">
               <ExternalLink className="w-3 h-3" />
             </a>
           </div>

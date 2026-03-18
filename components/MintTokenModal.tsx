@@ -183,7 +183,7 @@ export function MintTokenModal({ isOpen, onClose, onSuccess }: MintTokenModalPro
                 />
                 <label
                   htmlFor="modal-image-upload"
-                  className="w-20 h-20 rounded-xl bg-[var(--card-bg)] border border-[var(--card-border)] flex items-center justify-center cursor-pointer hover:border-[var(--accent-green)] transition-colors overflow-hidden flex-shrink-0"
+                  className="w-24 h-24 rounded-lg bg-[var(--background)] border-2 border-dashed border-[#222] flex items-center justify-center cursor-pointer hover:border-[var(--accent-green)]/50 transition-colors overflow-hidden flex-shrink-0"
                 >
                   {imagePreview ? (
                     <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
@@ -197,7 +197,7 @@ export function MintTokenModal({ isOpen, onClose, onSuccess }: MintTokenModalPro
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Token Name"
-                    className="w-full px-3 py-2 bg-[var(--card-bg)] border border-[var(--card-border)] rounded-lg text-white text-sm placeholder-[#555] focus:outline-none focus:border-[var(--accent-green)]"
+                    className="w-full px-3 py-2 bg-[var(--background)] border border-[#222] rounded-lg text-white text-sm placeholder-[#444] focus:outline-none focus:border-[var(--accent-green)]/50"
                     required
                   />
                   <input
@@ -206,7 +206,7 @@ export function MintTokenModal({ isOpen, onClose, onSuccess }: MintTokenModalPro
                     onChange={(e) => setSymbol(e.target.value.toUpperCase())}
                     placeholder="SYMBOL"
                     maxLength={10}
-                    className="w-full px-3 py-2 bg-[var(--card-bg)] border border-[var(--card-border)] rounded-lg text-white text-sm placeholder-[#555] focus:outline-none focus:border-[var(--accent-green)]"
+                    className="w-full px-3 py-2 bg-[var(--background)] border border-[#222] rounded-lg text-white text-sm placeholder-[#444] focus:outline-none focus:border-[var(--accent-green)]/50"
                     required
                   />
                 </div>
@@ -214,19 +214,19 @@ export function MintTokenModal({ isOpen, onClose, onSuccess }: MintTokenModalPro
 
               {/* Supply */}
               <div>
-                <label className="text-[#888] text-xs mb-1 block">Total Supply</label>
+                <label className="text-xs text-[#666] mb-2 block uppercase">Total Supply</label>
                 <input
                   type="text"
                   value={totalSupply}
                   onChange={(e) => setTotalSupply(e.target.value)}
-                  className="w-full px-3 py-2 bg-[var(--card-bg)] border border-[var(--card-border)] rounded-lg text-white text-sm placeholder-[#555] focus:outline-none focus:border-[var(--accent-green)]"
+                  className="w-full px-3 py-2 bg-[var(--background)] border border-[#222] rounded-lg text-white text-sm placeholder-[#444] focus:outline-none focus:border-[var(--accent-green)]/50"
                   required
                 />
               </div>
 
               {/* Social Links (Optional) */}
               <div className="space-y-2">
-                <label className="text-[#888] text-xs block">Social Links (Optional)</label>
+                <label className="text-xs text-[#666] block uppercase">Social Links (Optional)</label>
 
                 {/* Website */}
                 <div className="relative">
@@ -236,8 +236,9 @@ export function MintTokenModal({ isOpen, onClose, onSuccess }: MintTokenModalPro
                     value={website}
                     onChange={(e) => setWebsite(e.target.value)}
                     placeholder="https://yourtoken.com"
-                    className="w-full pl-9 pr-3 py-2 bg-[var(--card-bg)] border border-[var(--card-border)] rounded-lg text-white text-sm placeholder-[#555] focus:outline-none focus:border-[var(--accent-green)]"
+                    className="w-full pl-9 pr-3 py-2 bg-[var(--background)] border border-[#222] rounded-lg text-white text-sm placeholder-[#444] focus:outline-none focus:border-[var(--accent-green)]/50"
                   />
+
                 </div>
 
                 {/* X (Twitter) */}
@@ -254,8 +255,9 @@ export function MintTokenModal({ isOpen, onClose, onSuccess }: MintTokenModalPro
                     value={twitter}
                     onChange={(e) => setTwitter(e.target.value)}
                     placeholder="@yourtoken or https://x.com/yourtoken"
-                    className="w-full pl-9 pr-3 py-2 bg-[var(--card-bg)] border border-[var(--card-border)] rounded-lg text-white text-sm placeholder-[#555] focus:outline-none focus:border-[var(--accent-green)]"
+                    className="w-full pl-9 pr-3 py-2 bg-[var(--background)] border border-[#222] rounded-lg text-white text-sm placeholder-[#444] focus:outline-none focus:border-[var(--accent-green)]/50"
                   />
+
                 </div>
 
                 {/* Telegram */}
@@ -266,14 +268,15 @@ export function MintTokenModal({ isOpen, onClose, onSuccess }: MintTokenModalPro
                     value={telegram}
                     onChange={(e) => setTelegram(e.target.value)}
                     placeholder="@yourtoken or https://t.me/yourtoken"
-                    className="w-full pl-9 pr-3 py-2 bg-[var(--card-bg)] border border-[var(--card-border)] rounded-lg text-white text-sm placeholder-[#555] focus:outline-none focus:border-[var(--accent-green)]"
+                    className="w-full pl-9 pr-3 py-2 bg-[var(--background)] border border-[#222] rounded-lg text-white text-sm placeholder-[#444] focus:outline-none focus:border-[var(--accent-green)]/50"
                   />
+
                 </div>
               </div>
 
               {/* Creator Allocation Slider */}
               <div>
-                <label className="text-[#888] text-xs mb-2 block">
+                <label className="text-xs text-[#666] mb-2 block uppercase">
                   Your Allocation (Anti-Rug)
                 </label>
                 <div className="flex items-center gap-3">
@@ -283,7 +286,7 @@ export function MintTokenModal({ isOpen, onClose, onSuccess }: MintTokenModalPro
                     max="10"
                     value={creatorAllocation}
                     onChange={(e) => setCreatorAllocation(Number(e.target.value))}
-                    className="flex-1 h-2 bg-[var(--card-border)] rounded-lg appearance-none cursor-pointer accent-[var(--accent-green)]"
+                    className="flex-1 h-2 bg-[#222] rounded-lg appearance-none cursor-pointer accent-[var(--accent-green)]"
                   />
                   <span className="text-[var(--accent-green)] font-medium text-sm w-12">
                     {creatorAllocation}%
@@ -296,7 +299,7 @@ export function MintTokenModal({ isOpen, onClose, onSuccess }: MintTokenModalPro
               </div>
 
               {/* Info */}
-              <div className="bg-[var(--card-bg)] rounded-lg p-3 space-y-1.5">
+              <div className="bg-[var(--sidebar-bg)] rounded-lg p-3 space-y-1.5">
                 <div className="flex justify-between text-xs">
                   <span className="text-[#555]">Minting Fee</span>
                   <span className="text-[var(--accent-green)] font-medium">{data.mintingFee} XLM</span>
