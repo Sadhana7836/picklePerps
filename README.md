@@ -87,8 +87,8 @@ See [CONTRACTS.md](CONTRACTS.md) for full details and explorer links.
 
 ### Prerequisites
 - Node.js 18+
-- A wallet (MetaMask, Coinbase Wallet, etc.)
-- Stellar Testnet testnet XLM tokens
+- Freighter Wallet (Stellar)
+- Stellar Testnet XLM tokens
 
 ### Web App Installation
 
@@ -187,13 +187,10 @@ pickle tui                    # Alias for terminal
 |-------|------------|
 | Frontend | Next.js 15, React 19, TypeScript |
 | Styling | Tailwind CSS, shadcn/ui |
-| Web3 | Wagmi, Viem, RainbowKit |
-| CLI | Commander.js, Inquirer |
-| TUI | Blessed |
-| Blockchain | Stellar Network (EVM) |
-| Oracles | Pyth Network |
+| Web3 | @stellar/stellar-sdk, @stellar/freighter-api |
+| State | Zustand, TanStack Query |
+| Blockchain | Stellar Network (Soroban) |
 | Storage | IPFS via Pinata |
-| Indexing | The Graph / Goldsky |
 
 ## Project Structure
 
@@ -201,12 +198,11 @@ pickle tui                    # Alias for terminal
 PicklePerps/
 ├── app/                    # Next.js app directory
 ├── components/             # React components
-├── contracts/              # Solidity smart contracts
-│   ├── MemeTokenFactoryV3.sol
-│   ├── BondingCurveMarket.sol
-│   ├── PerpetualTrading.sol
-│   ├── RWAPerpetualTrading.sol
-│   └── CopyTrading.sol
+├── contracts-stellar/      # Soroban smart contracts (Rust)
+│   ├── pike_token/
+│   ├── token_factory/
+│   ├── bonding_curve/
+│   └── perpetual_trading/
 ├── cli/                    # CLI and TUI
 │   └── src/
 │       ├── commands/       # CLI commands
@@ -219,36 +215,25 @@ PicklePerps/
 ## Environment Variables
 
 ```env
-# WalletConnect
-NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID=your_project_id
+# Stellar
+NEXT_PUBLIC_STELLAR_RPC_URL=https://soroban-testnet.stellar.org
+NEXT_PUBLIC_STELLAR_HORIZON_URL=https://horizon-testnet.stellar.org
 
 # IPFS
 NEXT_PUBLIC_PINATA_JWT=your_pinata_jwt
-
-# Subgraph
-NEXT_PUBLIC_SUBGRAPH_URL=your_subgraph_url
 ```
 
 ## Development
 
-### Smart Contracts
+### Smart Contracts (Soroban)
 ```bash
-# Compile
-npx hardhat compile
+cd contracts-stellar
 
-# Deploy
-npx hardhat ignition deploy ./ignition/modules/Deploy.ts --network mantleSepolia
+# Build all contracts
+stellar contract build
 
-# Verify
-npx hardhat verify --network mantleSepolia <address>
-```
-
-### Subgraph
-```bash
-cd subgraph
-graph codegen
-graph build
-graph deploy
+# Deploy (uses deploy.sh)
+bash deploy.sh
 ```
 
 ## Links
