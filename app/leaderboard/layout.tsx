@@ -3,18 +3,18 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Leaderboard",
   description:
-    "View top traders on StellaPerps leaderboard. See rankings, PnL, win rates, and trading volumes of the best performers on Stellar Network.",
+    "View top traders on PicklePerps leaderboard. See rankings, PnL, win rates, and trading volumes of the best performers on Stellar Network.",
   keywords: [
     "trading leaderboard",
     "top traders",
-    "StellaPerps leaderboard",
+    "PicklePerps leaderboard",
     "crypto rankings",
     "Stellar traders",
   ],
   openGraph: {
-    title: "Leaderboard | StellaPerps",
+    title: "Leaderboard | PicklePerps",
     description:
-      "See the top performing traders on StellaPerps Stellar DEX leaderboard.",
+      "See the top performing traders on PicklePerps Stellar DEX leaderboard.",
   },
 };
 

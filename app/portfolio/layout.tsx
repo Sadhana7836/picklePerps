@@ -3,18 +3,18 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Portfolio",
   description:
-    "Track your crypto portfolio on StellaPerps. View your positions, PnL, trading history, and manage your assets on Stellar Network.",
+    "Track your crypto portfolio on PicklePerps. View your positions, PnL, trading history, and manage your assets on Stellar Network.",
   keywords: [
     "crypto portfolio",
     "portfolio tracker",
-    "StellaPerps portfolio",
+    "PicklePerps portfolio",
     "trading portfolio",
     "Stellar portfolio",
   ],
   openGraph: {
-    title: "Portfolio | StellaPerps",
+    title: "Portfolio | PicklePerps",
     description:
-      "Track and manage your crypto portfolio on StellaPerps Stellar DEX.",
+      "Track and manage your crypto portfolio on PicklePerps Stellar DEX.",
   },
 };
 

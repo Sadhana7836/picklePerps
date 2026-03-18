@@ -177,7 +177,7 @@ export const Navbar = memo(function Navbar() {
             {/* Content */}
             <div className="flex flex-col items-center text-center">
               {/* Title */}
-              <h3 className="text-white text-sm font-bold mb-3">StellaPerps Mobile</h3>
+              <h3 className="text-white text-sm font-bold mb-3">PicklePerps Mobile</h3>
 
               {/* QR Code */}
               <div className="bg-white p-2 rounded-lg mb-3">

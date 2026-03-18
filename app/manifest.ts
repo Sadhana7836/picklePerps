@@ -2,8 +2,8 @@ import { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "StellaPerps - Decentralized Perpetual Trading",
-    short_name: "StellaPerps",
+    name: "PicklePerps - Decentralized Perpetual Trading",
+    short_name: "PicklePerps",
     description:
       "Trade crypto perpetuals with up to 100x leverage on Stellar Network. The leading perps DEX on Stellar.",
     start_url: "/",

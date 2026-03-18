@@ -375,7 +375,7 @@ export function TokenDetailPage({ token, onBack }: TokenDetailPageProps) {
 
           {/* OHLC Info Bar */}
           <div className="flex items-center gap-4 px-3 py-1 border-b border-[#1a1a1a] bg-[#0a0a0a] text-xs">
-            <span className="text-[#888]">{token.name}/USD • {timeframe} • StellaPerps</span>
+            <span className="text-[#888]">{token.name}/USD • {timeframe} • PicklePerps</span>
             {displayCandle && (
               <>
                 <span className="text-[#888]">O<span className="text-white ml-1">{formatPrice(displayCandle.open)}</span></span>
