@@ -66,21 +66,22 @@ PnL = positionSize * leverage * (currentPrice - entryPrice) / entryPrice
 
 | Property | Value |
 |----------|-------|
-| Network | Stellar Testnet Testnet |
-| Chain ID | 5003 |
-| RPC | https://mantle-sepolia.drpc.org |
-| Explorer | https://explorer.sepolia.mantle.xyz |
+| Network | Stellar Testnet |
+| RPC | https://soroban-testnet.stellar.org |
+| Horizon | https://horizon-testnet.stellar.org |
+| Explorer | https://stellar.expert/explorer/testnet |
 | Currency | XLM |
 
-## Contract Addresses
+## Contract Addresses (Soroban)
 
 | Contract | Address |
 |----------|---------|
-| MemeTokenFactoryV3 | `0x083c920Eb055997a4becf51d9854dCd441a40b3E` |
-| BondingCurveMarket | `0x93b268325A9862645c82b32229f3B52264750Ca2` |
-| PerpetualTrading | `0x8081b646f349c049f2d5e8a400057d411dd657bd` |
-| RWAPerpetualTrading | See CONTRACTS.md |
-| CopyTrading | See CONTRACTS.md |
+| TokenFactory | `CAJDRJTHKCKZORXKMZXZSMHHEC5AMPAKUDNDVOH2IEXYHLQVDGYJXSHG` |
+| BondingCurve | `CC36RRUTOZ5KZ4A6FLTFNFXMAEZVXZFYD4ZGJM74GK23TCIF476DD3SF` |
+| PerpetualTrading | `CDYGKON5HEUWWTANFAJZWDJXY5PDYYN3NQHZLO5LAOB4XETPJRNHQ5TS` |
+| PickleToken | `CDRX5DZVKYBLVOX2HKJLCRNXS4NZ24SZECV55SIRUWJJN2QWCT2EEUTL` |
+
+See [CONTRACTS.md](CONTRACTS.md) for full details and explorer links.
 
 ## Getting Started
 
@@ -103,7 +104,7 @@ cp .env.example .env.local
 npm run dev
 ```
 
-Open http://localhost:3000
+Open https://pickle-perps.vercel.app
 
 ### CLI Installation
 
