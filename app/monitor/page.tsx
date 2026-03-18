@@ -20,22 +20,28 @@ const services: ServiceStatus[] = [
     name: "Perpetual Trading Contract",
     status: "Operational",
     uptime: 100,
-    contractAddress: "0x8081b646f349c049f2d5e8a400057d411dd657bd",
+    contractAddress: "CBRWI2CCKLT225CTB3GKC7QIOGVRSLXFYW4FDBK7SWY744HSLWQ35QJM",
   },
   {
-    name: "Token Factory V3",
+    name: "Token Factory",
     status: "Operational",
     uptime: 100,
-    contractAddress: "0x083c920Eb055997a4becf51d9854dCd441a40b3E",
+    contractAddress: "CBAHPW7BGC63QFIN4ZRUGEQDVAZQOXVP67AVZPDQNRHN7EZXAOZAJB4O",
   },
   {
     name: "Bonding Curve Market",
     status: "Operational",
     uptime: 100,
-    contractAddress: "0x93b268325A9862645c82b32229f3B52264750Ca2",
+    contractAddress: "CDEMRBGQK55F5HHLXF67IOUWFUSLIOE5YULDMLYXH3A4QXOPT73AAP5T",
   },
   {
-    name: "Stella Perps WebApp",
+    name: "Pike Token (Template)",
+    status: "Operational",
+    uptime: 100,
+    contractAddress: "CD7Q7ISZECAJDAZMHSH5CMLDEWHZ6HZ6F3YGYHM3K6552UKFQE2CWOMW",
+  },
+  {
+    name: "PicklePerps WebApp",
     status: "Operational",
     uptime: 100,
   },
@@ -84,7 +90,7 @@ function ServiceRow({ service }: { service: ServiceStatus }) {
               rel="noopener noreferrer"
               className="text-xs text-[var(--text-muted)] hover:text-[var(--accent-primary)] font-mono"
             >
-              ?
+              {service.contractAddress.slice(0, 8)}…
             </a>
           )}
         </div>
