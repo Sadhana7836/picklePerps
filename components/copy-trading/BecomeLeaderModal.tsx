@@ -25,9 +25,9 @@ export function BecomeLeaderModal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="absolute inset-0 bg-black/80" onClick={onClose} />
-      <div className="relative bg-[#0d0d0d] border border-[#1a1a1a] rounded-xl w-full max-w-md mx-4 overflow-hidden">
+      <div className="relative bg-[var(--background)] border border-[var(--card-bg)] rounded-xl w-full max-w-md mx-4 overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-[#1a1a1a]">
+        <div className="flex items-center justify-between p-4 border-b border-[var(--card-bg)]">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-green-600/20 rounded-full flex items-center justify-center">
               <Trophy className="w-5 h-5 text-green-500" />
@@ -60,7 +60,7 @@ export function BecomeLeaderModal({
                 max={20}
                 value={profitShare}
                 onChange={(e) => setProfitShare(Number(e.target.value))}
-                className="flex-1 h-2 bg-[#1a1a1a] rounded-lg appearance-none cursor-pointer accent-green-500"
+                className="flex-1 h-2 bg-[var(--card-bg)] rounded-lg appearance-none cursor-pointer accent-green-500"
               />
               <span className="text-white font-medium w-12 text-right">
                 {profitShare}%
@@ -83,7 +83,7 @@ export function BecomeLeaderModal({
               step={0.01}
               value={minFollowAmount}
               onChange={(e) => setMinFollowAmount(e.target.value)}
-              className="w-full bg-[#111] border border-[#1a1a1a] rounded-lg px-4 py-3 text-white focus:outline-none focus:border-green-500/50"
+              className="w-full bg-[var(--sidebar-bg)] border border-[var(--card-bg)] rounded-lg px-4 py-3 text-white focus:outline-none focus:border-green-500/50"
               placeholder="0.01"
             />
             <p className="text-xs text-gray-500 mt-2">
@@ -92,7 +92,7 @@ export function BecomeLeaderModal({
           </div>
 
           {/* Info Box */}
-          <div className="bg-[#111] border border-[#1a1a1a] rounded-lg p-4">
+          <div className="bg-[var(--sidebar-bg)] border border-[var(--card-bg)] rounded-lg p-4">
             <div className="flex items-start gap-3">
               <Info className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
               <div className="text-sm text-gray-400 space-y-2">
@@ -109,7 +109,7 @@ export function BecomeLeaderModal({
         </div>
 
         {/* Footer */}
-        <div className="p-4 border-t border-[#1a1a1a]">
+        <div className="p-4 border-t border-[var(--card-bg)]">
           <button
             onClick={handleSubmit}
             disabled={isLoading || !minFollowAmount}

@@ -46,9 +46,9 @@ export const RWAColumn = memo(function RWAColumn({ onAssetSelect, useDetailPage 
   }, [categoryFilter]);
 
   return (
-    <div className="hidden md:flex flex-col h-full min-w-[280px] sm:min-w-[320px] lg:min-w-[350px] xl:min-w-[380px] flex-1 bg-[#0d0d0d] border-r border-[#1a1a1a] last:border-r-0">
+    <div className="hidden md:flex flex-col h-full min-w-[280px] sm:min-w-[320px] lg:min-w-[350px] xl:min-w-[380px] flex-1 bg-[var(--background)] border-r border-[var(--card-bg)] last:border-r-0">
       {/* Column Header */}
-      <div className="px-3 py-2 border-b border-[#1a1a1a] bg-[#0a0a0a] h-12 flex items-center">
+      <div className="px-3 py-2 border-b border-[var(--card-bg)] bg-[var(--sidebar-bg)] h-12 flex items-center">
         <div className="flex items-center justify-between gap-3 w-full">
           {/* Category Pills */}
           <div className="flex items-center gap-1.5">
@@ -56,7 +56,7 @@ export const RWAColumn = memo(function RWAColumn({ onAssetSelect, useDetailPage 
               onClick={handleFilterAll}
               className={`text-xs px-2 py-1 rounded font-medium transition-colors ${
                 categoryFilter === "all"
-                  ? "bg-[#1a1a1a] border border-[#333] text-white"
+                  ? "bg-[var(--card-bg)] border border-[#333] text-white"
                   : "bg-transparent text-[#555] hover:text-white"
               }`}
             >
@@ -96,8 +96,8 @@ export const RWAColumn = memo(function RWAColumn({ onAssetSelect, useDetailPage 
               onClick={handleFilterEquity}
               className={`text-xs px-2 py-1 rounded transition-colors ${
                 categoryFilter === "equity"
-                  ? "bg-[#00d26a]/20 text-[#00d26a]"
-                  : "bg-transparent text-[#00d26a]/60 hover:text-[#00d26a]"
+                  ? "bg-[var(--accent-green)]/20 text-[var(--accent-green)]"
+                  : "bg-transparent text-[var(--accent-green)]/60 hover:text-[var(--accent-green)]"
               }`}
             >
               Equity
@@ -130,11 +130,11 @@ export const RWAColumn = memo(function RWAColumn({ onAssetSelect, useDetailPage 
       </div>
 
       {/* Footer Info */}
-      <div className="px-3 py-2 border-t border-[#1a1a1a] bg-[#0a0a0a]">
+      <div className="px-3 py-2 border-t border-[var(--card-bg)] bg-[var(--sidebar-bg)]">
         <div className="flex items-center justify-between text-[10px] text-[#555]">
           <span>Powered by Pyth Network Oracle</span>
           <span className="flex items-center gap-1">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#00d26a] animate-pulse"></span>
+            <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-green)] animate-pulse"></span>
             Live prices
           </span>
         </div>

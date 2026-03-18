@@ -13,10 +13,10 @@ function convertEventToTokenData(event: TokenCreatedEvent): TokenData {
   const createdAt = event.timestamp
   const daysSinceLaunch = Math.floor((Date.now() - createdAt) / (1000 * 60 * 60 * 24))
   const ageColor = daysSinceLaunch < AGE_THRESHOLDS.NEW
-    ? "text-[#00d26a]"
+    ? "text-[var(--accent-green)]"
     : daysSinceLaunch < AGE_THRESHOLDS.RECENT
-      ? "text-[#ffc107]"
-      : "text-[#ff4757]"
+      ? "text-[var(--accent-yellow)]"
+      : "text-[var(--accent-red)]"
 
   return {
     id: event.tokenAddress.toLowerCase(),
@@ -124,10 +124,10 @@ export const useMemeTokens = () => {
           const createdAt = info.created_at ? Number(info.created_at) * 1000 : Date.now()
           const daysSinceLaunch = Math.floor((Date.now() - createdAt) / (1000 * 60 * 60 * 24))
           const ageColor = daysSinceLaunch < AGE_THRESHOLDS.NEW
-            ? "text-[#00d26a]"
+            ? "text-[var(--accent-green)]"
             : daysSinceLaunch < AGE_THRESHOLDS.RECENT
-              ? "text-[#ffc107]"
-              : "text-[#ff4757]"
+              ? "text-[var(--accent-yellow)]"
+              : "text-[var(--accent-red)]"
 
           // Try to get current price from bonding curve
           let priceDisplay = "Not traded"

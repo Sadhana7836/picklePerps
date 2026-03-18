@@ -21,7 +21,7 @@ const RWADetailPage = lazy(() => import("./RWADetailPage").then(m => ({ default:
 const LoadingFallback = memo(function LoadingFallback() {
   return (
     <div className="flex-1 flex items-center justify-center">
-      <div className="w-6 h-6 border-2 border-[#00d26a] border-t-transparent rounded-full animate-spin" />
+      <div className="w-6 h-6 border-2 border-[var(--accent-green)] border-t-transparent rounded-full animate-spin" />
     </div>
   );
 });
@@ -65,7 +65,7 @@ export function Dashboard() {
   if (!hydrated) {
     return (
       <div className="flex items-center justify-center h-full w-full">
-        <div className="w-8 h-8 border-2 border-[#00d26a] border-t-transparent rounded-full animate-spin" />
+        <div className="w-8 h-8 border-2 border-[var(--accent-green)] border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }

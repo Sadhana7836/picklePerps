@@ -4,6 +4,7 @@ import { useShallow } from 'zustand/react/shallow';
 import { useEffect, useState } from 'react';
 import type { TokenData } from '@/components/TokenCard';
 import type { RWAAssetConfig } from '@/lib/rwaAssets';
+import type { ThemeId } from '@/lib/themes';
 
 interface AppState {
   // Selected trading item (full objects for current session)
@@ -18,6 +19,7 @@ interface AppState {
   searchQuery: string;
   showMintModal: boolean;
   sidebarOpen: boolean;
+  theme: ThemeId;
 
   // Actions
   setSelectedToken: (token: TokenData | null) => void;
@@ -26,6 +28,7 @@ interface AppState {
   setShowMintModal: (show: boolean) => void;
   setSidebarOpen: (open: boolean) => void;
   toggleSidebar: () => void;
+  setTheme: (theme: ThemeId) => void;
 
   // Clear selection
   clearSelection: () => void;
@@ -45,6 +48,7 @@ export const useAppStore = create<AppState>()(
       searchQuery: '',
       showMintModal: false,
       sidebarOpen: true,
+      theme: 'default' as ThemeId,
 
       // Actions
       setSelectedToken: (token) => set({
@@ -68,6 +72,8 @@ export const useAppStore = create<AppState>()(
       setSidebarOpen: (open) => set({ sidebarOpen: open }),
 
       toggleSidebar: () => set((state) => ({ sidebarOpen: !state.sidebarOpen })),
+
+      setTheme: (theme) => set({ theme }),
 
       clearSelection: () => set({
         selectedToken: null,
@@ -96,6 +102,7 @@ export const useAppStore = create<AppState>()(
         selectedTokenId: state.selectedTokenId,
         selectedRWAId: state.selectedRWAId,
         searchQuery: state.searchQuery,
+        theme: state.theme,
         // Don't persist: selectedToken, selectedRWA, showMintModal
       }),
     }
@@ -108,6 +115,7 @@ export const useSelectedRWA = () => useAppStore((state) => state.selectedRWA);
 export const useSearchQuery = () => useAppStore((state) => state.searchQuery);
 export const useShowMintModal = () => useAppStore((state) => state.showMintModal);
 export const useSidebarOpen = () => useAppStore((state) => state.sidebarOpen);
+export const useTheme = () => useAppStore((state) => state.theme);
 
 // Actions - use useShallow to prevent infinite loops
 export const useAppActions = () => useAppStore(
@@ -120,6 +128,7 @@ export const useAppActions = () => useAppStore(
     toggleSidebar: state.toggleSidebar,
     clearSelection: state.clearSelection,
     restoreTokenFromId: state.restoreTokenFromId,
+    setTheme: state.setTheme,
   }))
 );
 

@@ -59,7 +59,7 @@ function RWAPositionCard({
 
   if (isLoading) {
     return (
-      <div className="bg-[#1a1a1a] rounded-lg p-3 border border-[#2a2a2a]">
+      <div className="bg-[var(--card-bg)] rounded-lg p-3 border border-[var(--card-border)]">
         <div className="flex items-center justify-center py-2">
           <Loader2 className="w-4 h-4 animate-spin text-[#555]" />
         </div>
@@ -85,10 +85,10 @@ function RWAPositionCard({
   }
 
   return (
-    <div className="bg-[#1a1a1a] rounded-lg p-3 border border-[#2a2a2a]">
+    <div className="bg-[var(--card-bg)] rounded-lg p-3 border border-[var(--card-border)]">
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-2">
-          <span className={`text-xs font-bold ${position.isLong ? 'text-[#00d26a]' : 'text-[#ff4757]'}`}>
+          <span className={`text-xs font-bold ${position.isLong ? 'text-[var(--accent-green)]' : 'text-[var(--accent-red)]'}`}>
             {position.isLong ? 'LONG' : 'SHORT'}
           </span>
           <span className="text-[#888] text-xs">{position.leverage}x</span>
@@ -110,12 +110,12 @@ function RWAPositionCard({
         </div>
         <div className="flex justify-between">
           <span className="text-[#555]">Liquidation Price</span>
-          <span className="text-[#ff4757]">${liquidationPrice || "N/A"}</span>
+          <span className="text-[var(--accent-red)]">${liquidationPrice || "N/A"}</span>
         </div>
         <div className="flex justify-between border-t border-[#222] pt-1.5 mt-1.5">
           <span className="text-[#555]">Unrealized PnL</span>
           {pnl ? (
-            <span className={pnl.isProfit ? 'text-[#00d26a]' : 'text-[#ff4757]'}>
+            <span className={pnl.isProfit ? 'text-[var(--accent-green)]' : 'text-[var(--accent-red)]'}>
               {pnl.isProfit ? '+' : '-'}${parseFloat(pnl.value).toFixed(4)}
             </span>
           ) : (
@@ -127,7 +127,7 @@ function RWAPositionCard({
       <button
         onClick={handleClose}
         disabled={isClosing}
-        className="w-full mt-3 py-2 bg-[#ff4757] hover:bg-[#ff5a67] disabled:opacity-50 text-white text-xs font-bold rounded transition-colors flex items-center justify-center gap-2"
+        className="w-full mt-3 py-2 bg-[var(--accent-red)] hover:bg-[#ff5a67] disabled:opacity-50 text-white text-xs font-bold rounded transition-colors flex items-center justify-center gap-2"
       >
         {isClosing ? (
           <>
@@ -315,14 +315,14 @@ export function RWADetailPage({ asset, onBack }: RWADetailPageProps) {
   const isPositive = change24h >= 0;
 
   return (
-    <div className="flex-1 flex flex-col h-full overflow-hidden bg-[#0a0a0a]">
+    <div className="flex-1 flex flex-col h-full overflow-hidden bg-[var(--sidebar-bg)]">
       {/* Asset Header */}
-      <div className="flex items-center justify-between px-4 py-2 border-b border-[#1a1a1a] bg-[#0d0d0d]">
+      <div className="flex items-center justify-between px-4 py-2 border-b border-[var(--card-bg)] bg-[var(--background)]">
         <div className="flex items-center gap-3">
-          <button onClick={onBack} className="p-1.5 hover:bg-[#1a1a1a] rounded-lg transition-colors">
+          <button onClick={onBack} className="p-1.5 hover:bg-[var(--card-bg)] rounded-lg transition-colors">
             <ArrowLeft className="w-5 h-5 text-[#888] hover:text-white" />
           </button>
-          <div className="w-10 h-10 rounded-lg bg-[#1a1a1a] flex items-center justify-center border border-[#333] overflow-hidden">
+          <div className="w-10 h-10 rounded-lg bg-[var(--card-bg)] flex items-center justify-center border border-[#333] overflow-hidden">
             <Image
               src={asset.image}
               alt={asset.name}
@@ -354,7 +354,7 @@ export function RWADetailPage({ asset, onBack }: RWADetailPageProps) {
           <div className="text-right">
             <div className="flex items-center gap-2 justify-end">
               <p className="text-xl font-bold text-white">${price}</p>
-              <div className={`flex items-center gap-0.5 ${isPositive ? 'text-[#00d26a]' : 'text-[#ff4757]'}`}>
+              <div className={`flex items-center gap-0.5 ${isPositive ? 'text-[var(--accent-green)]' : 'text-[var(--accent-red)]'}`}>
                 {isPositive ? <TrendingUp className="w-4 h-4" /> : <TrendingDown className="w-4 h-4" />}
                 <span className="text-sm font-medium">{isPositive ? '+' : ''}{change24h.toFixed(2)}%</span>
               </div>
@@ -362,8 +362,8 @@ export function RWADetailPage({ asset, onBack }: RWADetailPageProps) {
             <p className="text-[#888] text-xs">24h Change</p>
           </div>
           <div className="flex items-center gap-4 text-xs">
-            <div><span className="text-[#555]">24h High</span><p className="text-[#00d26a]">${(parseFloat(price) * 1.02).toFixed(2)}</p></div>
-            <div><span className="text-[#555]">24h Low</span><p className="text-[#ff4757]">${(parseFloat(price) * 0.98).toFixed(2)}</p></div>
+            <div><span className="text-[#555]">24h High</span><p className="text-[var(--accent-green)]">${(parseFloat(price) * 1.02).toFixed(2)}</p></div>
+            <div><span className="text-[#555]">24h Low</span><p className="text-[var(--accent-red)]">${(parseFloat(price) * 0.98).toFixed(2)}</p></div>
             <div><span className="text-[#555]">Max Lev</span><p className="text-white">{asset.maxLeverage}x</p></div>
           </div>
         </div>
@@ -374,7 +374,7 @@ export function RWADetailPage({ asset, onBack }: RWADetailPageProps) {
         {/* Chart Section */}
         <div className="flex-1 flex flex-col min-w-0">
           {/* Chart Header Bar */}
-          <div className="flex items-center justify-between px-3 py-1.5 border-b border-[#1a1a1a] bg-[#0d0d0d]">
+          <div className="flex items-center justify-between px-3 py-1.5 border-b border-[var(--card-bg)] bg-[var(--background)]">
             <div className="flex items-center gap-3">
               {/* Timeframe buttons */}
               <div className="flex items-center gap-0.5">
@@ -383,7 +383,7 @@ export function RWADetailPage({ asset, onBack }: RWADetailPageProps) {
                     key={tf}
                     onClick={() => setTimeframe(tf)}
                     className={`px-2 py-1 text-xs rounded ${
-                      timeframe === tf ? "bg-[#2962ff] text-white" : "text-[#888] hover:text-white hover:bg-[#1a1a1a]"
+                      timeframe === tf ? "bg-[#2962ff] text-white" : "text-[#888] hover:text-white hover:bg-[var(--card-bg)]"
                     }`}
                   >
                     {tf}
@@ -391,7 +391,7 @@ export function RWADetailPage({ asset, onBack }: RWADetailPageProps) {
                 ))}
               </div>
               <span className="text-[#333]">|</span>
-              <div className="flex items-center bg-[#1a1a1a] rounded text-xs">
+              <div className="flex items-center bg-[var(--card-bg)] rounded text-xs">
                 <button
                   onClick={() => setChartType("candles")}
                   className={`px-2 py-1 rounded-l flex items-center gap-1 ${chartType === "candles" ? "bg-[#2962ff] text-white" : "text-[#888]"}`}
@@ -409,7 +409,7 @@ export function RWADetailPage({ asset, onBack }: RWADetailPageProps) {
             </div>
 
             <div className="flex items-center gap-2">
-              <div className="flex items-center bg-[#1a1a1a] rounded text-xs">
+              <div className="flex items-center bg-[var(--card-bg)] rounded text-xs">
                 <button
                   onClick={() => setPriceMode("Price")}
                   className={`px-2 py-1 rounded-l ${priceMode === "Price" ? "bg-[#2962ff] text-white" : "text-[#888]"}`}
@@ -423,7 +423,7 @@ export function RWADetailPage({ asset, onBack }: RWADetailPageProps) {
                   MCap
                 </button>
               </div>
-              <div className="flex items-center bg-[#1a1a1a] rounded text-xs">
+              <div className="flex items-center bg-[var(--card-bg)] rounded text-xs">
                 <button
                   onClick={() => setCurrencyMode("USD")}
                   className={`px-2 py-1 rounded-l ${currencyMode === "USD" ? "bg-[#2962ff] text-white" : "text-[#888]"}`}
@@ -443,15 +443,15 @@ export function RWADetailPage({ asset, onBack }: RWADetailPageProps) {
           </div>
 
           {/* OHLC Info Bar */}
-          <div className="flex items-center gap-4 px-3 py-1 border-b border-[#1a1a1a] bg-[#0a0a0a] text-xs">
+          <div className="flex items-center gap-4 px-3 py-1 border-b border-[var(--card-bg)] bg-[var(--sidebar-bg)] text-xs">
             <span className="text-[#888]">{asset.symbol} • {timeframe} • Pyth Oracle</span>
             {displayCandle && (
               <>
                 <span className="text-[#888]">O<span className="text-white ml-1">{formatPrice(displayCandle.open)}</span></span>
-                <span className="text-[#888]">H<span className="text-[#00d26a] ml-1">{formatPrice(displayCandle.high)}</span></span>
-                <span className="text-[#888]">L<span className="text-[#ff4757] ml-1">{formatPrice(displayCandle.low)}</span></span>
+                <span className="text-[#888]">H<span className="text-[var(--accent-green)] ml-1">{formatPrice(displayCandle.high)}</span></span>
+                <span className="text-[#888]">L<span className="text-[var(--accent-red)] ml-1">{formatPrice(displayCandle.low)}</span></span>
                 <span className="text-[#888]">C<span className="text-white ml-1">{formatPrice(displayCandle.close)}</span></span>
-                <span className={priceChange >= 0 ? "text-[#00d26a]" : "text-[#ff4757]"}>
+                <span className={priceChange >= 0 ? "text-[var(--accent-green)]" : "text-[var(--accent-red)]"}>
                   {priceChange >= 0 ? "+" : ""}{priceChange.toFixed(2)}%
                 </span>
               </>
@@ -462,13 +462,13 @@ export function RWADetailPage({ asset, onBack }: RWADetailPageProps) {
           {/* Chart Container */}
           <div className="flex-1 flex">
             {/* Drawing Tools Sidebar */}
-            <div className="w-10 bg-[#0d0d0d] border-r border-[#1a1a1a] flex flex-col items-center py-2 gap-1">
+            <div className="w-10 bg-[var(--background)] border-r border-[var(--card-bg)] flex flex-col items-center py-2 gap-1">
               {drawingTools.map((tool) => (
                 <button
                   key={tool.name}
                   onClick={() => setSelectedTool(tool.name)}
-                  className={`p-2 rounded hover:bg-[#1a1a1a] transition-colors ${
-                    selectedTool === tool.name ? "bg-[#1a1a1a] text-white" : "text-[#555]"
+                  className={`p-2 rounded hover:bg-[var(--card-bg)] transition-colors ${
+                    selectedTool === tool.name ? "bg-[var(--card-bg)] text-white" : "text-[#555]"
                   }`}
                   title={tool.name}
                 >
@@ -476,7 +476,7 @@ export function RWADetailPage({ asset, onBack }: RWADetailPageProps) {
                 </button>
               ))}
               <div className="flex-1" />
-              <button className="p-2 rounded hover:bg-[#1a1a1a] text-[#555]" title="More">
+              <button className="p-2 rounded hover:bg-[var(--card-bg)] text-[#555]" title="More">
                 <MoreHorizontal className="w-4 h-4" />
               </button>
             </div>
@@ -485,7 +485,7 @@ export function RWADetailPage({ asset, onBack }: RWADetailPageProps) {
             <div className="flex-1 flex flex-col">
               <div
                 ref={chartRef}
-                className="flex-1 relative bg-[#0a0a0a] select-none overflow-hidden"
+                className="flex-1 relative bg-[var(--sidebar-bg)] select-none overflow-hidden"
                 style={{ height: chartHeight }}
                 onWheel={handleWheel}
                 onMouseDown={handleMouseDown}
@@ -493,15 +493,15 @@ export function RWADetailPage({ asset, onBack }: RWADetailPageProps) {
                 {/* Grid */}
                 <svg className="absolute inset-0 w-full h-full" style={{ zIndex: 0 }}>
                   {[...Array(8)].map((_, i) => (
-                    <line key={`h-${i}`} x1="40" y1={`${(i / 7) * 85 + 5}%`} x2="100%" y2={`${(i / 7) * 85 + 5}%`} stroke="#1a1a1a" strokeWidth="1" />
+                    <line key={`h-${i}`} x1="40" y1={`${(i / 7) * 85 + 5}%`} x2="100%" y2={`${(i / 7) * 85 + 5}%`} stroke="var(--card-bg)" strokeWidth="1" />
                   ))}
                   {visibleData.filter((_, i) => i % 10 === 0).map((_, i) => (
-                    <line key={`v-${i}`} x1={`${40 + (i * 10 / visibleData.length) * (100 - 8)}%`} y1="5%" x2={`${40 + (i * 10 / visibleData.length) * (100 - 8)}%`} y2="90%" stroke="#1a1a1a" strokeWidth="1" />
+                    <line key={`v-${i}`} x1={`${40 + (i * 10 / visibleData.length) * (100 - 8)}%`} y1="5%" x2={`${40 + (i * 10 / visibleData.length) * (100 - 8)}%`} y2="90%" stroke="var(--card-bg)" strokeWidth="1" />
                   ))}
                 </svg>
 
                 {/* Price Scale (Right) */}
-                <div className="absolute right-0 top-0 bottom-12 w-16 bg-[#0d0d0d] border-l border-[#1a1a1a] flex flex-col justify-between py-4 text-[10px] text-[#888] z-10">
+                <div className="absolute right-0 top-0 bottom-12 w-16 bg-[var(--background)] border-l border-[var(--card-bg)] flex flex-col justify-between py-4 text-[10px] text-[#888] z-10">
                   {[...Array(8)].map((_, i) => (
                     <span key={i} className="text-right pr-2">{formatPrice(maxPrice - (priceRange * i / 7))}</span>
                   ))}
@@ -513,12 +513,12 @@ export function RWADetailPage({ asset, onBack }: RWADetailPageProps) {
                     className="absolute left-10 right-16 border-t border-dashed z-10"
                     style={{
                       top: `${5 + ((maxPrice - currentCandle.close) / priceRange) * 85}%`,
-                      borderColor: currentCandle.close >= currentCandle.open ? '#00d26a' : '#ff4757',
+                      borderColor: currentCandle.close >= currentCandle.open ? 'var(--accent-green)' : '#ff4757',
                     }}
                   >
                     <span
                       className="absolute right-0 -top-2.5 text-[10px] px-2 py-0.5 rounded text-white font-medium"
-                      style={{ backgroundColor: currentCandle.close >= currentCandle.open ? '#00d26a' : '#ff4757' }}
+                      style={{ backgroundColor: currentCandle.close >= currentCandle.open ? 'var(--accent-green)' : '#ff4757' }}
                     >
                       {formatPrice(currentCandle.close)}
                     </span>
@@ -558,7 +558,7 @@ export function RWADetailPage({ asset, onBack }: RWADetailPageProps) {
                         >
                           <div
                             className="absolute left-1/2 -translate-x-1/2"
-                            style={{ width: 1, top: `${wickTop}%`, height: `${wickHeight}%`, backgroundColor: isGreen ? '#00d26a' : '#ff4757' }}
+                            style={{ width: 1, top: `${wickTop}%`, height: `${wickHeight}%`, backgroundColor: isGreen ? 'var(--accent-green)' : '#ff4757' }}
                           />
                           <div
                             className="absolute left-1/2 -translate-x-1/2 rounded-[1px]"
@@ -566,8 +566,8 @@ export function RWADetailPage({ asset, onBack }: RWADetailPageProps) {
                               width: candleWidth,
                               top: `${bodyTop}%`,
                               height: `${Math.max(bodyHeight, 0.3)}%`,
-                              backgroundColor: isGreen ? '#00d26a' : '#ff4757',
-                              boxShadow: hoveredCandle === i ? `0 0 8px ${isGreen ? '#00d26a' : '#ff4757'}40` : 'none',
+                              backgroundColor: isGreen ? 'var(--accent-green)' : '#ff4757',
+                              boxShadow: hoveredCandle === i ? `0 0 8px ${isGreen ? 'var(--accent-green)' : '#ff4757'}40` : 'none',
                             }}
                           />
                         </div>
@@ -579,9 +579,9 @@ export function RWADetailPage({ asset, onBack }: RWADetailPageProps) {
                     <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
                       <defs>
                         <linearGradient id="rwaGraphGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                          <stop offset="0%" stopColor="#00d26a" stopOpacity="0.4" />
-                          <stop offset="50%" stopColor="#00d26a" stopOpacity="0.15" />
-                          <stop offset="100%" stopColor="#00d26a" stopOpacity="0" />
+                          <stop offset="0%" stopColor="var(--accent-green)" stopOpacity="0.4" />
+                          <stop offset="50%" stopColor="var(--accent-green)" stopOpacity="0.15" />
+                          <stop offset="100%" stopColor="var(--accent-green)" stopOpacity="0" />
                         </linearGradient>
                       </defs>
                       <path
@@ -618,7 +618,7 @@ export function RWADetailPage({ asset, onBack }: RWADetailPageProps) {
                           return path;
                         })()}
                         fill="none"
-                        stroke="#00d26a"
+                        stroke="var(--accent-green)"
                         strokeWidth="0.4"
                         vectorEffect="non-scaling-stroke"
                         style={{ strokeWidth: '2px' }}
@@ -628,7 +628,7 @@ export function RWADetailPage({ asset, onBack }: RWADetailPageProps) {
                 )}
 
                 {/* Time Scale (Bottom) */}
-                <div className="absolute left-10 right-16 bottom-0 h-6 flex items-center border-t border-[#1a1a1a] bg-[#0d0d0d]">
+                <div className="absolute left-10 right-16 bottom-0 h-6 flex items-center border-t border-[var(--card-bg)] bg-[var(--background)]">
                   {visibleData.filter((_, i) => i % Math.floor(visibleData.length / 6) === 0).map((candle, i) => (
                     <span key={i} className="text-[10px] text-[#888] absolute" style={{ left: `${(i * Math.floor(visibleData.length / 6) / visibleData.length) * 100}%` }}>
                       {formatDate(candle.time)}
@@ -637,27 +637,27 @@ export function RWADetailPage({ asset, onBack }: RWADetailPageProps) {
                 </div>
 
                 {/* Zoom Controls */}
-                <div className="absolute right-20 bottom-14 flex items-center gap-1 bg-[#1a1a1a] rounded-lg p-1 z-10">
-                  <button onClick={handleZoomOut} className="p-1 hover:bg-[#252525] rounded" title="Zoom Out"><Minus className="w-3 h-3 text-[#888]" /></button>
-                  <button onClick={handleResetZoom} className="p-1 hover:bg-[#252525] rounded" title="Reset"><RotateCcw className="w-3 h-3 text-[#888]" /></button>
-                  <button onClick={handleZoomIn} className="p-1 hover:bg-[#252525] rounded" title="Zoom In"><Plus className="w-3 h-3 text-[#888]" /></button>
+                <div className="absolute right-20 bottom-14 flex items-center gap-1 bg-[var(--card-bg)] rounded-lg p-1 z-10">
+                  <button onClick={handleZoomOut} className="p-1 hover:bg-[var(--hover-bg)] rounded" title="Zoom Out"><Minus className="w-3 h-3 text-[#888]" /></button>
+                  <button onClick={handleResetZoom} className="p-1 hover:bg-[var(--hover-bg)] rounded" title="Reset"><RotateCcw className="w-3 h-3 text-[#888]" /></button>
+                  <button onClick={handleZoomIn} className="p-1 hover:bg-[var(--hover-bg)] rounded" title="Zoom In"><Plus className="w-3 h-3 text-[#888]" /></button>
                 </div>
 
-                <button className="absolute right-20 top-2 p-1.5 bg-[#1a1a1a] hover:bg-[#252525] rounded z-10">
+                <button className="absolute right-20 top-2 p-1.5 bg-[var(--card-bg)] hover:bg-[var(--hover-bg)] rounded z-10">
                   <Expand className="w-3.5 h-3.5 text-[#888]" />
                 </button>
               </div>
 
               {/* Resize Handle */}
-              <div onMouseDown={handleResizeStart} className="h-1.5 bg-[#0d0d0d] border-y border-[#1a1a1a] cursor-row-resize flex items-center justify-center hover:bg-[#1a1a1a] transition-colors">
+              <div onMouseDown={handleResizeStart} className="h-1.5 bg-[var(--background)] border-y border-[var(--card-bg)] cursor-row-resize flex items-center justify-center hover:bg-[var(--card-bg)] transition-colors">
                 <GripHorizontal className="w-4 h-4 text-[#333]" />
               </div>
             </div>
           </div>
 
           {/* Bottom Tabs */}
-          <div className="flex-1 flex flex-col min-h-0 border-t border-[#1a1a1a] max-h-[200px]">
-            <div className="flex items-center gap-4 px-4 py-2 border-b border-[#1a1a1a] bg-[#0d0d0d]">
+          <div className="flex-1 flex flex-col min-h-0 border-t border-[var(--card-bg)] max-h-[200px]">
+            <div className="flex items-center gap-4 px-4 py-2 border-b border-[var(--card-bg)] bg-[var(--background)]">
               {["Positions", "Info", "Market Data"].map((tab) => (
                 <button
                   key={tab}
@@ -700,7 +700,7 @@ export function RWADetailPage({ asset, onBack }: RWADetailPageProps) {
                   <div className="flex justify-between"><span className="text-[#555]">Oracle</span><span className="text-[#a855f7]">Pyth Network</span></div>
                   <div className="flex justify-between"><span className="text-[#555]">Max Leverage</span><span className="text-white">{asset.maxLeverage}x</span></div>
                   <div className="flex justify-between"><span className="text-[#555]">Trading Fee</span><span className="text-white">0.1%</span></div>
-                  <div className="mt-3 pt-3 border-t border-[#1a1a1a]">
+                  <div className="mt-3 pt-3 border-t border-[var(--card-bg)]">
                     <p className="text-[#888]">{asset.description}</p>
                   </div>
                 </div>
@@ -708,7 +708,7 @@ export function RWADetailPage({ asset, onBack }: RWADetailPageProps) {
               {activeTab === "Market Data" && (
                 <div className="p-4 text-xs space-y-2">
                   <div className="flex justify-between"><span className="text-[#555]">Current Price</span><span className="text-white">${price}</span></div>
-                  <div className="flex justify-between"><span className="text-[#555]">24h Change</span><span className={isPositive ? "text-[#00d26a]" : "text-[#ff4757]"}>{isPositive ? '+' : ''}{change24h.toFixed(2)}%</span></div>
+                  <div className="flex justify-between"><span className="text-[#555]">24h Change</span><span className={isPositive ? "text-[var(--accent-green)]" : "text-[var(--accent-red)]"}>{isPositive ? '+' : ''}{change24h.toFixed(2)}%</span></div>
                   <div className="flex justify-between"><span className="text-[#555]">Price Source</span><span className="text-[#a855f7]">Pyth Oracle</span></div>
                   <div className="flex justify-between"><span className="text-[#555]">Update Frequency</span><span className="text-white">Real-time</span></div>
                 </div>
@@ -718,7 +718,7 @@ export function RWADetailPage({ asset, onBack }: RWADetailPageProps) {
         </div>
 
         {/* Trading Panel */}
-        <div className="w-[340px] border-l border-[#1a1a1a] flex flex-col bg-[#0d0d0d] overflow-y-auto">
+        <div className="w-[340px] border-l border-[var(--card-bg)] flex flex-col bg-[var(--background)] overflow-y-auto">
           <RWATradingPanel asset={asset} />
         </div>
       </div>

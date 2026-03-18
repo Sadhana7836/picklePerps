@@ -97,9 +97,9 @@ export function MintTokenForm() {
 
   if (!isConnected) {
     return (
-      <div className="flex flex-col items-center justify-center p-8 bg-[#111] border border-[#1a1a1a] rounded-lg">
-        <div className="w-12 h-12 rounded-full bg-[#1a1a1a] border border-[#222] flex items-center justify-center mb-4">
-          <span className="text-xl font-bold text-[#00d26a]">+</span>
+      <div className="flex flex-col items-center justify-center p-8 bg-[var(--sidebar-bg)] border border-[var(--card-bg)] rounded-lg">
+        <div className="w-12 h-12 rounded-full bg-[var(--card-bg)] border border-[#222] flex items-center justify-center mb-4">
+          <span className="text-xl font-bold text-[var(--accent-green)]">+</span>
         </div>
         <h3 className="text-base font-semibold text-white mb-1">Connect Wallet</h3>
         <p className="text-[#666] text-xs text-center">Connect wallet to create tokens</p>
@@ -110,10 +110,10 @@ export function MintTokenForm() {
   // Success/Loading States
   if (step === "success") {
     return (
-      <div className="bg-[#111] border border-[#1a1a1a] rounded-lg p-8">
+      <div className="bg-[var(--sidebar-bg)] border border-[var(--card-bg)] rounded-lg p-8">
         <div className="flex flex-col items-center">
-          <div className="w-14 h-14 rounded-full bg-[#00d26a]/20 flex items-center justify-center mb-4">
-            <CheckCircle2 className="w-7 h-7 text-[#00d26a]" />
+          <div className="w-14 h-14 rounded-full bg-[var(--accent-green)]/20 flex items-center justify-center mb-4">
+            <CheckCircle2 className="w-7 h-7 text-[var(--accent-green)]" />
           </div>
           <h3 className="text-white font-semibold text-lg mb-1">Token Created!</h3>
           <p className="text-[#888] text-sm">{success}</p>
@@ -125,9 +125,9 @@ export function MintTokenForm() {
 
   if (step === "uploading" || step === "minting") {
     return (
-      <div className="bg-[#111] border border-[#1a1a1a] rounded-lg p-8">
+      <div className="bg-[var(--sidebar-bg)] border border-[var(--card-bg)] rounded-lg p-8">
         <div className="flex flex-col items-center">
-          <Loader2 className="w-10 h-10 text-[#00d26a] animate-spin mb-4" />
+          <Loader2 className="w-10 h-10 text-[var(--accent-green)] animate-spin mb-4" />
           <p className="text-white font-medium">
             {step === "uploading" ? "Uploading to IPFS..." : "Creating token..."}
           </p>
@@ -141,23 +141,23 @@ export function MintTokenForm() {
     <div className="space-y-5">
       {/* Stats */}
       <div className="grid grid-cols-3 gap-4">
-        <div className="bg-[#111] border border-[#1a1a1a] rounded-lg p-4">
+        <div className="bg-[var(--sidebar-bg)] border border-[var(--card-bg)] rounded-lg p-4">
           <p className="text-xs text-[#666] mb-1">Minting Fee</p>
           <p className="text-lg font-bold text-white">{data.mintingFee} <span className="text-sm text-[#666]">XLM</span></p>
         </div>
-        <div className="bg-[#111] border border-[#1a1a1a] rounded-lg p-4">
+        <div className="bg-[var(--sidebar-bg)] border border-[var(--card-bg)] rounded-lg p-4">
           <p className="text-xs text-[#666] mb-1">Total Tokens</p>
           <p className="text-lg font-bold text-white">{data.tokenCount}</p>
         </div>
-        <div className="bg-[#111] border border-[#1a1a1a] rounded-lg p-4">
+        <div className="bg-[var(--sidebar-bg)] border border-[var(--card-bg)] rounded-lg p-4">
           <p className="text-xs text-[#666] mb-1">Your Tokens</p>
-          <p className="text-lg font-bold text-[#00d26a]">{data.myTokens.length}</p>
+          <p className="text-lg font-bold text-[var(--accent-green)]">{data.myTokens.length}</p>
         </div>
       </div>
 
       {/* Form */}
-      <div className="bg-[#111] border border-[#1a1a1a] rounded-lg overflow-hidden">
-        <div className="px-5 py-4 border-b border-[#1a1a1a] bg-[#0a0a0a]">
+      <div className="bg-[var(--sidebar-bg)] border border-[var(--card-bg)] rounded-lg overflow-hidden">
+        <div className="px-5 py-4 border-b border-[var(--card-bg)] bg-[var(--sidebar-bg)]">
           <h2 className="text-base font-semibold text-white">Token Details</h2>
         </div>
 
@@ -167,7 +167,7 @@ export function MintTokenForm() {
             <input type="file" accept="image/*" onChange={handleImageChange} className="hidden" id="image-upload" />
             <label
               htmlFor="image-upload"
-              className="w-24 h-24 rounded-lg bg-[#0d0d0d] border-2 border-dashed border-[#222] flex items-center justify-center cursor-pointer hover:border-[#00d26a]/50 overflow-hidden flex-shrink-0 transition-colors"
+              className="w-24 h-24 rounded-lg bg-[var(--background)] border-2 border-dashed border-[#222] flex items-center justify-center cursor-pointer hover:border-[var(--accent-green)]/50 overflow-hidden flex-shrink-0 transition-colors"
             >
               {imagePreview ? (
                 <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
@@ -181,7 +181,7 @@ export function MintTokenForm() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Token Name"
-                className="w-full px-4 py-2.5 bg-[#0d0d0d] border border-[#222] rounded-lg text-sm text-white placeholder-[#444] focus:outline-none focus:border-[#00d26a]/50"
+                className="w-full px-4 py-2.5 bg-[var(--background)] border border-[#222] rounded-lg text-sm text-white placeholder-[#444] focus:outline-none focus:border-[var(--accent-green)]/50"
                 required
               />
               <input
@@ -190,7 +190,7 @@ export function MintTokenForm() {
                 onChange={(e) => setSymbol(e.target.value.toUpperCase())}
                 placeholder="SYMBOL"
                 maxLength={10}
-                className="w-full px-4 py-2.5 bg-[#0d0d0d] border border-[#222] rounded-lg text-sm text-white placeholder-[#444] focus:outline-none focus:border-[#00d26a]/50"
+                className="w-full px-4 py-2.5 bg-[var(--background)] border border-[#222] rounded-lg text-sm text-white placeholder-[#444] focus:outline-none focus:border-[var(--accent-green)]/50"
                 required
               />
             </div>
@@ -204,7 +204,7 @@ export function MintTokenForm() {
               value={totalSupply}
               onChange={(e) => setTotalSupply(e.target.value)}
               placeholder="1000000000"
-              className="w-full px-4 py-2.5 bg-[#0d0d0d] border border-[#222] rounded-lg text-sm text-white placeholder-[#444] focus:outline-none focus:border-[#00d26a]/50"
+              className="w-full px-4 py-2.5 bg-[var(--background)] border border-[#222] rounded-lg text-sm text-white placeholder-[#444] focus:outline-none focus:border-[var(--accent-green)]/50"
               required
             />
           </div>
@@ -221,7 +221,7 @@ export function MintTokenForm() {
                   value={website}
                   onChange={(e) => setWebsite(e.target.value)}
                   placeholder="https://yourtoken.com"
-                  className="w-full pl-10 pr-4 py-2.5 bg-[#0d0d0d] border border-[#222] rounded-lg text-sm text-white placeholder-[#444] focus:outline-none focus:border-[#00d26a]/50"
+                  className="w-full pl-10 pr-4 py-2.5 bg-[var(--background)] border border-[#222] rounded-lg text-sm text-white placeholder-[#444] focus:outline-none focus:border-[var(--accent-green)]/50"
                 />
               </div>
 
@@ -239,7 +239,7 @@ export function MintTokenForm() {
                   value={twitter}
                   onChange={(e) => setTwitter(e.target.value)}
                   placeholder="@yourtoken or https://x.com/yourtoken"
-                  className="w-full pl-10 pr-4 py-2.5 bg-[#0d0d0d] border border-[#222] rounded-lg text-sm text-white placeholder-[#444] focus:outline-none focus:border-[#00d26a]/50"
+                  className="w-full pl-10 pr-4 py-2.5 bg-[var(--background)] border border-[#222] rounded-lg text-sm text-white placeholder-[#444] focus:outline-none focus:border-[var(--accent-green)]/50"
                 />
               </div>
 
@@ -251,7 +251,7 @@ export function MintTokenForm() {
                   value={telegram}
                   onChange={(e) => setTelegram(e.target.value)}
                   placeholder="@yourtoken or https://t.me/yourtoken"
-                  className="w-full pl-10 pr-4 py-2.5 bg-[#0d0d0d] border border-[#222] rounded-lg text-sm text-white placeholder-[#444] focus:outline-none focus:border-[#00d26a]/50"
+                  className="w-full pl-10 pr-4 py-2.5 bg-[var(--background)] border border-[#222] rounded-lg text-sm text-white placeholder-[#444] focus:outline-none focus:border-[var(--accent-green)]/50"
                 />
               </div>
             </div>
@@ -266,9 +266,9 @@ export function MintTokenForm() {
                   max="10"
                   value={creatorAllocation}
                   onChange={(e) => setCreatorAllocation(Number(e.target.value))}
-                  className="flex-1 h-2 bg-[#222] rounded-lg appearance-none cursor-pointer accent-[#00d26a]"
+                  className="flex-1 h-2 bg-[#222] rounded-lg appearance-none cursor-pointer accent-[var(--accent-green)]"
                 />
-                <span className="text-[#00d26a] font-semibold text-sm w-12">{creatorAllocation}%</span>
+                <span className="text-[var(--accent-green)] font-semibold text-sm w-12">{creatorAllocation}%</span>
               </div>
               <div className="flex justify-between mt-2 text-xs">
                 <span className="text-[#555]">You: {creatorAllocation}%</span>
@@ -277,10 +277,10 @@ export function MintTokenForm() {
             </div>
 
           {/* Info Box */}
-          <div className="bg-[#0a0a0a] rounded-lg p-4 space-y-2">
+          <div className="bg-[var(--sidebar-bg)] rounded-lg p-4 space-y-2">
             <div className="flex justify-between text-sm">
               <span className="text-[#555]">Minting Fee</span>
-              <span className="text-[#00d26a] font-medium">{data.mintingFee} XLM</span>
+              <span className="text-[var(--accent-green)] font-medium">{data.mintingFee} XLM</span>
             </div>
             <div className="flex justify-between text-sm">
               <span className="text-[#555]">You Receive</span>
@@ -292,7 +292,7 @@ export function MintTokenForm() {
             </div>
             <div className="flex justify-between text-sm">
               <span className="text-[#555]">Bonding Curve</span>
-              <span className="text-[#00d26a]">{100 - creatorAllocation}% listed</span>
+              <span className="text-[var(--accent-green)]">{100 - creatorAllocation}% listed</span>
             </div>
           </div>
 
@@ -300,7 +300,7 @@ export function MintTokenForm() {
           <button
             type="submit"
             disabled={!name || !symbol || !imageFile || state.isLoading}
-            className="w-full py-3.5 bg-[#00d26a] hover:bg-[#00e676] text-black font-semibold rounded-lg text-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full py-3.5 bg-[var(--accent-green)] hover:bg-[var(--accent-green)] text-black font-semibold rounded-lg text-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Create Token
           </button>
@@ -313,15 +313,15 @@ export function MintTokenForm() {
 
       {/* Transaction Status */}
       {state.hash && (
-        <div className="bg-[#111] border border-[#1a1a1a] rounded-lg p-3">
+        <div className="bg-[var(--sidebar-bg)] border border-[var(--card-bg)] rounded-lg p-3">
           <div className="flex items-center justify-between mb-2">
             <span className="text-[10px] text-[#666] uppercase">Transaction</span>
-            {state.isConfirming && <span className="text-[10px] text-[#ffc107]">Confirming...</span>}
-            {state.isConfirmed && <span className="text-[10px] text-[#00d26a]">Confirmed</span>}
+            {state.isConfirming && <span className="text-[10px] text-[var(--accent-yellow)]">Confirming...</span>}
+            {state.isConfirmed && <span className="text-[10px] text-[var(--accent-green)]">Confirmed</span>}
           </div>
           <div className="flex items-center gap-2">
             <p className="text-xs font-mono text-white truncate flex-1">{state.hash}</p>
-            <a href={`https://stellar.expert/explorer/testnet/tx/${state.hash}`} target="_blank" rel="noopener noreferrer" className="text-[#00d26a]">
+            <a href={`https://stellar.expert/explorer/testnet/tx/${state.hash}`} target="_blank" rel="noopener noreferrer" className="text-[var(--accent-green)]">
               <ExternalLink className="w-3 h-3" />
             </a>
           </div>
@@ -329,9 +329,9 @@ export function MintTokenForm() {
       )}
 
       {state.error && (
-        <div className="bg-[#ff4757]/10 border border-[#ff4757]/30 rounded-lg p-3 flex items-center gap-2">
-          <XCircle className="w-4 h-4 text-[#ff4757]" />
-          <p className="text-xs text-[#ff4757]">{state.error.message}</p>
+        <div className="bg-[var(--accent-red)]/10 border border-[var(--accent-red)]/30 rounded-lg p-3 flex items-center gap-2">
+          <XCircle className="w-4 h-4 text-[var(--accent-red)]" />
+          <p className="text-xs text-[var(--accent-red)]">{state.error.message}</p>
         </div>
       )}
     </div>

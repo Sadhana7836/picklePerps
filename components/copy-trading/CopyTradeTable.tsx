@@ -74,7 +74,7 @@ export function CopyTradeTable({ onlyRegisteredLeaders = true, onCopy }: CopyTra
               onClick={() => setActiveTab(tab)}
               className={`px-3 py-1.5 text-xs rounded whitespace-nowrap transition-colors ${
                 activeTab === tab
-                  ? "bg-[#1a1a1a] text-white"
+                  ? "bg-[var(--card-bg)] text-white"
                   : "text-gray-500 hover:text-gray-300"
               }`}
             >
@@ -92,19 +92,19 @@ export function CopyTradeTable({ onlyRegisteredLeaders = true, onCopy }: CopyTra
               placeholder="Search wallet..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-40 bg-[#111] border border-[#1a1a1a] rounded pl-8 pr-3 py-1.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-[#333]"
+              className="w-40 bg-[var(--sidebar-bg)] border border-[var(--card-bg)] rounded pl-8 pr-3 py-1.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-[#333]"
             />
           </div>
 
           {/* Time Frame */}
-          <div className="flex items-center bg-[#111] border border-[#1a1a1a] rounded">
+          <div className="flex items-center bg-[var(--sidebar-bg)] border border-[var(--card-bg)] rounded">
             {(["1D", "7D", "30D"] as TimeFrame[]).map((tf) => (
               <button
                 key={tf}
                 onClick={() => setTimeFrame(tf)}
                 className={`px-2.5 py-1.5 text-xs transition-colors ${
                   timeFrame === tf
-                    ? "bg-[#1a1a1a] text-white"
+                    ? "bg-[var(--card-bg)] text-white"
                     : "text-gray-500 hover:text-gray-300"
                 }`}
               >
@@ -120,9 +120,9 @@ export function CopyTradeTable({ onlyRegisteredLeaders = true, onCopy }: CopyTra
       </div>
 
       {/* Table */}
-      <div className="bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg overflow-hidden">
+      <div className="bg-[var(--sidebar-bg)] border border-[var(--card-bg)] rounded-lg overflow-hidden">
         {/* Header */}
-        <div className="grid grid-cols-12 gap-2 px-4 py-2.5 bg-[#0d0d0d] border-b border-[#1a1a1a] text-[11px] text-gray-500 font-medium">
+        <div className="grid grid-cols-12 gap-2 px-4 py-2.5 bg-[var(--background)] border-b border-[var(--card-bg)] text-[11px] text-gray-500 font-medium">
           <div className="col-span-1">#</div>
           <div className="col-span-3">Wallet / XLM Bal</div>
           <div className="col-span-2 text-right">{timeFrame} PnL / XLM</div>
@@ -144,7 +144,7 @@ export function CopyTradeTable({ onlyRegisteredLeaders = true, onCopy }: CopyTra
             <p className="text-xs text-gray-600 mt-1">Copy trading contract not yet deployed</p>
           </div>
         ) : (
-          <div className="divide-y divide-[#1a1a1a]">
+          <div className="divide-y divide-[var(--card-bg)]">
             {filteredLeaders.map((leader) => {
               const pnl = formatPnl(leader.totalPnl)
               const winRate = leader.winCount + leader.lossCount > 0
@@ -154,7 +154,7 @@ export function CopyTradeTable({ onlyRegisteredLeaders = true, onCopy }: CopyTra
               return (
                 <div
                   key={leader.address}
-                  className="grid grid-cols-12 gap-2 px-4 py-3 hover:bg-[#111] transition-colors items-center"
+                  className="grid grid-cols-12 gap-2 px-4 py-3 hover:bg-[var(--sidebar-bg)] transition-colors items-center"
                 >
                   {/* Rank */}
                   <div className="col-span-1">
@@ -237,7 +237,7 @@ export function CopyTradeTable({ onlyRegisteredLeaders = true, onCopy }: CopyTra
                     ) : (
                       <button
                         onClick={() => onCopy?.(leader.address)}
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#1a1a1a] hover:bg-[#252525] border border-[#333] text-white text-xs rounded transition-colors"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[var(--card-bg)] hover:bg-[var(--hover-bg)] border border-[#333] text-white text-xs rounded transition-colors"
                       >
                         <Copy className="w-3 h-3" />
                         Copy

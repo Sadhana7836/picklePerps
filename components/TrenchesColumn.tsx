@@ -38,12 +38,12 @@ export const TrenchesColumn = memo(function TrenchesColumn({ title, subtitle, to
   }, []);
 
   return (
-    <div className="flex flex-col h-full min-w-[280px] sm:min-w-[320px] lg:min-w-[350px] xl:min-w-[380px] flex-1 bg-[#0d0d0d] border-r border-[#1a1a1a] last:border-r-0">
+    <div className="flex flex-col h-full min-w-[280px] sm:min-w-[320px] lg:min-w-[350px] xl:min-w-[380px] flex-1 bg-[var(--background)] border-r border-[var(--card-bg)] last:border-r-0">
       {/* Column Header */}
-      <div className="px-3 py-2 border-b border-[#1a1a1a] bg-[#0a0a0a] h-12 flex items-center">
+      <div className="px-3 py-2 border-b border-[var(--card-bg)] bg-[var(--sidebar-bg)] h-12 flex items-center">
         <div className="flex items-center justify-between gap-3 w-full">
           {/* Search */}
-          <div className={`flex items-center bg-[#1a1a1a] border rounded-lg px-3 py-1.5 gap-2 w-[160px] ${searchQuery ? 'border-[#00d26a]/50' : 'border-[#222]'}`}>
+          <div className={`flex items-center bg-transparent border border-[var(--accent-primary)]/30 rounded-lg px-3 py-1.5 gap-2 w-[200px] text-[var(--text-muted)]`}>
             <Search className="w-4 h-4 text-[#555]" />
             <input
               type="text"

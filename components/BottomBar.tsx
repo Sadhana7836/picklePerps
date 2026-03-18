@@ -5,23 +5,23 @@ import { Wallet, TrendingUp, Star, Trophy, BarChart3, AtSign, ChevronDown } from
 
 export function BottomBar() {
   return (
-    <div className="h-9 bg-[#0a0a0a] border-t border-[#1a1a1a] flex items-center justify-between px-2 sm:px-3 text-xs overflow-x-auto">
+    <div className="h-9 bg-[var(--sidebar-bg)] border-t border-[var(--card-bg)] flex items-center justify-between px-2 sm:px-3 text-xs overflow-x-auto">
       {/* Left Section */}
       <div className="flex items-center gap-1 min-w-0">
         {/* Settings Icon */}
-        <button className="w-6 h-6 flex items-center justify-center text-[#555] hover:text-white rounded hover:bg-[#1a1a1a] flex-shrink-0">
+        <button className="w-6 h-6 flex items-center justify-center text-[#555] hover:text-white rounded hover:bg-[var(--card-bg)] flex-shrink-0">
           <span className="text-sm">⚙</span>
         </button>
 
         {/* Wallet Tracker */}
-        <button className="flex items-center gap-1.5 bg-[#1a3a2a] border border-[#2a5a3a] text-[#00d26a] px-1.5 sm:px-2.5 py-1 rounded hover:bg-[#1a4a2a] transition-colors flex-shrink-0">
+        <button className="flex items-center gap-1.5 bg-[#1a3a2a] border border-[#2a5a3a] text-[var(--accent-green)] px-1.5 sm:px-2.5 py-1 rounded hover:bg-[#1a4a2a] transition-colors flex-shrink-0">
           <Wallet className="w-3.5 h-3.5" />
           <span className="font-medium hidden sm:inline">Wallet Tracker</span>
           <span className="font-medium sm:hidden">Wallet</span>
         </button>
 
         {/* X Tracker - hidden on mobile */}
-        <button className="hidden sm:flex items-center gap-1.5 bg-[#1a1a1a] border border-[#333] text-white px-2.5 py-1 rounded hover:bg-[#252525] transition-colors flex-shrink-0">
+        <button className="hidden sm:flex items-center gap-1.5 bg-[var(--card-bg)] border border-[#333] text-white px-2.5 py-1 rounded hover:bg-[var(--hover-bg)] transition-colors flex-shrink-0">
           <span className="font-bold">𝕏</span>
           <span className="hidden md:inline">Tracker</span>
         </button>
@@ -30,31 +30,31 @@ export function BottomBar() {
         <div className="hidden md:block w-px h-4 bg-[#333] mx-1" />
 
         {/* Holding - hidden on smaller screens */}
-        <button className="hidden lg:flex items-center gap-1.5 text-[#888] hover:text-white px-2 py-1 rounded hover:bg-[#1a1a1a] transition-colors">
+        <button className="hidden lg:flex items-center gap-1.5 text-[#888] hover:text-white px-2 py-1 rounded hover:bg-[var(--card-bg)] transition-colors">
           <BarChart3 className="w-3.5 h-3.5" />
           <span>Holding</span>
         </button>
 
         {/* Watchlist - hidden on smaller screens */}
-        <button className="hidden lg:flex items-center gap-1.5 text-[#888] hover:text-white px-2 py-1 rounded hover:bg-[#1a1a1a] transition-colors">
+        <button className="hidden lg:flex items-center gap-1.5 text-[#888] hover:text-white px-2 py-1 rounded hover:bg-[var(--card-bg)] transition-colors">
           <Star className="w-3.5 h-3.5" />
           <span>Watchlist</span>
         </button>
 
         {/* Trending - hidden on smaller screens */}
-        <button className="hidden xl:flex items-center gap-1.5 text-[#888] hover:text-white px-2 py-1 rounded hover:bg-[#1a1a1a] transition-colors">
+        <button className="hidden xl:flex items-center gap-1.5 text-[#888] hover:text-white px-2 py-1 rounded hover:bg-[var(--card-bg)] transition-colors">
           <TrendingUp className="w-3.5 h-3.5" />
           <span>Trending</span>
         </button>
 
         {/* Rank - hidden on smaller screens */}
-        <button className="hidden xl:flex items-center gap-1.5 text-[#888] hover:text-white px-2 py-1 rounded hover:bg-[#1a1a1a] transition-colors">
+        <button className="hidden xl:flex items-center gap-1.5 text-[#888] hover:text-white px-2 py-1 rounded hover:bg-[var(--card-bg)] transition-colors">
           <Trophy className="w-3.5 h-3.5" />
           <span>Rank</span>
         </button>
 
         {/* Signal - hidden on smaller screens */}
-        <button className="hidden 2xl:flex items-center gap-1.5 text-[#888] hover:text-white px-2 py-1 rounded hover:bg-[#1a1a1a] transition-colors">
+        <button className="hidden 2xl:flex items-center gap-1.5 text-[#888] hover:text-white px-2 py-1 rounded hover:bg-[var(--card-bg)] transition-colors">
           <AtSign className="w-3.5 h-3.5" />
           <span>Signal</span>
         </button>
@@ -75,8 +75,8 @@ export function BottomBar() {
         {/* Status Indicator */}
         <div className="flex items-center gap-1 sm:gap-2 text-[#888]">
           <div className="flex items-center gap-1 sm:gap-1.5">
-            <div className="w-2 h-2 rounded-full bg-[#00d26a] animate-pulse" />
-            <span className="text-[#00d26a] hidden sm:inline">Stable</span>
+            <div className="w-2 h-2 rounded-full bg-[var(--accent-green)] animate-pulse" />
+            <span className="text-[var(--accent-green)] hidden sm:inline">Stable</span>
             <span className="text-[#555] hidden md:inline">272 MS</span>
             <span className="text-[#333] hidden md:inline">|</span>
             <span className="text-[#555] hidden md:inline">129 FPS</span>
@@ -87,14 +87,14 @@ export function BottomBar() {
         <div className="hidden sm:block w-px h-4 bg-[#333]" />
 
         {/* Contest - simplified on mobile */}
-        <button className="flex items-center gap-1 sm:gap-1.5 text-[#888] hover:text-white px-1.5 sm:px-2 py-1 rounded hover:bg-[#1a1a1a] transition-colors">
-          <Trophy className="w-3.5 h-3.5 text-[#ffc107]" />
+        <button className="flex items-center gap-1 sm:gap-1.5 text-[#888] hover:text-white px-1.5 sm:px-2 py-1 rounded hover:bg-[var(--card-bg)] transition-colors">
+          <Trophy className="w-3.5 h-3.5 text-[var(--accent-yellow)]" />
           <span className="hidden sm:inline">Contest</span>
-          <span className="bg-[#00d26a] text-black text-[10px] px-1.5 py-0.5 rounded font-medium">S9</span>
+          <span className="bg-[var(--accent-green)] text-black text-[10px] px-1.5 py-0.5 rounded font-medium">S9</span>
         </button>
 
         {/* About - hidden on mobile */}
-        <button className="hidden sm:flex items-center gap-1 text-[#888] hover:text-white px-2 py-1 rounded hover:bg-[#1a1a1a] transition-colors">
+        <button className="hidden sm:flex items-center gap-1 text-[#888] hover:text-white px-2 py-1 rounded hover:bg-[var(--card-bg)] transition-colors">
           <span>About</span>
           <ChevronDown className="w-3 h-3" />
         </button>

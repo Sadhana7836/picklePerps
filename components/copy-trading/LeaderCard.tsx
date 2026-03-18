@@ -29,7 +29,7 @@ export const LeaderCard = memo(function LeaderCard({
     return (
       <div
         onClick={() => onClick?.(leader)}
-        className="flex items-center justify-between p-3 bg-[#0d0d0d] border border-[#1a1a1a] rounded-lg hover:bg-[#111] hover:border-[#252525] transition-all cursor-pointer"
+        className="flex items-center justify-between p-3 bg-[var(--background)] border border-[var(--card-bg)] rounded-lg hover:bg-[var(--sidebar-bg)] hover:border-[var(--hover-bg)] transition-all cursor-pointer"
       >
         <div className="flex items-center gap-3">
           {/* Rank Badge */}
@@ -37,7 +37,7 @@ export const LeaderCard = memo(function LeaderCard({
             leader.rank === 1 ? "bg-yellow-500/20 text-yellow-500" :
             leader.rank === 2 ? "bg-gray-400/20 text-gray-400" :
             leader.rank === 3 ? "bg-orange-600/20 text-orange-600" :
-            "bg-[#1a1a1a] text-gray-500"
+            "bg-[var(--card-bg)] text-gray-500"
           }`}>
             {leader.rank <= 3 ? <Trophy className="w-4 h-4" /> : `#${leader.rank}`}
           </div>
@@ -74,7 +74,7 @@ export const LeaderCard = memo(function LeaderCard({
   return (
     <div
       onClick={() => onClick?.(leader)}
-      className="bg-[#0d0d0d] border border-[#1a1a1a] rounded-lg p-4 hover:bg-[#111] hover:border-[#252525] transition-all cursor-pointer group"
+      className="bg-[var(--background)] border border-[var(--card-bg)] rounded-lg p-4 hover:bg-[var(--sidebar-bg)] hover:border-[var(--hover-bg)] transition-all cursor-pointer group"
     >
       {/* Header */}
       <div className="flex items-start justify-between mb-4">
@@ -84,7 +84,7 @@ export const LeaderCard = memo(function LeaderCard({
             leader.rank === 1 ? "bg-yellow-500/20 text-yellow-500 border border-yellow-500/30" :
             leader.rank === 2 ? "bg-gray-400/20 text-gray-400 border border-gray-400/30" :
             leader.rank === 3 ? "bg-orange-600/20 text-orange-600 border border-orange-600/30" :
-            "bg-[#1a1a1a] text-gray-500 border border-[#333]"
+            "bg-[var(--card-bg)] text-gray-500 border border-[#333]"
           }`}>
             {leader.rank <= 3 ? <Trophy className="w-5 h-5" /> : `#${leader.rank}`}
           </div>
@@ -117,7 +117,7 @@ export const LeaderCard = memo(function LeaderCard({
       {/* Stats Grid */}
       <div className="grid grid-cols-2 gap-3 mb-4">
         {/* PnL */}
-        <div className="bg-[#111] rounded-lg p-3">
+        <div className="bg-[var(--sidebar-bg)] rounded-lg p-3">
           <div className="flex items-center gap-1.5 text-gray-400 text-xs mb-1">
             {isProfitable ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
             <span>Total PnL</span>
@@ -128,7 +128,7 @@ export const LeaderCard = memo(function LeaderCard({
         </div>
 
         {/* Win Rate */}
-        <div className="bg-[#111] rounded-lg p-3">
+        <div className="bg-[var(--sidebar-bg)] rounded-lg p-3">
           <div className="flex items-center gap-1.5 text-gray-400 text-xs mb-1">
             <BarChart3 className="w-3 h-3" />
             <span>Win Rate</span>
@@ -139,7 +139,7 @@ export const LeaderCard = memo(function LeaderCard({
         </div>
 
         {/* Volume */}
-        <div className="bg-[#111] rounded-lg p-3">
+        <div className="bg-[var(--sidebar-bg)] rounded-lg p-3">
           <div className="flex items-center gap-1.5 text-gray-400 text-xs mb-1">
             <Activity className="w-3 h-3" />
             <span>Volume</span>
@@ -150,7 +150,7 @@ export const LeaderCard = memo(function LeaderCard({
         </div>
 
         {/* Open Positions */}
-        <div className="bg-[#111] rounded-lg p-3">
+        <div className="bg-[var(--sidebar-bg)] rounded-lg p-3">
           <div className="flex items-center gap-1.5 text-gray-400 text-xs mb-1">
             <Users className="w-3 h-3" />
             <span>{leader.isRegisteredLeader ? "Followers" : "Positions"}</span>
@@ -181,10 +181,10 @@ export const LeaderCard = memo(function LeaderCard({
             disabled={!leader.isActive}
             className={`w-full py-2.5 rounded-lg text-sm font-medium transition-all ${
               isSubscribed
-                ? "bg-[#1a1a1a] text-gray-400 border border-[#333]"
+                ? "bg-[var(--card-bg)] text-gray-400 border border-[#333]"
                 : leader.isActive
                 ? "bg-green-600 hover:bg-green-700 text-white"
-                : "bg-[#1a1a1a] text-gray-500 cursor-not-allowed"
+                : "bg-[var(--card-bg)] text-gray-500 cursor-not-allowed"
             }`}
           >
             {isSubscribed ? "Subscribed" : leader.isActive ? "Copy Trades" : "Inactive"}

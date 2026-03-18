@@ -52,9 +52,9 @@ export default function CopyTradingPage() {
       <PageLayout title="CopyTrade">
         <div className="max-w-4xl mx-auto py-12">
           <div className="text-center">
-            <Copy className="w-16 h-16 mx-auto text-gray-600 mb-6" />
+            <Copy className="w-16 h-16 mx-auto text-[var(--text-muted)] mb-6" />
             <h1 className="text-3xl font-bold text-white mb-4">Copy Trading</h1>
-            <p className="text-gray-400 mb-8">
+            <p className="text-[var(--text-muted)] mb-8">
               Copy the trades of top performers automatically. Coming soon!
             </p>
           </div>
@@ -81,7 +81,7 @@ export default function CopyTradingPage() {
             <div className="flex justify-end mb-4">
               <button
                 onClick={() => setShowRegisterModal(true)}
-                className="flex items-center gap-2 px-4 py-2 bg-[#1a1a1a] hover:bg-[#252525] border border-[#333] text-white text-sm rounded-lg transition-colors"
+                className="flex items-center gap-2 px-4 py-2 bg-[var(--card-bg)] hover:bg-[var(--hover-bg)] border border-[var(--border-color)] text-white text-sm rounded-lg transition-colors"
               >
                 <Plus className="w-4 h-4" />
                 Become a Leader
@@ -91,34 +91,34 @@ export default function CopyTradingPage() {
 
           {/* Leader Capital Setting (if user is a leader) */}
           {isConnected && isLeader && (
-            <div className="bg-[#111] border border-[#1a1a1a] rounded-lg p-4 mb-4">
+            <div className="bg-[var(--sidebar-bg)] border border-[var(--card-bg)] rounded-lg p-4 mb-4">
               <div className="flex items-center gap-2 mb-3">
-                <Settings className="w-4 h-4 text-[#00d26a]" />
+                <Settings className="w-4 h-4 text-[var(--accent-green)]" />
                 <h3 className="text-white font-medium text-sm">Leader Settings</h3>
               </div>
               <div className="flex items-center gap-3">
                 <div className="flex-1">
-                  <label className="text-xs text-[#555] mb-1 block">Your Trading Capital (XLM)</label>
+                  <label className="text-xs text-[var(--text-muted)] mb-1 block">Your Trading Capital (XLM)</label>
                   <input
                     type="number"
                     value={capitalInput}
                     onChange={(e) => setCapitalInput(e.target.value)}
                     placeholder={leaderCapital || "Enter your capital"}
-                    className="w-full bg-[#0d0d0d] border border-[#1a1a1a] rounded px-3 py-2 text-white text-sm focus:border-[#333] focus:outline-none"
+                    className="w-full bg-[var(--background)] border border-[var(--card-bg)] rounded px-3 py-2 text-white text-sm focus:border-[var(--border-color)] focus:outline-none"
                   />
                 </div>
                 <button
                   onClick={handleSetCapital}
                   disabled={state.isLoading || !capitalInput}
-                  className="mt-5 px-4 py-2 bg-[#00d26a] hover:bg-[#00d26a]/80 disabled:bg-[#333] disabled:text-[#555] text-black text-sm font-medium rounded transition-colors"
+                  className="mt-5 px-4 py-2 bg-[var(--accent-green)] hover:bg-[var(--accent-green)]/80 disabled:bg-[var(--card-bg)] disabled:text-[var(--text-muted)] text-black text-sm font-medium rounded transition-colors"
                 >
                   {state.isLoading ? "..." : "Set"}
                 </button>
               </div>
-              <p className="text-xs text-[#555] mt-2">
+              <p className="text-xs text-[var(--text-muted)] mt-2">
                 Set your total trading capital so followers can proportionally copy your position sizes.
                 {leaderCapital && parseFloat(leaderCapital) > 0 && (
-                  <span className="text-[#00d26a]"> Current: {parseFloat(leaderCapital).toFixed(4)} XLM</span>
+                  <span className="text-[var(--accent-green)]"> Current: {parseFloat(leaderCapital).toFixed(4)} XLM</span>
                 )}
               </p>
             </div>
@@ -140,40 +140,40 @@ export default function CopyTradingPage() {
 
           {/* My Subscriptions */}
           {isConnected && activeSubscriptions.length > 0 && (
-            <div className="bg-[#111] border border-[#1a1a1a] rounded-lg p-4">
+            <div className="bg-[var(--sidebar-bg)] border border-[var(--card-bg)] rounded-lg p-4">
               <div className="flex items-center gap-2 mb-3">
-                <Users className="w-4 h-4 text-[#00d26a]" />
+                <Users className="w-4 h-4 text-[var(--accent-green)]" />
                 <h3 className="text-white font-medium text-sm">My Subscriptions</h3>
               </div>
               <div className="space-y-2">
                 {activeSubscriptions.map((sub: Subscription) => (
                   <div
                     key={sub.id.toString()}
-                    className="bg-[#0d0d0d] rounded-lg p-3 border border-[#1a1a1a]"
+                    className="bg-[var(--background)] rounded-lg p-3 border border-[var(--card-bg)]"
                   >
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-white text-xs font-mono">
                         {sub.leader.slice(0, 6)}...{sub.leader.slice(-4)}
                       </span>
                       {sub.config.useProportionalCopy && (
-                        <span className="text-[#00d26a] text-[10px] bg-[#00d26a]/10 px-1.5 py-0.5 rounded">
+                        <span className="text-[var(--accent-green)] text-[10px] bg-[var(--accent-green)]/10 px-1.5 py-0.5 rounded">
                           Proportional
                         </span>
                       )}
                     </div>
                     <div className="flex items-center justify-between text-xs">
-                      <span className="text-[#555]">Allocation</span>
+                      <span className="text-[var(--text-muted)]">Allocation</span>
                       <span className="text-white">
                         {parseFloat(formatAmount(sub.config.allocationAmount)).toFixed(4)} XLM
                       </span>
                     </div>
                     <div className="flex items-center justify-between text-xs mt-1">
-                      <span className="text-[#555]">Trades</span>
+                      <span className="text-[var(--text-muted)]">Trades</span>
                       <span className="text-white">{Number(sub.totalCopiedTrades)}</span>
                     </div>
                     <div className="flex items-center justify-between text-xs mt-1">
-                      <span className="text-[#555]">PnL</span>
-                      <span className={sub.totalPnlIsProfit ? "text-[#00d26a]" : "text-[#ff4757]"}>
+                      <span className="text-[var(--text-muted)]">PnL</span>
+                      <span className={sub.totalPnlIsProfit ? "text-[var(--accent-green)]" : "text-[var(--accent-red)]"}>
                         {sub.totalPnlIsProfit ? "+" : "-"}
                         {parseFloat(formatAmount(sub.totalPnl)).toFixed(4)} XLM
                       </span>
@@ -186,10 +186,10 @@ export default function CopyTradingPage() {
 
           {/* Empty State */}
           {isConnected && activeSubscriptions.length === 0 && (
-            <div className="bg-[#111] border border-[#1a1a1a] rounded-lg p-4 text-center">
-              <Users className="w-8 h-8 text-[#333] mx-auto mb-2" />
-              <p className="text-[#555] text-sm">No active subscriptions</p>
-              <p className="text-[#444] text-xs mt-1">
+            <div className="bg-[var(--sidebar-bg)] border border-[var(--card-bg)] rounded-lg p-4 text-center">
+              <Users className="w-8 h-8 text-[var(--text-muted)] mx-auto mb-2" />
+              <p className="text-[var(--text-muted)] text-sm">No active subscriptions</p>
+              <p className="text-[var(--text-muted)] text-xs mt-1">
                 Subscribe to a leader to start copy trading
               </p>
             </div>

@@ -42,16 +42,16 @@ function PositionCard({ positionId, tokenAddress, onClose }: PositionCardProps) 
   };
 
   return (
-    <div className={`bg-[#1a1a1a] rounded-lg p-3 border ${shouldLiquidate ? 'border-[#ff4757]' : 'border-[#222]'}`}>
+    <div className={`bg-[var(--card-bg)] rounded-lg p-3 border ${shouldLiquidate ? 'border-[var(--accent-red)]' : 'border-[#222]'}`}>
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-2">
-          <span className={`text-xs font-bold ${position.isLong ? 'text-[#00d26a]' : 'text-[#ff4757]'}`}>
+          <span className={`text-xs font-bold ${position.isLong ? 'text-[var(--accent-green)]' : 'text-[var(--accent-red)]'}`}>
             {position.isLong ? 'LONG' : 'SHORT'}
           </span>
           <span className="text-[#888] text-xs">{position.leverage}x</span>
         </div>
         {shouldLiquidate && (
-          <span className="text-[#ff4757] text-xs font-bold">LIQUIDATION RISK</span>
+          <span className="text-[var(--accent-red)] text-xs font-bold">LIQUIDATION RISK</span>
         )}
       </div>
 
@@ -70,11 +70,11 @@ function PositionCard({ positionId, tokenAddress, onClose }: PositionCardProps) 
         </div>
         <div className="flex justify-between">
           <span className="text-[#555]">Liquidation Price</span>
-          <span className="text-[#ff4757]">${(parseFloat(liquidationPrice) / 1e8).toFixed(8)}</span>
+          <span className="text-[var(--accent-red)]">${(parseFloat(liquidationPrice) / 1e8).toFixed(8)}</span>
         </div>
         <div className="flex justify-between border-t border-[#222] pt-1.5 mt-1.5">
           <span className="text-[#555]">Unrealized PnL</span>
-          <span className={isProfit ? 'text-[#00d26a]' : 'text-[#ff4757]'}>
+          <span className={isProfit ? 'text-[var(--accent-green)]' : 'text-[var(--accent-red)]'}>
             {isProfit ? '+' : '-'}${parseFloat(pnl).toFixed(4)}
           </span>
         </div>
@@ -83,7 +83,7 @@ function PositionCard({ positionId, tokenAddress, onClose }: PositionCardProps) 
       <button
         onClick={handleClose}
         disabled={isClosing}
-        className="w-full mt-3 py-2 bg-[#ff4757] hover:bg-[#ff5a67] disabled:opacity-50 text-white text-xs font-bold rounded transition-colors"
+        className="w-full mt-3 py-2 bg-[var(--accent-red)] hover:bg-[#ff5a67] disabled:opacity-50 text-white text-xs font-bold rounded transition-colors"
       >
         {isClosing ? 'Closing...' : 'Close Position'}
       </button>

@@ -2,6 +2,7 @@
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { StellarProvider } from '@/contexts/StellarContext'
+import { ThemeProvider } from '@/components/ThemeProvider'
 import { ReactNode } from 'react'
 
 function makeQueryClient() {
@@ -41,7 +42,9 @@ export function Providers({ children }: ProvidersProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <StellarProvider>
-        {children}
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
       </StellarProvider>
     </QueryClientProvider>
   )

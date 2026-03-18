@@ -71,14 +71,14 @@ export function BondingCurvePanel({ tokenAddress, tokenSymbol }: BondingCurvePan
   }
 
   const getPriceImpactColor = (impact: number) => {
-    if (impact < 2) return "text-[#00d26a]"
+    if (impact < 2) return "text-[var(--accent-green)]"
     if (impact < 5) return "text-yellow-500"
     return "text-red-500"
   }
 
   if (!curveData.isListed) {
     return (
-      <div className="bg-[#1a1a1a] rounded-xl p-4 border border-[#2a2a2a]">
+      <div className="bg-[var(--card-bg)] rounded-xl p-4 border border-[var(--card-border)]">
         <p className="text-[#555] text-sm text-center">
           Token not listed on bonding curve
         </p>
@@ -87,9 +87,9 @@ export function BondingCurvePanel({ tokenAddress, tokenSymbol }: BondingCurvePan
   }
 
   return (
-    <div className="bg-[#1a1a1a] rounded-xl border border-[#2a2a2a] overflow-hidden">
+    <div className="bg-[var(--card-bg)] rounded-xl border border-[var(--card-border)] overflow-hidden">
       {/* Header */}
-      <div className="px-4 py-3 border-b border-[#2a2a2a]">
+      <div className="px-4 py-3 border-b border-[var(--card-border)]">
         <h3 className="text-white font-semibold">Spot Trading</h3>
         <p className="text-[#555] text-xs mt-0.5">
           Buy/Sell {tokenSymbol} on bonding curve
@@ -97,12 +97,12 @@ export function BondingCurvePanel({ tokenAddress, tokenSymbol }: BondingCurvePan
       </div>
 
       {/* Buy/Sell Toggle */}
-      <div className="flex p-2 bg-[#0d0d0d]">
+      <div className="flex p-2 bg-[var(--background)]">
         <button
           onClick={() => setMode("buy")}
           className={`flex-1 py-2 rounded-lg text-sm font-medium transition-colors ${
             mode === "buy"
-              ? "bg-[#00d26a] text-black"
+              ? "bg-[var(--accent-green)] text-black"
               : "text-[#555] hover:text-white"
           }`}
         >
@@ -112,7 +112,7 @@ export function BondingCurvePanel({ tokenAddress, tokenSymbol }: BondingCurvePan
           onClick={() => setMode("sell")}
           className={`flex-1 py-2 rounded-lg text-sm font-medium transition-colors ${
             mode === "sell"
-              ? "bg-[#ff4757] text-white"
+              ? "bg-[var(--accent-red)] text-white"
               : "text-[#555] hover:text-white"
           }`}
         >
@@ -148,7 +148,7 @@ export function BondingCurvePanel({ tokenAddress, tokenSymbol }: BondingCurvePan
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
               placeholder="0.00"
-              className="w-full px-3 py-2.5 pr-16 bg-[#0d0d0d] border border-[#2a2a2a] rounded-lg text-white text-sm placeholder-[#555] focus:outline-none focus:border-[#00d26a]"
+              className="w-full px-3 py-2.5 pr-16 bg-[var(--background)] border border-[var(--card-border)] rounded-lg text-white text-sm placeholder-[#555] focus:outline-none focus:border-[var(--accent-green)]"
             />
             <button
               onClick={() => {
@@ -160,7 +160,7 @@ export function BondingCurvePanel({ tokenAddress, tokenSymbol }: BondingCurvePan
                   setAmount(parseFloat(formattedTokenBalance).toFixed(6))
                 }
               }}
-              className="absolute right-2 top-1/2 -translate-y-1/2 px-2 py-1 bg-[#00d26a]/20 hover:bg-[#00d26a]/30 text-[#00d26a] text-xs font-medium rounded transition-colors"
+              className="absolute right-2 top-1/2 -translate-y-1/2 px-2 py-1 bg-[var(--accent-green)]/20 hover:bg-[var(--accent-green)]/30 text-[var(--accent-green)] text-xs font-medium rounded transition-colors"
             >
               MAX
             </button>
@@ -180,7 +180,7 @@ export function BondingCurvePanel({ tokenAddress, tokenSymbol }: BondingCurvePan
                     setAmount((maxAmount * pct / 100).toFixed(6))
                   }
                 }}
-                className="flex-1 py-1 bg-[#0d0d0d] border border-[#2a2a2a] rounded text-[#555] text-xs hover:border-[#00d26a] hover:text-white transition-colors"
+                className="flex-1 py-1 bg-[var(--background)] border border-[var(--card-border)] rounded text-[#555] text-xs hover:border-[var(--accent-green)] hover:text-white transition-colors"
               >
                 {pct}%
               </button>
@@ -190,7 +190,7 @@ export function BondingCurvePanel({ tokenAddress, tokenSymbol }: BondingCurvePan
 
         {/* Quote Preview */}
         {amount && parseFloat(amount) > 0 && (
-          <div className="bg-[#0d0d0d] rounded-lg p-3 space-y-2">
+          <div className="bg-[var(--background)] rounded-lg p-3 space-y-2">
             {quoteLoading ? (
               <div className="flex justify-center py-2">
                 <Loader2 className="w-5 h-5 animate-spin text-[#555]" />
@@ -249,8 +249,8 @@ export function BondingCurvePanel({ tokenAddress, tokenSymbol }: BondingCurvePan
                 onClick={() => setSlippage(s)}
                 className={`px-2 py-1 rounded text-xs ${
                   slippage === s
-                    ? "bg-[#00d26a] text-black"
-                    : "bg-[#0d0d0d] text-[#555] hover:text-white"
+                    ? "bg-[var(--accent-green)] text-black"
+                    : "bg-[var(--background)] text-[#555] hover:text-white"
                 }`}
               >
                 {s}%
@@ -271,8 +271,8 @@ export function BondingCurvePanel({ tokenAddress, tokenSymbol }: BondingCurvePan
           }
           className={`w-full py-3 rounded-lg font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed ${
             mode === "buy"
-              ? "bg-gradient-to-r from-[#00d26a] to-[#00b85c] hover:from-[#00e676] hover:to-[#00d26a] text-black"
-              : "bg-gradient-to-r from-[#ff4757] to-[#ff3838] hover:from-[#ff5252] hover:to-[#ff4757] text-white"
+              ? "bg-gradient-to-r from-[var(--accent-green)] to-[var(--accent-green)] hover:from-[var(--accent-green)] hover:to-[var(--accent-green)] text-black"
+              : "bg-gradient-to-r from-[var(--accent-red)] to-[#ff3838] hover:from-[#ff5252] hover:to-[var(--accent-red)] text-white"
           }`}
         >
           {state.isLoading ? (
@@ -288,16 +288,16 @@ export function BondingCurvePanel({ tokenAddress, tokenSymbol }: BondingCurvePan
         </button>
 
         {/* Curve Stats */}
-        <div className="pt-3 border-t border-[#2a2a2a] space-y-2">
+        <div className="pt-3 border-t border-[var(--card-border)] space-y-2">
           <div className="flex justify-between text-xs">
             <span className="text-[#555]">Curve Progress</span>
             <span className="text-white">
               {curveData.curveProgress.toFixed(1)}% sold
             </span>
           </div>
-          <div className="w-full h-1.5 bg-[#0d0d0d] rounded-full overflow-hidden">
+          <div className="w-full h-1.5 bg-[var(--background)] rounded-full overflow-hidden">
             <div
-              className="h-full bg-gradient-to-r from-[#00d26a] to-[#00b85c] rounded-full transition-all"
+              className="h-full bg-gradient-to-r from-[var(--accent-green)] to-[var(--accent-green)] rounded-full transition-all"
               style={{ width: `${Math.min(curveData.curveProgress, 100)}%` }}
             />
           </div>

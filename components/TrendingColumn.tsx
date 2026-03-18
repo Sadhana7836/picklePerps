@@ -87,9 +87,9 @@ export const TrendingColumn = memo(function TrendingColumn({
   }, [trendingItems, filter]);
 
   return (
-    <div className="hidden lg:flex flex-col h-full min-w-[280px] sm:min-w-[320px] lg:min-w-[350px] xl:min-w-[380px] flex-1 bg-[#0d0d0d] border-r border-[#1a1a1a] last:border-r-0">
+    <div className="hidden lg:flex flex-col h-full min-w-[280px] sm:min-w-[320px] lg:min-w-[350px] xl:min-w-[380px] flex-1 bg-[var(--background)] border-r border-[var(--card-bg)] last:border-r-0">
       {/* Column Header */}
-      <div className="px-3 py-2 border-b border-[#1a1a1a] bg-[#0a0a0a] h-12 flex items-center">
+      <div className="px-3 py-2 border-b border-[var(--card-bg)] bg-[var(--sidebar-bg)] h-12 flex items-center">
         <div className="flex items-center justify-between gap-3 w-full">
           {/* Filter Pills */}
           <div className="flex items-center gap-1.5">
@@ -107,7 +107,7 @@ export const TrendingColumn = memo(function TrendingColumn({
               onClick={handleFilterTokens}
               className={`text-xs px-2 py-1 rounded font-medium transition-colors ${
                 filter === "tokens"
-                  ? "bg-[#00d26a]/20 text-[#00d26a] border border-[#00d26a]/30"
+                  ? "bg-[var(--accent-green)]/20 text-[var(--accent-green)] border border-[var(--accent-green)]/30"
                   : "bg-transparent text-[#555] hover:text-white"
               }`}
             >
@@ -159,7 +159,7 @@ export const TrendingColumn = memo(function TrendingColumn({
       </div>
 
       {/* Footer */}
-      <div className="px-3 py-2 border-t border-[#1a1a1a] bg-[#0a0a0a]">
+      <div className="px-3 py-2 border-t border-[var(--card-bg)] bg-[var(--sidebar-bg)]">
         <div className="flex items-center justify-between text-[10px] text-[#555]">
           <span>Mixed trending assets</span>
           <span className="flex items-center gap-1">

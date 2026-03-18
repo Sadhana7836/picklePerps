@@ -176,6 +176,11 @@ const IPFS_GATEWAYS = [
 export const getOptimizedIpfsUrl = (hashOrUrl: string | undefined | null, gatewayIndex = 0): string => {
   if (!hashOrUrl) return ""
 
+  // Pass direct HTTPS URLs through as-is (e.g. DiceBear, external CDNs)
+  if (hashOrUrl.startsWith("https://") && !hashOrUrl.includes("/ipfs/")) {
+    return gatewayIndex === 0 ? hashOrUrl : ""
+  }
+
   // Extract hash from various URL formats
   let hash = hashOrUrl
 

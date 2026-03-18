@@ -46,9 +46,9 @@ const UPTIME_DAYS = 90
 
 function UptimeBar({ status }: { status: ServiceStatus["status"] }) {
   const getBarColor = () => {
-    if (status === "Operational") return "bg-[#00d26a]"
-    if (status === "Degraded") return "bg-[#ffc107]"
-    return "bg-[#ff4757]"
+    if (status === "Operational") return "bg-[var(--accent-green)]"
+    if (status === "Degraded") return "bg-[var(--accent-yellow)]"
+    return "bg-[var(--accent-red)]"
   }
 
   return (
@@ -66,13 +66,13 @@ function UptimeBar({ status }: { status: ServiceStatus["status"] }) {
 function ServiceRow({ service }: { service: ServiceStatus }) {
   const statusColor =
     service.status === "Operational"
-      ? "text-[#00d26a]"
+      ? "text-[var(--accent-green)]"
       : service.status === "Degraded"
-      ? "text-[#ffc107]"
-      : "text-[#ff4757]"
+      ? "text-[var(--accent-yellow)]"
+      : "text-[var(--accent-red)]"
 
   return (
-    <div className="bg-[#111] border-b border-[#1a1a1a] p-6">
+    <div className="bg-[var(--sidebar-bg)] border-b border-[var(--card-bg)] p-6">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
@@ -82,7 +82,7 @@ function ServiceRow({ service }: { service: ServiceStatus }) {
               href={`https://stellar.expert/explorer/testnet/contract/${service.contractAddress}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs text-gray-500 hover:text-[#00d26a] font-mono"
+              className="text-xs text-[var(--text-muted)] hover:text-[var(--accent-primary)] font-mono"
             >
               ?
             </a>
@@ -95,7 +95,7 @@ function ServiceRow({ service }: { service: ServiceStatus }) {
       <UptimeBar status={service.status} />
 
       {/* Footer */}
-      <div className="flex items-center justify-between mt-2 text-xs text-gray-500">
+      <div className="flex items-center justify-between mt-2 text-xs text-[var(--text-muted)]">
         <span>90 days ago</span>
         <span>{service.uptime.toFixed(1)} % uptime</span>
         <span>Today</span>
@@ -114,8 +114,8 @@ export default function MonitorPage() {
         <div
           className={`rounded-lg p-4 mb-6 text-center font-medium text-lg ${
             allOperational
-              ? "bg-[#00d26a] text-white"
-              : "bg-[#ff4757] text-white"
+              ? "bg-[var(--accent-primary)] text-white"
+              : "bg-[var(--accent-red)] text-white"
           }`}
         >
           {allOperational ? "All Systems Operational" : "Some Systems Experiencing Issues"}
@@ -123,16 +123,13 @@ export default function MonitorPage() {
 
         {/* Uptime Info */}
         <div className="text-right mb-4">
-          <span className="text-gray-500 text-sm">
-            Uptime over the past 90 days.{" "}
-            <span className="text-[#00d26a]">
-              View historical uptime.
-            </span>
+          <span className="text-[var(--text-muted)] text-sm">
+            Uptime over the past 90 days.
           </span>
         </div>
 
         {/* Service List */}
-        <div className="bg-[#0a0a0a] rounded-lg border border-[#1a1a1a] overflow-hidden">
+        <div className="bg-[var(--sidebar-bg)] rounded-lg border border-[var(--card-bg)] overflow-hidden">
           {services.map((service, index) => (
             <ServiceRow key={index} service={service} />
           ))}
@@ -140,7 +137,7 @@ export default function MonitorPage() {
 
         {/* Network Info */}
         <div className="text-center mt-6">
-          <span className="text-gray-500 text-sm">
+          <span className="text-[var(--text-muted)] text-sm">
             Network: Stellar Testnet
           </span>
         </div>

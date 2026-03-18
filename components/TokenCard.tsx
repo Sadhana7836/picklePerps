@@ -75,13 +75,13 @@ export const TokenCard = memo(function TokenCard({ token, showRank: _showRank = 
   return (
     <div
       onClick={() => onClick?.(token)}
-      className="bg-[#0d0d0d] border border-[#1a1a1a] rounded-lg p-3 hover:bg-[#111] hover:border-[#252525] transition-all cursor-pointer group"
+      className="bg-[var(--background)] border border-[var(--card-bg)] rounded-lg p-3 hover:bg-[var(--sidebar-bg)] hover:border-[var(--hover-bg)] transition-all cursor-pointer group"
     >
       {/* Main Content Row */}
       <div className="flex items-start gap-3">
         {/* Token Image */}
         <div className="relative flex-shrink-0">
-          <div className="w-16 h-16 rounded-lg overflow-hidden bg-[#1a1a1a] flex items-center justify-center border border-[#333]">
+          <div className="w-16 h-16 rounded-lg overflow-hidden bg-[var(--card-bg)] flex items-center justify-center border border-[#333]">
             {token.image ? (
               <IPFSImage
                 src={token.image}
@@ -97,7 +97,7 @@ export const TokenCard = memo(function TokenCard({ token, showRank: _showRank = 
           </div>
           {/* Progress indicator dot */}
           {token.progressBar !== undefined && token.progressBar > 80 && (
-            <div className="absolute -bottom-0.5 -right-0.5 bg-[#ff8c00] rounded-full w-2.5 h-2.5 border border-[#0d0d0d]"></div>
+            <div className="absolute -bottom-0.5 -right-0.5 bg-[#ff8c00] rounded-full w-2.5 h-2.5 border border-[var(--background)]"></div>
           )}
         </div>
 
@@ -114,10 +114,10 @@ export const TokenCard = memo(function TokenCard({ token, showRank: _showRank = 
                 e.preventDefault();
                 window.open(`https://stellar.expert/explorer/testnet/contract/${token.id}`, '_blank', 'noopener,noreferrer');
               }}
-              className="flex-shrink-0 p-0.5 hover:bg-[#1a1a1a] rounded cursor-pointer"
+              className="flex-shrink-0 p-0.5 hover:bg-[var(--card-bg)] rounded cursor-pointer"
               title="View on Block Explorer"
             >
-              <ExternalLink className="w-3 h-3 text-[#444] hover:text-[#00d26a] transition-colors" />
+              <ExternalLink className="w-3 h-3 text-[#444] hover:text-[var(--card-green)] transition-colors" />
             </button>
             {/* Social Links - only show if URL exists */}
             {token.websiteUrl && (
@@ -128,7 +128,7 @@ export const TokenCard = memo(function TokenCard({ token, showRank: _showRank = 
                   e.preventDefault();
                   window.open(token.websiteUrl, '_blank', 'noopener,noreferrer');
                 }}
-                className="flex-shrink-0 p-0.5 hover:bg-[#1a1a1a] rounded cursor-pointer"
+                className="flex-shrink-0 p-0.5 hover:bg-[var(--card-bg)] rounded cursor-pointer"
                 title="Website"
               >
                 <Globe className="w-3 h-3 text-[#555] hover:text-[#00bfff] transition-colors" />
@@ -145,7 +145,7 @@ export const TokenCard = memo(function TokenCard({ token, showRank: _showRank = 
                     : `https://x.com/${token.twitterUrl!.replace(/^@/, '')}`;
                   window.open(url, '_blank', 'noopener,noreferrer');
                 }}
-                className="flex-shrink-0 p-0.5 hover:bg-[#1a1a1a] rounded cursor-pointer"
+                className="flex-shrink-0 p-0.5 hover:bg-[var(--card-bg)] rounded cursor-pointer"
                 title="X"
               >
                 <svg
@@ -168,14 +168,14 @@ export const TokenCard = memo(function TokenCard({ token, showRank: _showRank = 
                     : `https://t.me/${token.telegramUrl!.replace(/^@/, '')}`;
                   window.open(url, '_blank', 'noopener,noreferrer');
                 }}
-                className="flex-shrink-0 p-0.5 hover:bg-[#1a1a1a] rounded cursor-pointer"
+                className="flex-shrink-0 p-0.5 hover:bg-[var(--card-bg)] rounded cursor-pointer"
                 title="Telegram"
               >
                 <Send className="w-3 h-3 text-[#555] hover:text-[#0088cc] transition-colors" />
               </button>
             )}
             {token.isListed && (
-              <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#00d26a]/20 text-[#00d26a] font-medium">
+              <span className="text-[10px] px-1.5 py-0.5 rounded bg-[var(--card-green)]/20 text-[var(--card-green)] font-medium">
                 🔑
               </span>
             )}
@@ -183,7 +183,7 @@ export const TokenCard = memo(function TokenCard({ token, showRank: _showRank = 
 
           {/* Row 2: Age, Social Stats, Metrics */}
           <div className="flex items-center gap-2 text-xs flex-wrap">
-            <span className={`font-medium ${token.ageColor || 'text-[#00d26a]'}`}>
+            <span className={`font-medium ${token.ageColor || 'text-[var(--card-green)]'}`}>
               {token.age}
             </span>
 
@@ -213,7 +213,7 @@ export const TokenCard = memo(function TokenCard({ token, showRank: _showRank = 
 
             {/* Net Change */}
             {token.netChange && (
-              <span className={token.netChange.includes('+') ? 'text-[#00d26a]' : token.netChange.includes('-') ? 'text-[#ff4757]' : 'text-[#555]'}>
+              <span className={token.netChange.includes('+') ? 'text-[var(--card-green)]' : token.netChange.includes('-') ? 'text-[var(--accent-red)]' : 'text-[#555]'}>
                 N{token.netChange}
               </span>
             )}
@@ -230,7 +230,7 @@ export const TokenCard = memo(function TokenCard({ token, showRank: _showRank = 
               <div className="flex items-center gap-1">
                 <div className="w-10 h-1.5 bg-[#222] rounded-full overflow-hidden">
                   <div
-                    className="h-full bg-[#00d26a] rounded-full"
+                    className="h-full bg-[var(--card-green)] rounded-full"
                     style={{ width: `${Math.min(token.progressBar, 100)}%` }}
                   />
                 </div>
@@ -241,7 +241,7 @@ export const TokenCard = memo(function TokenCard({ token, showRank: _showRank = 
           {/* Row 3: Dev Address */}
           {token.devAddress && (
             <div className="text-xs">
-              <span className="text-[#00d26a] hover:underline cursor-pointer">
+              <span className="text-[var(--card-green)] hover:underline cursor-pointer">
                 @{token.devAddress}
               </span>
             </div>
@@ -256,7 +256,7 @@ export const TokenCard = memo(function TokenCard({ token, showRank: _showRank = 
           </div>
           <div className="flex items-center gap-1 justify-end">
             <span className="text-[#555] text-xs">MC</span>
-            <span className="text-[#00d26a] text-sm font-medium">{token.marketCap}</span>
+            <span className="text-[var(--card-green)] text-sm font-medium">{token.marketCap}</span>
           </div>
         </div>
       </div>
@@ -264,12 +264,12 @@ export const TokenCard = memo(function TokenCard({ token, showRank: _showRank = 
       {/* Bottom Row - Pills */}
       <div className="flex items-center gap-1.5 mt-2.5">
         {/* Wallet Address */}
-        <span className="text-[10px] text-[#00d26a]">
+        <span className="text-[10px] text-[var(--card-green)]">
           {token.walletAddress || '0x...'}
         </span>
 
         {/* Percentage Change */}
-        <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#00d26a]/15 text-[#00d26a]">
+        <span className="text-[10px] px-1.5 py-0.5 rounded bg-[var(--card-green)]/15 text-[var(--card-green)]">
           📈 0%
         </span>
 
@@ -279,22 +279,22 @@ export const TokenCard = memo(function TokenCard({ token, showRank: _showRank = 
         </span>
 
         {/* Top Holder % */}
-        <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#1a1a1a] text-[#666]">
+        <span className="text-[10px] px-1.5 py-0.5 rounded bg-[var(--card-bg)] text-[#666]">
           👤 0%
         </span>
 
         {/* Ratio */}
-        <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#1a1a1a] text-[#666]">
+        <span className="text-[10px] px-1.5 py-0.5 rounded bg-[var(--card-bg)] text-[#666]">
           ⚖️ 0%
         </span>
 
         {/* Sniper % */}
-        <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#1a1a1a] text-[#666]">
+        <span className="text-[10px] px-1.5 py-0.5 rounded bg-[var(--card-bg)] text-[#666]">
           🎯 0%
         </span>
 
         {/* Insider % */}
-        <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#1a1a1a] text-[#666]">
+        <span className="text-[10px] px-1.5 py-0.5 rounded bg-[var(--card-bg)] text-[#666]">
           🔒 0%
         </span>
 
@@ -303,7 +303,7 @@ export const TokenCard = memo(function TokenCard({ token, showRank: _showRank = 
           onClick={(e) => {
             e.stopPropagation();
           }}
-          className="ml-auto text-[10px] px-2 py-0.5 rounded bg-[#00d26a]/20 text-[#00d26a] hover:bg-[#00d26a]/30 transition-colors font-medium"
+          className="ml-auto text-[10px] px-2 py-0.5 rounded bg-[var(--card-green)]/20 text-[var(--card-green)] hover:bg-[var(--card-green)]/30 transition-colors font-medium"
         >
           ⚡ Buy
         </button>

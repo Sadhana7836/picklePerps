@@ -72,9 +72,9 @@ export function SubscribeModal({
 
   return (
     <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
-      <div className="bg-[#0d0d0d] border border-[#1a1a1a] rounded-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+      <div className="bg-[var(--background)] border border-[var(--card-bg)] rounded-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-[#1a1a1a]">
+        <div className="flex items-center justify-between p-4 border-b border-[var(--card-bg)]">
           <h2 className="text-lg font-semibold text-white">Subscribe to Leader</h2>
           <button
             onClick={onClose}
@@ -85,7 +85,7 @@ export function SubscribeModal({
         </div>
 
         {/* Leader Info */}
-        <div className="p-4 bg-[#111] border-b border-[#1a1a1a]">
+        <div className="p-4 bg-[var(--sidebar-bg)] border-b border-[var(--card-bg)]">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-400">Leader</p>
@@ -98,7 +98,7 @@ export function SubscribeModal({
               <p className="text-white font-medium">{leader.profitSharePercent}%</p>
             </div>
           </div>
-          <div className="flex items-center justify-between mt-3 pt-3 border-t border-[#1a1a1a]">
+          <div className="flex items-center justify-between mt-3 pt-3 border-t border-[var(--card-bg)]">
             <div>
               <p className="text-xs text-gray-500">Win Rate</p>
               <p className="text-sm text-green-500">{leader.winRatePercent}%</p>
@@ -126,7 +126,7 @@ export function SubscribeModal({
               value={allocationAmount}
               onChange={(e) => setAllocationAmount(e.target.value)}
               placeholder={`Min: ${minFollow.toFixed(4)}`}
-              className="w-full bg-[#111] border border-[#333] rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-green-500"
+              className="w-full bg-[var(--sidebar-bg)] border border-[#333] rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-green-500"
             />
             <p className="text-xs text-gray-500 mt-1">
               {useProportionalCopy
@@ -147,7 +147,7 @@ export function SubscribeModal({
               placeholder="10"
               min="0"
               max="100"
-              className="w-full bg-[#111] border border-[#333] rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-green-500"
+              className="w-full bg-[var(--sidebar-bg)] border border-[#333] rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-green-500"
             />
             <p className="text-xs text-gray-500 mt-1">
               Cap leverage even if leader uses higher
@@ -163,7 +163,7 @@ export function SubscribeModal({
                 className={`flex items-center justify-center gap-2 py-2 rounded-lg border transition-colors ${
                   copyLongs
                     ? "bg-green-600/20 border-green-600 text-green-500"
-                    : "bg-[#111] border-[#333] text-gray-400"
+                    : "bg-[var(--sidebar-bg)] border-[#333] text-gray-400"
                 }`}
               >
                 {copyLongs && <Check className="w-4 h-4" />}
@@ -174,7 +174,7 @@ export function SubscribeModal({
                 className={`flex items-center justify-center gap-2 py-2 rounded-lg border transition-colors ${
                   copyShorts
                     ? "bg-red-600/20 border-red-600 text-red-500"
-                    : "bg-[#111] border-[#333] text-gray-400"
+                    : "bg-[var(--sidebar-bg)] border-[#333] text-gray-400"
                 }`}
               >
                 {copyShorts && <Check className="w-4 h-4" />}
@@ -192,7 +192,7 @@ export function SubscribeModal({
                 className={`flex items-center justify-center gap-2 py-2 rounded-lg border transition-colors ${
                   copyMeme
                     ? "bg-purple-600/20 border-purple-600 text-purple-500"
-                    : "bg-[#111] border-[#333] text-gray-400"
+                    : "bg-[var(--sidebar-bg)] border-[#333] text-gray-400"
                 }`}
               >
                 {copyMeme && <Check className="w-4 h-4" />}
@@ -203,7 +203,7 @@ export function SubscribeModal({
                 className={`flex items-center justify-center gap-2 py-2 rounded-lg border transition-colors ${
                   copyRWA
                     ? "bg-blue-600/20 border-blue-600 text-blue-500"
-                    : "bg-[#111] border-[#333] text-gray-400"
+                    : "bg-[var(--sidebar-bg)] border-[#333] text-gray-400"
                 }`}
               >
                 {copyRWA && <Check className="w-4 h-4" />}
@@ -221,7 +221,7 @@ export function SubscribeModal({
                 className={`flex items-center justify-center gap-2 py-2 rounded-lg border transition-colors ${
                   useProportionalCopy
                     ? "bg-green-600/20 border-green-600 text-green-500"
-                    : "bg-[#111] border-[#333] text-gray-400"
+                    : "bg-[var(--sidebar-bg)] border-[#333] text-gray-400"
                 }`}
               >
                 {useProportionalCopy && <Check className="w-4 h-4" />}
@@ -232,7 +232,7 @@ export function SubscribeModal({
                 className={`flex items-center justify-center gap-2 py-2 rounded-lg border transition-colors ${
                   !useProportionalCopy
                     ? "bg-yellow-600/20 border-yellow-600 text-yellow-500"
-                    : "bg-[#111] border-[#333] text-gray-400"
+                    : "bg-[var(--sidebar-bg)] border-[#333] text-gray-400"
                 }`}
               >
                 {!useProportionalCopy && <Check className="w-4 h-4" />}
@@ -267,7 +267,7 @@ export function SubscribeModal({
                     value={maxPositionSize}
                     onChange={(e) => setMaxPositionSize(e.target.value)}
                     placeholder="0"
-                    className="w-full bg-[#111] border border-[#333] rounded-lg px-3 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-green-500"
+                    className="w-full bg-[var(--sidebar-bg)] border border-[#333] rounded-lg px-3 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-green-500"
                   />
                 </div>
               </div>
@@ -283,7 +283,7 @@ export function SubscribeModal({
           )}
 
           {/* Info */}
-          <div className="p-3 bg-[#111] border border-[#1a1a1a] rounded-lg">
+          <div className="p-3 bg-[var(--sidebar-bg)] border border-[var(--card-bg)] rounded-lg">
             <p className="text-xs text-gray-400">
               By subscribing, you can copy this leader&apos;s trades.
               {useProportionalCopy
@@ -296,7 +296,7 @@ export function SubscribeModal({
         </div>
 
         {/* Footer */}
-        <div className="p-4 border-t border-[#1a1a1a]">
+        <div className="p-4 border-t border-[var(--card-bg)]">
           <button
             onClick={handleSubmit}
             disabled={isLoading || !allocationAmount || allocationNum < minFollow}

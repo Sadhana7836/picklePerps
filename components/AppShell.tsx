@@ -36,7 +36,7 @@ export function AppShell({ children }: AppShellProps) {
   }, [setSidebarOpen])
 
   return (
-    <div className="flex flex-col h-screen w-full overflow-hidden bg-[#0d0d0d]">
+    <div className="flex flex-col h-screen w-full overflow-hidden bg-[var(--background)]">
       <Navbar />
       <div className="flex flex-1 overflow-hidden">
         <LeftSidebar />
@@ -44,7 +44,7 @@ export function AppShell({ children }: AppShellProps) {
           {children}
         </div>
       </div>
-      <BottomBar />
+      {/* <BottomBar /> */}
 
       {/* Mint Token Modal - available on all pages */}
       {showMintModal && (

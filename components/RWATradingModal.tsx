@@ -73,11 +73,11 @@ export function RWATradingModal({ isOpen, onClose, asset }: RWATradingModalProps
       <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={onClose} />
 
       {/* Modal */}
-      <div className="relative bg-[#0d0d0d] border border-[#1a1a1a] rounded-xl w-full max-w-md mx-4 overflow-hidden">
+      <div className="relative bg-[var(--background)] border border-[var(--card-bg)] rounded-xl w-full max-w-md mx-4 overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-[#1a1a1a]">
+        <div className="flex items-center justify-between p-4 border-b border-[var(--card-bg)]">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-lg bg-[#1a1a1a] flex items-center justify-center border border-[#333] overflow-hidden">
+            <div className="w-12 h-12 rounded-lg bg-[var(--card-bg)] flex items-center justify-center border border-[#333] overflow-hidden">
               <Image
                 src={asset.image}
                 alt={asset.name}
@@ -103,7 +103,7 @@ export function RWATradingModal({ isOpen, onClose, asset }: RWATradingModalProps
         </div>
 
         {/* Price Display */}
-        <div className="p-4 border-b border-[#1a1a1a] bg-[#0a0a0a]">
+        <div className="p-4 border-b border-[var(--card-bg)] bg-[var(--sidebar-bg)]">
           <div className="flex items-center justify-between">
             <div>
               <span className="text-[#555] text-xs">Current Price</span>
@@ -116,7 +116,7 @@ export function RWATradingModal({ isOpen, onClose, asset }: RWATradingModalProps
                 )}
               </div>
             </div>
-            <div className={`flex items-center gap-1 ${change24h >= 0 ? "text-[#00d26a]" : "text-[#ff4757]"}`}>
+            <div className={`flex items-center gap-1 ${change24h >= 0 ? "text-[var(--accent-green)]" : "text-[var(--accent-red)]"}`}>
               {change24h >= 0 ? <TrendingUp className="w-4 h-4" /> : <TrendingDown className="w-4 h-4" />}
               <span className="font-medium">{change24h >= 0 ? "+" : ""}{change24h.toFixed(2)}%</span>
             </div>
@@ -135,8 +135,8 @@ export function RWATradingModal({ isOpen, onClose, asset }: RWATradingModalProps
               onClick={() => setIsLong(true)}
               className={`flex-1 py-3 rounded-lg font-semibold transition-all flex items-center justify-center gap-2 ${
                 isLong
-                  ? "bg-[#00d26a] text-black"
-                  : "bg-[#1a1a1a] text-[#555] hover:text-white hover:bg-[#252525]"
+                  ? "bg-[var(--accent-green)] text-black"
+                  : "bg-[var(--card-bg)] text-[#555] hover:text-white hover:bg-[var(--hover-bg)]"
               }`}
             >
               <TrendingUp className="w-4 h-4" />
@@ -146,8 +146,8 @@ export function RWATradingModal({ isOpen, onClose, asset }: RWATradingModalProps
               onClick={() => setIsLong(false)}
               className={`flex-1 py-3 rounded-lg font-semibold transition-all flex items-center justify-center gap-2 ${
                 !isLong
-                  ? "bg-[#ff4757] text-white"
-                  : "bg-[#1a1a1a] text-[#555] hover:text-white hover:bg-[#252525]"
+                  ? "bg-[var(--accent-red)] text-white"
+                  : "bg-[var(--card-bg)] text-[#555] hover:text-white hover:bg-[var(--hover-bg)]"
               }`}
             >
               <TrendingDown className="w-4 h-4" />
@@ -166,12 +166,12 @@ export function RWATradingModal({ isOpen, onClose, asset }: RWATradingModalProps
                 placeholder="0.01"
                 step="0.001"
                 min="0.001"
-                className="w-full bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg px-4 py-3 text-white placeholder-[#555] focus:outline-none focus:border-[#00d26a] transition-colors"
+                className="w-full bg-[var(--card-bg)] border border-[var(--card-border)] rounded-lg px-4 py-3 text-white placeholder-[#555] focus:outline-none focus:border-[var(--accent-green)] transition-colors"
               />
               {walletBalance && (
                 <button
                   onClick={() => setMargin(walletBalance)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-[#00d26a] hover:text-[#00e676]"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-[var(--accent-green)] hover:text-[var(--accent-green)]"
                 >
                   MAX
                 </button>
@@ -196,7 +196,7 @@ export function RWATradingModal({ isOpen, onClose, asset }: RWATradingModalProps
               max={asset.maxLeverage}
               value={leverage}
               onChange={(e) => setLeverage(parseInt(e.target.value))}
-              className="w-full accent-[#00d26a]"
+              className="w-full accent-[var(--accent-green)]"
             />
             <div className="flex justify-between text-xs text-[#555]">
               <span>1x</span>
@@ -206,7 +206,7 @@ export function RWATradingModal({ isOpen, onClose, asset }: RWATradingModalProps
 
           {/* Position Summary */}
           {marginNum > 0 && (
-            <div className="bg-[#1a1a1a] rounded-lg p-3 space-y-2">
+            <div className="bg-[var(--card-bg)] rounded-lg p-3 space-y-2">
               <div className="flex justify-between text-sm">
                 <span className="text-[#888]">Position Size</span>
                 <span className="text-white">${positionSize.toFixed(2)}</span>
@@ -217,7 +217,7 @@ export function RWATradingModal({ isOpen, onClose, asset }: RWATradingModalProps
               </div>
               <div className="flex justify-between text-sm">
                 <span className="text-[#888]">Liq. Price</span>
-                <span className="text-[#ff4757]">${liquidationPrice.toFixed(2)}</span>
+                <span className="text-[var(--accent-red)]">${liquidationPrice.toFixed(2)}</span>
               </div>
               <div className="flex justify-between text-sm">
                 <span className="text-[#888]">Trading Fee</span>
@@ -238,9 +238,9 @@ export function RWATradingModal({ isOpen, onClose, asset }: RWATradingModalProps
 
           {/* Error */}
           {error && (
-            <div className="flex items-start gap-2 bg-[#ff4757]/10 border border-[#ff4757]/30 rounded-lg p-3">
-              <AlertCircle className="w-4 h-4 text-[#ff4757] flex-shrink-0 mt-0.5" />
-              <span className="text-xs text-[#ff4757]">{error}</span>
+            <div className="flex items-start gap-2 bg-[var(--accent-red)]/10 border border-[var(--accent-red)]/30 rounded-lg p-3">
+              <AlertCircle className="w-4 h-4 text-[var(--accent-red)] flex-shrink-0 mt-0.5" />
+              <span className="text-xs text-[var(--accent-red)]">{error}</span>
             </div>
           )}
 
@@ -250,8 +250,8 @@ export function RWATradingModal({ isOpen, onClose, asset }: RWATradingModalProps
             disabled={state.isLoading || !margin}
             className={`w-full py-3 rounded-lg font-semibold transition-all flex items-center justify-center gap-2 ${
               isLong
-                ? "bg-[#00d26a] hover:bg-[#00e676] text-black"
-                : "bg-[#ff4757] hover:bg-[#ff5f6d] text-white"
+                ? "bg-[var(--accent-green)] hover:bg-[var(--accent-green)] text-black"
+                : "bg-[var(--accent-red)] hover:bg-[#ff5f6d] text-white"
             } disabled:opacity-50 disabled:cursor-not-allowed`}
           >
             {state.isLoading ? (
@@ -269,7 +269,7 @@ export function RWATradingModal({ isOpen, onClose, asset }: RWATradingModalProps
         </div>
 
         {/* Footer */}
-        <div className="px-4 py-3 border-t border-[#1a1a1a] bg-[#0a0a0a]">
+        <div className="px-4 py-3 border-t border-[var(--card-bg)] bg-[var(--sidebar-bg)]">
           <div className="flex items-center justify-center gap-2 text-[10px] text-[#555]">
             <span className="px-1.5 py-0.5 rounded bg-[#ffd700]/15 text-[#ffd700]">RWA Synthetic</span>
             <span>Trade {asset.name} without holding the underlying asset</span>

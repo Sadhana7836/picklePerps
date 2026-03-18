@@ -42,11 +42,11 @@ function PositionSuccessModal({
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={onClose} />
 
       {/* Modal */}
-      <div className="relative bg-[#1a1a1a] border border-[#2a2a2a] rounded-xl w-full max-w-sm mx-4 overflow-hidden">
+      <div className="relative bg-[var(--card-bg)] border border-[var(--card-border)] rounded-xl w-full max-w-sm mx-4 overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between px-4 py-3 border-b border-[#2a2a2a]">
+        <div className="flex items-center justify-between px-4 py-3 border-b border-[var(--card-border)]">
           <div className="flex items-center gap-2">
-            <CheckCircle className="w-5 h-5 text-[#00d26a]" />
+            <CheckCircle className="w-5 h-5 text-[var(--accent-green)]" />
             <span className="text-white font-medium">Position Opened</span>
           </div>
           <button
@@ -59,10 +59,10 @@ function PositionSuccessModal({
 
         {/* Position Card - Same style as token positions */}
         <div className="p-4">
-          <div className="bg-[#111] rounded-lg p-4 border border-[#2a2a2a]">
+          <div className="bg-[var(--sidebar-bg)] rounded-lg p-4 border border-[var(--card-border)]">
             {/* Position Type & Leverage */}
             <div className="flex items-center gap-2 mb-4">
-              <span className={`text-sm font-bold ${positionType === "Long" ? 'text-[#00d26a]' : 'text-[#ff4757]'}`}>
+              <span className={`text-sm font-bold ${positionType === "Long" ? 'text-[var(--accent-green)]' : 'text-[var(--accent-red)]'}`}>
                 {positionType.toUpperCase()}
               </span>
               <span className="text-[#888] text-sm">{leverage}x</span>
@@ -84,17 +84,17 @@ function PositionSuccessModal({
               </div>
               <div className="flex justify-between">
                 <span className="text-[#555]">Liquidation Price</span>
-                <span className="text-[#ff4757]">${liquidationPrice}</span>
+                <span className="text-[var(--accent-red)]">${liquidationPrice}</span>
               </div>
               <div className="flex justify-between border-t border-[#222] pt-2 mt-2">
                 <span className="text-[#555]">Unrealized PnL</span>
-                <span className="text-[#00d26a]">+$0.0000</span>
+                <span className="text-[var(--accent-green)]">+$0.0000</span>
               </div>
             </div>
           </div>
 
           {/* Asset Info */}
-          <div className="flex items-center gap-3 mt-4 p-3 bg-[#111] rounded-lg border border-[#2a2a2a]">
+          <div className="flex items-center gap-3 mt-4 p-3 bg-[var(--sidebar-bg)] rounded-lg border border-[var(--card-border)]">
             <Image
               src={asset.image}
               alt={asset.name}
@@ -117,7 +117,7 @@ function PositionSuccessModal({
         <div className="px-4 pb-4">
           <button
             onClick={onClose}
-            className="w-full py-2.5 bg-[#00d26a] hover:bg-[#00e676] text-black font-semibold rounded-lg transition-colors"
+            className="w-full py-2.5 bg-[var(--accent-green)] hover:bg-[var(--accent-green)] text-black font-semibold rounded-lg transition-colors"
           >
             Done
           </button>
@@ -221,11 +221,11 @@ export function RWATradingPanel({ asset }: RWATradingPanelProps) {
     : [2, 5, 10, 15, 20].filter(l => l <= asset.maxLeverage);
 
   return (
-    <div className="bg-[#1a1a1a] rounded-xl border border-[#2a2a2a] overflow-hidden m-2">
+    <div className="bg-[var(--card-bg)] rounded-xl border border-[var(--card-border)] overflow-hidden m-2">
       {/* Header */}
-      <div className="px-4 py-3 border-b border-[#2a2a2a]">
+      <div className="px-4 py-3 border-b border-[var(--card-border)]">
         <div className="flex items-center gap-2">
-          <div className="w-10 h-10 rounded-lg overflow-hidden bg-[#1a1a1a] flex items-center justify-center border border-[#333]">
+          <div className="w-10 h-10 rounded-lg overflow-hidden bg-[var(--card-bg)] flex items-center justify-center border border-[#333]">
             <Image
               src={asset.image}
               alt={asset.name}
@@ -258,12 +258,12 @@ export function RWATradingPanel({ asset }: RWATradingPanelProps) {
       )}
 
       {/* Long/Short Toggle */}
-      <div className="flex p-2 bg-[#0d0d0d]">
+      <div className="flex p-2 bg-[var(--background)]">
         <button
           onClick={() => setPositionType("Long")}
           className={`flex-1 py-2 rounded-lg text-sm font-medium transition-colors ${
             positionType === "Long"
-              ? "bg-[#00d26a] text-black"
+              ? "bg-[var(--accent-green)] text-black"
               : "text-[#555] hover:text-white"
           }`}
         >
@@ -273,7 +273,7 @@ export function RWATradingPanel({ asset }: RWATradingPanelProps) {
           onClick={() => setPositionType("Short")}
           className={`flex-1 py-2 rounded-lg text-sm font-medium transition-colors ${
             positionType === "Short"
-              ? "bg-[#ff4757] text-white"
+              ? "bg-[var(--accent-red)] text-white"
               : "text-[#555] hover:text-white"
           }`}
         >
@@ -292,8 +292,8 @@ export function RWATradingPanel({ asset }: RWATradingPanelProps) {
                 onClick={() => setOrderType(type as "Market" | "Limit")}
                 className={`px-3 py-1 rounded text-xs ${
                   orderType === type
-                    ? "bg-[#00d26a] text-black"
-                    : "bg-[#0d0d0d] text-[#555] hover:text-white"
+                    ? "bg-[var(--accent-green)] text-black"
+                    : "bg-[var(--background)] text-[#555] hover:text-white"
                 }`}
               >
                 {type}
@@ -314,7 +314,7 @@ export function RWATradingPanel({ asset }: RWATradingPanelProps) {
             max={asset.maxLeverage}
             value={leverage}
             onChange={(e) => setLeverage(Number(e.target.value))}
-            className="w-full h-1.5 bg-[#0d0d0d] rounded-lg appearance-none cursor-pointer accent-[#00d26a]"
+            className="w-full h-1.5 bg-[var(--background)] rounded-lg appearance-none cursor-pointer accent-[var(--accent-green)]"
           />
           <div className="flex gap-2 mt-2">
             {leverageButtons.map((lev) => (
@@ -323,8 +323,8 @@ export function RWATradingPanel({ asset }: RWATradingPanelProps) {
                 onClick={() => setLeverage(lev)}
                 className={`flex-1 py-1 rounded text-xs transition-colors ${
                   leverage === lev
-                    ? "bg-[#00d26a] text-black"
-                    : "bg-[#0d0d0d] border border-[#2a2a2a] text-[#555] hover:border-[#00d26a] hover:text-white"
+                    ? "bg-[var(--accent-green)] text-black"
+                    : "bg-[var(--background)] border border-[var(--card-border)] text-[#555] hover:border-[var(--accent-green)] hover:text-white"
                 }`}
               >
                 {lev}x
@@ -344,12 +344,12 @@ export function RWATradingPanel({ asset }: RWATradingPanelProps) {
               placeholder="0.01"
               step="0.001"
               min="0.001"
-              className="w-full px-3 py-2.5 bg-[#0d0d0d] border border-[#2a2a2a] rounded-lg text-white text-sm placeholder-[#555] focus:outline-none focus:border-[#00d26a]"
+              className="w-full px-3 py-2.5 bg-[var(--background)] border border-[var(--card-border)] rounded-lg text-white text-sm placeholder-[#555] focus:outline-none focus:border-[var(--accent-green)]"
             />
             {walletBalance && (
               <button
                 onClick={() => setAmount(walletBalance)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-[#00d26a] text-xs hover:text-[#00e676]"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--accent-green)] text-xs hover:text-[var(--accent-green)]"
               >
                 MAX
               </button>
@@ -364,7 +364,7 @@ export function RWATradingPanel({ asset }: RWATradingPanelProps) {
 
         {/* Position Preview */}
         {amount && parseFloat(amount) > 0 && (
-          <div className="bg-[#0d0d0d] rounded-lg p-3 space-y-2">
+          <div className="bg-[var(--background)] rounded-lg p-3 space-y-2">
             <div className="flex justify-between text-sm">
               <span className="text-[#555]">Position Size</span>
               <span className="text-white font-medium">
@@ -377,7 +377,7 @@ export function RWATradingPanel({ asset }: RWATradingPanelProps) {
             </div>
             <div className="flex justify-between text-sm">
               <span className="text-[#555]">Liquidation Price</span>
-              <span className="text-[#ff4757]">~{liquidationPercent}% from entry</span>
+              <span className="text-[var(--accent-red)]">~{liquidationPercent}% from entry</span>
             </div>
             <div className="flex justify-between text-sm">
               <span className="text-[#555]">Fee (0.1%)</span>
@@ -393,7 +393,7 @@ export function RWATradingPanel({ asset }: RWATradingPanelProps) {
             <div
               onClick={() => setTpSlEnabled(!tpSlEnabled)}
               className={`w-4 h-4 rounded border-2 flex items-center justify-center transition-colors ${
-                tpSlEnabled ? 'bg-[#00d26a] border-[#00d26a]' : 'border-[#444] bg-transparent'
+                tpSlEnabled ? 'bg-[var(--accent-green)] border-[var(--accent-green)]' : 'border-[#444] bg-transparent'
               }`}
             >
               {tpSlEnabled && (
@@ -415,14 +415,14 @@ export function RWATradingPanel({ asset }: RWATradingPanelProps) {
                   value={takeProfit}
                   onChange={(e) => setTakeProfit(e.target.value)}
                   placeholder="Price"
-                  className="flex-1 min-w-0 px-2 py-1.5 bg-[#0d0d0d] border border-[#2a2a2a] rounded text-white text-xs placeholder-[#555] focus:outline-none focus:border-[#00d26a]"
+                  className="flex-1 min-w-0 px-2 py-1.5 bg-[var(--background)] border border-[var(--card-border)] rounded text-white text-xs placeholder-[#555] focus:outline-none focus:border-[var(--accent-green)]"
                 />
                 <input
                   type="text"
                   value={tpGain}
                   onChange={(e) => setTpGain(e.target.value)}
                   placeholder="+$"
-                  className="w-16 px-2 py-1.5 bg-[#0d0d0d] border border-[#2a2a2a] rounded text-white text-xs placeholder-[#555] focus:outline-none focus:border-[#00d26a]"
+                  className="w-16 px-2 py-1.5 bg-[var(--background)] border border-[var(--card-border)] rounded text-white text-xs placeholder-[#555] focus:outline-none focus:border-[var(--accent-green)]"
                 />
               </div>
             </div>
@@ -434,14 +434,14 @@ export function RWATradingPanel({ asset }: RWATradingPanelProps) {
                   value={stopLoss}
                   onChange={(e) => setStopLoss(e.target.value)}
                   placeholder="Price"
-                  className="flex-1 min-w-0 px-2 py-1.5 bg-[#0d0d0d] border border-[#2a2a2a] rounded text-white text-xs placeholder-[#555] focus:outline-none focus:border-[#ff4757]"
+                  className="flex-1 min-w-0 px-2 py-1.5 bg-[var(--background)] border border-[var(--card-border)] rounded text-white text-xs placeholder-[#555] focus:outline-none focus:border-[var(--accent-red)]"
                 />
                 <input
                   type="text"
                   value={slLoss}
                   onChange={(e) => setSlLoss(e.target.value)}
                   placeholder="-$"
-                  className="w-16 px-2 py-1.5 bg-[#0d0d0d] border border-[#2a2a2a] rounded text-white text-xs placeholder-[#555] focus:outline-none focus:border-[#ff4757]"
+                  className="w-16 px-2 py-1.5 bg-[var(--background)] border border-[var(--card-border)] rounded text-white text-xs placeholder-[#555] focus:outline-none focus:border-[var(--accent-red)]"
                 />
               </div>
             </div>
@@ -450,9 +450,9 @@ export function RWATradingPanel({ asset }: RWATradingPanelProps) {
 
         {/* Error Message */}
         {tradeError && (
-          <div className="flex items-start gap-2 bg-[#ff4757]/10 border border-[#ff4757]/30 rounded-lg p-2.5">
-            <AlertCircle className="w-4 h-4 text-[#ff4757] flex-shrink-0 mt-0.5" />
-            <span className="text-xs text-[#ff4757]">{tradeError}</span>
+          <div className="flex items-start gap-2 bg-[var(--accent-red)]/10 border border-[var(--accent-red)]/30 rounded-lg p-2.5">
+            <AlertCircle className="w-4 h-4 text-[var(--accent-red)] flex-shrink-0 mt-0.5" />
+            <span className="text-xs text-[var(--accent-red)]">{tradeError}</span>
           </div>
         )}
 
@@ -463,8 +463,8 @@ export function RWATradingPanel({ asset }: RWATradingPanelProps) {
           disabled={isLoading || !address}
           className={`w-full py-2.5 rounded-lg font-bold text-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 ${
             positionType === "Long"
-              ? "bg-[#00d26a] hover:bg-[#00e676] text-black"
-              : "bg-[#ff4757] hover:bg-[#ff5a67] text-white"
+              ? "bg-[var(--accent-green)] hover:bg-[var(--accent-green)] text-black"
+              : "bg-[var(--accent-red)] hover:bg-[#ff5a67] text-white"
           }`}
         >
           {isLoading ? (
@@ -478,7 +478,7 @@ export function RWATradingPanel({ asset }: RWATradingPanelProps) {
         </button>
 
         {/* RWA Info */}
-        <div className="pt-3 border-t border-[#2a2a2a] space-y-2">
+        <div className="pt-3 border-t border-[var(--card-border)] space-y-2">
           <div className="flex justify-between text-xs">
             <span className="text-[#555]">Max Leverage</span>
             <span className="text-white">{asset.maxLeverage}x</span>

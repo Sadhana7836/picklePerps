@@ -50,5 +50,4 @@ next-env.d.ts
 # scripts
 /scripts
 
-# bot farm (contains private keys)
-/bot-farm
+/private-testing

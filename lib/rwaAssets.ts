@@ -207,9 +207,9 @@ export const CATEGORY_CONFIG = {
   },
   equity: {
     label: "Equity",
-    color: "text-[#00d26a]",
-    bgColor: "bg-[#00d26a]/15",
-    borderColor: "border-[#00d26a]/30",
+    color: "text-[var(--accent-green)]",
+    bgColor: "bg-[var(--accent-green)]/15",
+    borderColor: "border-[var(--accent-green)]/30",
   },
 } as const;
 

@@ -1,22 +1,22 @@
 // Centralized theme constants
 export const colors = {
   // Primary colors
-  primary: "#00d26a",
-  primaryHover: "#00e676",
-  primaryDark: "#00b35a",
+  primary: "#2E8B57",
+  primaryHover: "#3AA86A",
+  primaryDark: "#236B44",
 
   // Accent colors
   accent: "#2962ff",
   accentHover: "#3d72ff",
 
   // Status colors
-  success: "#00d26a",
+  success: "#2E8B57",
   error: "#ff4757",
   warning: "#ffc107",
   info: "#00bfff",
 
   // Background colors
-  bgDark: "#0a0a0a",
+  bgDark: "#111111",
   bgCard: "#0d0d0d",
   bgElevated: "#111111",
   bgHover: "#1a1a1a",

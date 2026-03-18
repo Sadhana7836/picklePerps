@@ -211,14 +211,14 @@ export function TokenDetailPage({ token, onBack }: TokenDetailPageProps) {
   const candleGap = Math.max(1, candleWidth * 0.3);
 
   return (
-    <div className="flex-1 flex flex-col h-full overflow-hidden bg-[#0a0a0a]">
+    <div className="flex-1 flex flex-col h-full overflow-hidden bg-[var(--sidebar-bg)]">
       {/* Token Header */}
-      <div className="flex items-center justify-between px-4 py-2 border-b border-[#1a1a1a] bg-[#0d0d0d]">
+      <div className="flex items-center justify-between px-4 py-2 border-b border-[var(--card-bg)] bg-[var(--background)]">
         <div className="flex items-center gap-3">
-          <button onClick={onBack} className="p-1.5 hover:bg-[#1a1a1a] rounded-lg transition-colors">
+          <button onClick={onBack} className="p-1.5 hover:bg-[var(--card-bg)] rounded-lg transition-colors">
             <ArrowLeft className="w-5 h-5 text-[#888] hover:text-white" />
           </button>
-          <div className="w-8 h-8 rounded-lg overflow-hidden bg-[#1a1a1a] flex items-center justify-center">
+          <div className="w-8 h-8 rounded-lg overflow-hidden bg-[var(--card-bg)] flex items-center justify-center">
             {token.image ? (
               <IPFSImage src={token.image} alt={token.name} width={32} height={32} className="w-full h-full object-cover" fallback={<span className="text-xl">🪙</span>} />
             ) : (
@@ -228,10 +228,10 @@ export function TokenDetailPage({ token, onBack }: TokenDetailPageProps) {
           <div>
             <div className="flex items-center gap-2">
               <span className="text-white font-bold">{token.name}</span>
-              <span className="text-[#00d26a] text-xs bg-[#00d26a]/10 px-1.5 py-0.5 rounded">PERP</span>
+              <span className="text-[var(--accent-green)] text-xs bg-[var(--accent-green)]/10 px-1.5 py-0.5 rounded">PERP</span>
               <button
                 onClick={() => window.open(`https://stellar.expert/explorer/testnet/contract/${token.id}`, '_blank', 'noopener,noreferrer')}
-                className="hover:bg-[#1a1a1a] p-0.5 rounded transition-colors"
+                className="hover:bg-[var(--card-bg)] p-0.5 rounded transition-colors"
                 title="View on Block Explorer"
               >
                 <ExternalLink className="w-3.5 h-3.5 text-[#555] hover:text-white cursor-pointer" />
@@ -239,7 +239,7 @@ export function TokenDetailPage({ token, onBack }: TokenDetailPageProps) {
               {token.websiteUrl && (
                 <button
                   onClick={() => window.open(token.websiteUrl, '_blank', 'noopener,noreferrer')}
-                  className="hover:bg-[#1a1a1a] p-0.5 rounded transition-colors"
+                  className="hover:bg-[var(--card-bg)] p-0.5 rounded transition-colors"
                   title="Website"
                 >
                   <Globe className="w-3.5 h-3.5 text-[#555] hover:text-[#00bfff] cursor-pointer" />
@@ -253,7 +253,7 @@ export function TokenDetailPage({ token, onBack }: TokenDetailPageProps) {
                       : `https://x.com/${token.twitterUrl!.replace(/^@/, '')}`;
                     window.open(url, '_blank', 'noopener,noreferrer');
                   }}
-                  className="hover:bg-[#1a1a1a] p-0.5 rounded transition-colors"
+                  className="hover:bg-[var(--card-bg)] p-0.5 rounded transition-colors"
                   title="X"
                 >
                   <svg
@@ -273,7 +273,7 @@ export function TokenDetailPage({ token, onBack }: TokenDetailPageProps) {
                       : `https://t.me/${token.telegramUrl!.replace(/^@/, '')}`;
                     window.open(url, '_blank', 'noopener,noreferrer');
                   }}
-                  className="hover:bg-[#1a1a1a] p-0.5 rounded transition-colors"
+                  className="hover:bg-[var(--card-bg)] p-0.5 rounded transition-colors"
                   title="Telegram"
                 >
                   <Send className="w-3.5 h-3.5 text-[#555] hover:text-[#0088cc] cursor-pointer" />
@@ -294,7 +294,7 @@ export function TokenDetailPage({ token, onBack }: TokenDetailPageProps) {
             <div><span className="text-[#555]">24h High</span><p className="text-white">--</p></div>
             <div><span className="text-[#555]">24h Low</span><p className="text-white">--</p></div>
             <div><span className="text-[#555]">24h Vol</span><p className="text-white">--</p></div>
-            <div><span className="text-[#555]">MC</span><p className="text-[#00d26a]">{token.marketCap}</p></div>
+            <div><span className="text-[#555]">MC</span><p className="text-[var(--accent-green)]">{token.marketCap}</p></div>
           </div>
         </div>
       </div>
@@ -304,7 +304,7 @@ export function TokenDetailPage({ token, onBack }: TokenDetailPageProps) {
         {/* Chart Section */}
         <div className="flex-1 flex flex-col min-w-0">
           {/* Chart Header Bar */}
-          <div className="flex items-center justify-between px-3 py-1.5 border-b border-[#1a1a1a] bg-[#0d0d0d]">
+          <div className="flex items-center justify-between px-3 py-1.5 border-b border-[var(--card-bg)] bg-[var(--background)]">
             <div className="flex items-center gap-3">
               {/* Timeframe buttons */}
               <div className="flex items-center gap-0.5">
@@ -313,7 +313,7 @@ export function TokenDetailPage({ token, onBack }: TokenDetailPageProps) {
                     key={tf}
                     onClick={() => setTimeframe(tf)}
                     className={`px-2 py-1 text-xs rounded ${
-                      timeframe === tf ? "bg-[#2962ff] text-white" : "text-[#888] hover:text-white hover:bg-[#1a1a1a]"
+                      timeframe === tf ? "bg-[#2962ff] text-white" : "text-[#888] hover:text-white hover:bg-[var(--card-bg)]"
                     }`}
                   >
                     {tf}
@@ -321,7 +321,7 @@ export function TokenDetailPage({ token, onBack }: TokenDetailPageProps) {
                 ))}
               </div>
               <span className="text-[#333]">|</span>
-              <div className="flex items-center bg-[#1a1a1a] rounded text-xs">
+              <div className="flex items-center bg-[var(--card-bg)] rounded text-xs">
                 <button
                   onClick={() => setChartType("candles")}
                   className={`px-2 py-1 rounded-l flex items-center gap-1 ${chartType === "candles" ? "bg-[#2962ff] text-white" : "text-[#888]"}`}
@@ -339,7 +339,7 @@ export function TokenDetailPage({ token, onBack }: TokenDetailPageProps) {
 
             <div className="flex items-center gap-2">
               {/* Price/MCap toggle */}
-              <div className="flex items-center bg-[#1a1a1a] rounded text-xs">
+              <div className="flex items-center bg-[var(--card-bg)] rounded text-xs">
                 <button
                   onClick={() => setPriceMode("Price")}
                   className={`px-2 py-1 rounded-l ${priceMode === "Price" ? "bg-[#2962ff] text-white" : "text-[#888]"}`}
@@ -354,7 +354,7 @@ export function TokenDetailPage({ token, onBack }: TokenDetailPageProps) {
                 </button>
               </div>
               {/* Currency toggle */}
-              <div className="flex items-center bg-[#1a1a1a] rounded text-xs">
+              <div className="flex items-center bg-[var(--card-bg)] rounded text-xs">
                 <button
                   onClick={() => setCurrencyMode("USD")}
                   className={`px-2 py-1 rounded-l ${currencyMode === "USD" ? "bg-[#2962ff] text-white" : "text-[#888]"}`}
@@ -374,15 +374,15 @@ export function TokenDetailPage({ token, onBack }: TokenDetailPageProps) {
           </div>
 
           {/* OHLC Info Bar */}
-          <div className="flex items-center gap-4 px-3 py-1 border-b border-[#1a1a1a] bg-[#0a0a0a] text-xs">
+          <div className="flex items-center gap-4 px-3 py-1 border-b border-[var(--card-bg)] bg-[var(--sidebar-bg)] text-xs">
             <span className="text-[#888]">{token.name}/USD • {timeframe} • PicklePerps</span>
             {displayCandle && (
               <>
                 <span className="text-[#888]">O<span className="text-white ml-1">{formatPrice(displayCandle.open)}</span></span>
-                <span className="text-[#888]">H<span className="text-[#00d26a] ml-1">{formatPrice(displayCandle.high)}</span></span>
-                <span className="text-[#888]">L<span className="text-[#ff4757] ml-1">{formatPrice(displayCandle.low)}</span></span>
+                <span className="text-[#888]">H<span className="text-[var(--accent-green)] ml-1">{formatPrice(displayCandle.high)}</span></span>
+                <span className="text-[#888]">L<span className="text-[var(--accent-red)] ml-1">{formatPrice(displayCandle.low)}</span></span>
                 <span className="text-[#888]">C<span className="text-white ml-1">{formatPrice(displayCandle.close)}</span></span>
-                <span className={priceChange >= 0 ? "text-[#00d26a]" : "text-[#ff4757]"}>
+                <span className={priceChange >= 0 ? "text-[var(--accent-green)]" : "text-[var(--accent-red)]"}>
                   {priceChange >= 0 ? "+" : ""}{priceChange.toFixed(2)}%
                 </span>
               </>
@@ -393,13 +393,13 @@ export function TokenDetailPage({ token, onBack }: TokenDetailPageProps) {
           {/* Chart Container */}
           <div className="flex-1 flex">
             {/* Drawing Tools Sidebar */}
-            <div className="w-10 bg-[#0d0d0d] border-r border-[#1a1a1a] flex flex-col items-center py-2 gap-1">
+            <div className="w-10 bg-[var(--background)] border-r border-[var(--card-bg)] flex flex-col items-center py-2 gap-1">
               {drawingTools.map((tool) => (
                 <button
                   key={tool.name}
                   onClick={() => setSelectedTool(tool.name)}
-                  className={`p-2 rounded hover:bg-[#1a1a1a] transition-colors ${
-                    selectedTool === tool.name ? "bg-[#1a1a1a] text-white" : "text-[#555]"
+                  className={`p-2 rounded hover:bg-[var(--card-bg)] transition-colors ${
+                    selectedTool === tool.name ? "bg-[var(--card-bg)] text-white" : "text-[#555]"
                   }`}
                   title={tool.name}
                 >
@@ -407,7 +407,7 @@ export function TokenDetailPage({ token, onBack }: TokenDetailPageProps) {
                 </button>
               ))}
               <div className="flex-1" />
-              <button className="p-2 rounded hover:bg-[#1a1a1a] text-[#555]" title="More">
+              <button className="p-2 rounded hover:bg-[var(--card-bg)] text-[#555]" title="More">
                 <MoreHorizontal className="w-4 h-4" />
               </button>
             </div>
@@ -416,7 +416,7 @@ export function TokenDetailPage({ token, onBack }: TokenDetailPageProps) {
             <div className="flex-1 flex flex-col">
               <div
                 ref={chartRef}
-                className="flex-1 relative bg-[#0a0a0a] select-none overflow-hidden"
+                className="flex-1 relative bg-[var(--sidebar-bg)] select-none overflow-hidden"
                 style={{ height: chartHeight }}
                 onWheel={handleWheel}
                 onMouseDown={handleMouseDown}
@@ -431,7 +431,7 @@ export function TokenDetailPage({ token, onBack }: TokenDetailPageProps) {
                       y1={`${(i / 7) * 85 + 5}%`}
                       x2="100%"
                       y2={`${(i / 7) * 85 + 5}%`}
-                      stroke="#1a1a1a"
+                      stroke="var(--card-bg)"
                       strokeWidth="1"
                     />
                   ))}
@@ -443,14 +443,14 @@ export function TokenDetailPage({ token, onBack }: TokenDetailPageProps) {
                       y1="5%"
                       x2={`${40 + (i * 10 / visibleData.length) * (100 - 8)}%`}
                       y2="90%"
-                      stroke="#1a1a1a"
+                      stroke="var(--card-bg)"
                       strokeWidth="1"
                     />
                   ))}
                 </svg>
 
                 {/* Price Scale (Right) */}
-                <div className="absolute right-0 top-0 bottom-12 w-16 bg-[#0d0d0d] border-l border-[#1a1a1a] flex flex-col justify-between py-4 text-[10px] text-[#888] z-10">
+                <div className="absolute right-0 top-0 bottom-12 w-16 bg-[var(--background)] border-l border-[var(--card-bg)] flex flex-col justify-between py-4 text-[10px] text-[#888] z-10">
                   {[...Array(8)].map((_, i) => (
                     <span key={i} className="text-right pr-2">{formatPrice(maxPrice - (priceRange * i / 7))}</span>
                   ))}
@@ -462,12 +462,12 @@ export function TokenDetailPage({ token, onBack }: TokenDetailPageProps) {
                     className="absolute left-10 right-16 border-t border-dashed z-10"
                     style={{
                       top: `${5 + ((maxPrice - currentCandle.close) / priceRange) * 85}%`,
-                      borderColor: currentCandle.close >= currentCandle.open ? '#00d26a' : '#ff4757',
+                      borderColor: currentCandle.close >= currentCandle.open ? 'var(--accent-green)' : '#ff4757',
                     }}
                   >
                     <span
                       className="absolute right-0 -top-2.5 text-[10px] px-2 py-0.5 rounded text-white font-medium"
-                      style={{ backgroundColor: currentCandle.close >= currentCandle.open ? '#00d26a' : '#ff4757' }}
+                      style={{ backgroundColor: currentCandle.close >= currentCandle.open ? 'var(--accent-green)' : '#ff4757' }}
                     >
                       {formatPrice(currentCandle.close)}
                     </span>
@@ -476,14 +476,14 @@ export function TokenDetailPage({ token, onBack }: TokenDetailPageProps) {
 
                 {/* Loading State */}
                 {isLoadingChart && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-[#0a0a0a]/80 z-20">
+                  <div className="absolute inset-0 flex items-center justify-center bg-[var(--sidebar-bg)]/80 z-20">
                     <div className="text-[#888] text-sm">Loading chart data...</div>
                   </div>
                 )}
 
                 {/* Empty State */}
                 {!isLoadingChart && (!candleData || candleData.length === 0) && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-[#0a0a0a]/80 z-20">
+                  <div className="absolute inset-0 flex items-center justify-center bg-[var(--sidebar-bg)]/80 z-20">
                     <div className="text-center">
                       <div className="text-[#888] text-sm mb-2">No trading data available</div>
                       <div className="text-[#555] text-xs">Price data will appear after first trade</div>
@@ -520,7 +520,7 @@ export function TokenDetailPage({ token, onBack }: TokenDetailPageProps) {
                                 width: 1,
                                 top: `${wickTop}%`,
                                 height: `${wickHeight}%`,
-                                backgroundColor: isGreen ? '#00d26a' : '#ff4757',
+                                backgroundColor: isGreen ? 'var(--accent-green)' : '#ff4757',
                               }}
                             />
                             {/* Body */}
@@ -530,8 +530,8 @@ export function TokenDetailPage({ token, onBack }: TokenDetailPageProps) {
                                 width: candleWidth,
                                 top: `${bodyTop}%`,
                                 height: `${Math.max(bodyHeight, 0.3)}%`,
-                                backgroundColor: isGreen ? '#00d26a' : '#ff4757',
-                                boxShadow: hoveredCandle === i ? `0 0 8px ${isGreen ? '#00d26a' : '#ff4757'}40` : 'none',
+                                backgroundColor: isGreen ? 'var(--accent-green)' : '#ff4757',
+                                boxShadow: hoveredCandle === i ? `0 0 8px ${isGreen ? 'var(--accent-green)' : '#ff4757'}40` : 'none',
                               }}
                             />
                           </div>
@@ -637,7 +637,7 @@ export function TokenDetailPage({ token, onBack }: TokenDetailPageProps) {
                         const isUpTrend = visibleData.length > 1
                           ? visibleData[visibleData.length - 1].close >= visibleData[0].close
                           : true; // Default to green for single point
-                        const lineColor = isUpTrend ? '#00d26a' : '#ff4757';
+                        const lineColor = isUpTrend ? 'var(--accent-green)' : '#ff4757';
 
                         return (
                           <>
@@ -648,9 +648,9 @@ export function TokenDetailPage({ token, onBack }: TokenDetailPageProps) {
                             >
                               <defs>
                                 <linearGradient id="graphGradientUp" x1="0%" y1="0%" x2="0%" y2="100%">
-                                  <stop offset="0%" stopColor="#00d26a" stopOpacity="0.3" />
-                                  <stop offset="50%" stopColor="#00d26a" stopOpacity="0.1" />
-                                  <stop offset="100%" stopColor="#00d26a" stopOpacity="0" />
+                                  <stop offset="0%" stopColor="var(--accent-green)" stopOpacity="0.3" />
+                                  <stop offset="50%" stopColor="var(--accent-green)" stopOpacity="0.1" />
+                                  <stop offset="100%" stopColor="var(--accent-green)" stopOpacity="0" />
                                 </linearGradient>
                                 <linearGradient id="graphGradientDown" x1="0%" y1="0%" x2="0%" y2="100%">
                                   <stop offset="0%" stopColor="#ff4757" stopOpacity="0.3" />
@@ -726,7 +726,7 @@ export function TokenDetailPage({ token, onBack }: TokenDetailPageProps) {
                 )}
 
                 {/* Time Scale (Bottom) */}
-                <div className="absolute left-10 right-16 bottom-0 h-6 flex items-center border-t border-[#1a1a1a] bg-[#0d0d0d]">
+                <div className="absolute left-10 right-16 bottom-0 h-6 flex items-center border-t border-[var(--card-bg)] bg-[var(--background)]">
                   {visibleData.filter((_, i) => i % Math.floor(visibleData.length / 6) === 0).map((candle, i) => (
                     <span
                       key={i}
@@ -739,20 +739,20 @@ export function TokenDetailPage({ token, onBack }: TokenDetailPageProps) {
                 </div>
 
                 {/* Zoom Controls */}
-                <div className="absolute right-20 bottom-14 flex items-center gap-1 bg-[#1a1a1a] rounded-lg p-1 z-10">
-                  <button onClick={handleZoomOut} className="p-1 hover:bg-[#252525] rounded" title="Zoom Out">
+                <div className="absolute right-20 bottom-14 flex items-center gap-1 bg-[var(--card-bg)] rounded-lg p-1 z-10">
+                  <button onClick={handleZoomOut} className="p-1 hover:bg-[var(--hover-bg)] rounded" title="Zoom Out">
                     <Minus className="w-3 h-3 text-[#888]" />
                   </button>
-                  <button onClick={handleResetZoom} className="p-1 hover:bg-[#252525] rounded" title="Reset">
+                  <button onClick={handleResetZoom} className="p-1 hover:bg-[var(--hover-bg)] rounded" title="Reset">
                     <RotateCcw className="w-3 h-3 text-[#888]" />
                   </button>
-                  <button onClick={handleZoomIn} className="p-1 hover:bg-[#252525] rounded" title="Zoom In">
+                  <button onClick={handleZoomIn} className="p-1 hover:bg-[var(--hover-bg)] rounded" title="Zoom In">
                     <Plus className="w-3 h-3 text-[#888]" />
                   </button>
                 </div>
 
                 {/* Fullscreen button */}
-                <button className="absolute right-20 top-2 p-1.5 bg-[#1a1a1a] hover:bg-[#252525] rounded z-10">
+                <button className="absolute right-20 top-2 p-1.5 bg-[var(--card-bg)] hover:bg-[var(--hover-bg)] rounded z-10">
                   <Expand className="w-3.5 h-3.5 text-[#888]" />
                 </button>
               </div>
@@ -760,7 +760,7 @@ export function TokenDetailPage({ token, onBack }: TokenDetailPageProps) {
               {/* Resize Handle */}
               <div
                 onMouseDown={handleResizeStart}
-                className="h-1.5 bg-[#0d0d0d] border-y border-[#1a1a1a] cursor-row-resize flex items-center justify-center hover:bg-[#1a1a1a] transition-colors"
+                className="h-1.5 bg-[var(--background)] border-y border-[var(--card-bg)] cursor-row-resize flex items-center justify-center hover:bg-[var(--card-bg)] transition-colors"
               >
                 <GripHorizontal className="w-4 h-4 text-[#333]" />
               </div>
@@ -768,8 +768,8 @@ export function TokenDetailPage({ token, onBack }: TokenDetailPageProps) {
           </div>
 
           {/* Bottom Tabs */}
-          <div className="flex-1 flex flex-col min-h-0 border-t border-[#1a1a1a] max-h-[200px]">
-            <div className="flex items-center gap-4 px-4 py-2 border-b border-[#1a1a1a] bg-[#0d0d0d]">
+          <div className="flex-1 flex flex-col min-h-0 border-t border-[var(--card-bg)] max-h-[200px]">
+            <div className="flex items-center gap-4 px-4 py-2 border-b border-[var(--card-bg)] bg-[var(--background)]">
               {["Trades", "Positions", "Top Traders", "Order Book", "Info"].map((tab) => (
                 <button
                   key={tab}
@@ -817,7 +817,7 @@ export function TokenDetailPage({ token, onBack }: TokenDetailPageProps) {
               {activeTab === "Order Book" && <div className="flex items-center justify-center h-full text-[#555] text-sm py-8">Order book coming soon</div>}
               {activeTab === "Info" && (
                 <div className="p-4 text-xs space-y-2">
-                  <div className="flex justify-between"><span className="text-[#555]">Contract</span><span className="text-[#00d26a]">{token.walletAddress || "0x1234...5678"}</span></div>
+                  <div className="flex justify-between"><span className="text-[#555]">Contract</span><span className="text-[var(--accent-green)]">{token.walletAddress || "0x1234...5678"}</span></div>
                   <div className="flex justify-between"><span className="text-[#555]">Holders</span><span className="text-white">{token.holders || 0}</span></div>
                   <div className="flex justify-between"><span className="text-[#555]">Transactions</span><span className="text-white">{token.transactions || 0}</span></div>
                 </div>
@@ -827,15 +827,15 @@ export function TokenDetailPage({ token, onBack }: TokenDetailPageProps) {
         </div>
 
         {/* Trading Panel */}
-        <div className="w-[340px] border-l border-[#1a1a1a] flex flex-col bg-[#0d0d0d]">
+        <div className="w-[340px] border-l border-[var(--card-bg)] flex flex-col bg-[var(--background)]">
           {/* Spot/Perps Toggle */}
-          <div className="flex bg-[#0a0a0a] p-1 border-b border-[#1a1a1a]">
+          <div className="flex bg-[var(--sidebar-bg)] p-1 border-b border-[var(--card-bg)]">
             <button
               onClick={() => setTradingMode("spot")}
               disabled={!curveData?.isListed}
               className={`flex-1 py-2 rounded-lg text-sm font-medium transition-colors ${
                 tradingMode === "spot"
-                  ? "bg-[#00d26a] text-black"
+                  ? "bg-[var(--accent-green)] text-black"
                   : "text-[#555] hover:text-white disabled:opacity-30 disabled:cursor-not-allowed"
               }`}
             >

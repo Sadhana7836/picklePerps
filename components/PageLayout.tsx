@@ -30,7 +30,7 @@ export function PageLayout({ children, title, showBackButton = true }: PageLayou
           {shouldShowBack && (
             <button
               onClick={handleBack}
-              className="flex items-center justify-center w-8 h-8 bg-[#1a1a1a] hover:bg-[#252525] border border-[#333] rounded-lg transition-colors"
+              className="flex items-center justify-center w-8 h-8 bg-[var(--card-bg)] hover:bg-[var(--hover-bg)] border border-[#333] rounded-lg transition-colors"
             >
               <ArrowLeft className="w-4 h-4 text-gray-400" />
             </button>

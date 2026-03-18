@@ -19,13 +19,13 @@ export const RWACard = memo(function RWACard({ asset, onClick }: RWACardProps) {
   return (
     <div
       onClick={() => onClick?.(asset)}
-      className="bg-[#0d0d0d] border border-[#1a1a1a] rounded-lg p-3 hover:bg-[#111] hover:border-[#252525] transition-all cursor-pointer group"
+      className="bg-[var(--background)] border border-[var(--card-bg)] rounded-lg p-3 hover:bg-[var(--sidebar-bg)] hover:border-[var(--hover-bg)] transition-all cursor-pointer group"
     >
       {/* Main Content Row */}
       <div className="flex items-start gap-3">
         {/* Asset Icon */}
         <div className="relative flex-shrink-0">
-          <div className="w-14 h-14 rounded-lg overflow-hidden bg-[#1a1a1a] flex items-center justify-center border border-[#333]">
+          <div className="w-14 h-14 rounded-lg overflow-hidden bg-[var(--card-bg)] flex items-center justify-center border border-[#333]">
             <Image
               src={asset.image}
               alt={asset.name}
@@ -36,7 +36,7 @@ export const RWACard = memo(function RWACard({ asset, onClick }: RWACardProps) {
             />
           </div>
           {/* Live indicator */}
-          <div className={`absolute -bottom-0.5 -right-0.5 rounded-full w-2.5 h-2.5 border border-[#0d0d0d] ${isLive ? 'bg-[#00d26a] animate-pulse' : 'bg-[#ff8c00]'}`}></div>
+          <div className={`absolute -bottom-0.5 -right-0.5 rounded-full w-2.5 h-2.5 border border-[var(--background)] ${isLive ? 'bg-[var(--card-green)] animate-pulse' : 'bg-[#ff8c00]'}`}></div>
         </div>
 
         {/* Asset Info - Middle Section */}
@@ -68,7 +68,7 @@ export const RWACard = memo(function RWACard({ asset, onClick }: RWACardProps) {
         {/* Right Side - Price & Change */}
         <div className="text-right flex-shrink-0 space-y-1">
           <div className="text-white text-sm font-medium">${price}</div>
-          <div className={`flex items-center gap-0.5 justify-end text-sm ${isPositive ? 'text-[#00d26a]' : 'text-[#ff4757]'}`}>
+          <div className={`flex items-center gap-0.5 justify-end text-sm ${isPositive ? 'text-[var(--card-green)]' : 'text-[var(--accent-red)]'}`}>
             {isPositive ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
             <span className="font-medium">{isPositive ? '+' : ''}{change24h.toFixed(2)}%</span>
           </div>
@@ -102,7 +102,7 @@ export const RWACard = memo(function RWACard({ asset, onClick }: RWACardProps) {
               e.stopPropagation();
               onClick?.(asset);
             }}
-            className="text-[10px] px-2 py-0.5 rounded bg-[#00d26a]/20 text-[#00d26a] hover:bg-[#00d26a]/30 transition-colors font-medium"
+            className="text-[10px] px-2 py-0.5 rounded bg-[var(--card-green)]/20 text-[var(--card-green)] hover:bg-[var(--card-green)]/30 transition-colors font-medium"
           >
             Long
           </button>
@@ -111,7 +111,7 @@ export const RWACard = memo(function RWACard({ asset, onClick }: RWACardProps) {
               e.stopPropagation();
               onClick?.(asset);
             }}
-            className="text-[10px] px-2 py-0.5 rounded bg-[#ff4757]/20 text-[#ff4757] hover:bg-[#ff4757]/30 transition-colors font-medium"
+            className="text-[10px] px-2 py-0.5 rounded bg-[var(--accent-red)]/20 text-[var(--accent-red)] hover:bg-[var(--accent-red)]/30 transition-colors font-medium"
           >
             Short
           </button>

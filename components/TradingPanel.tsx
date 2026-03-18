@@ -64,9 +64,9 @@ export function TradingPanel({ tokenAddress, tokenSymbol, tokenPrice }: TradingP
   const isLoading = state.isLoading || isProcessing;
 
   return (
-    <div className="bg-[#1a1a1a] rounded-xl border border-[#2a2a2a] overflow-hidden m-2">
+    <div className="bg-[var(--card-bg)] rounded-xl border border-[var(--card-border)] overflow-hidden m-2">
       {/* Header */}
-      <div className="px-4 py-3 border-b border-[#2a2a2a]">
+      <div className="px-4 py-3 border-b border-[var(--card-border)]">
         <h3 className="text-white font-semibold">Perpetual Trading</h3>
         <p className="text-[#555] text-xs mt-0.5">
           Trade {tokenSymbol} with up to {TRADING.MAX_LEVERAGE}x leverage
@@ -74,12 +74,12 @@ export function TradingPanel({ tokenAddress, tokenSymbol, tokenPrice }: TradingP
       </div>
 
       {/* Long/Short Toggle */}
-      <div className="flex p-2 bg-[#0d0d0d]">
+      <div className="flex p-2 bg-[var(--background)]">
         <button
           onClick={() => setPositionType("Long")}
           className={`flex-1 py-2 rounded-lg text-sm font-medium transition-colors ${
             positionType === "Long"
-              ? "bg-[#00d26a] text-black"
+              ? "bg-[var(--accent-green)] text-black"
               : "text-[#555] hover:text-white"
           }`}
         >
@@ -89,7 +89,7 @@ export function TradingPanel({ tokenAddress, tokenSymbol, tokenPrice }: TradingP
           onClick={() => setPositionType("Short")}
           className={`flex-1 py-2 rounded-lg text-sm font-medium transition-colors ${
             positionType === "Short"
-              ? "bg-[#ff4757] text-white"
+              ? "bg-[var(--accent-red)] text-white"
               : "text-[#555] hover:text-white"
           }`}
         >
@@ -108,8 +108,8 @@ export function TradingPanel({ tokenAddress, tokenSymbol, tokenPrice }: TradingP
                 onClick={() => setOrderType(type as "Market" | "Limit")}
                 className={`px-3 py-1 rounded text-xs ${
                   orderType === type
-                    ? "bg-[#00d26a] text-black"
-                    : "bg-[#0d0d0d] text-[#555] hover:text-white"
+                    ? "bg-[var(--accent-green)] text-black"
+                    : "bg-[var(--background)] text-[#555] hover:text-white"
                 }`}
               >
                 {type}
@@ -130,7 +130,7 @@ export function TradingPanel({ tokenAddress, tokenSymbol, tokenPrice }: TradingP
             max={TRADING.MAX_LEVERAGE}
             value={leverage}
             onChange={(e) => setLeverage(Number(e.target.value))}
-            className="w-full h-1.5 bg-[#0d0d0d] rounded-lg appearance-none cursor-pointer accent-[#00d26a]"
+            className="w-full h-1.5 bg-[var(--background)] rounded-lg appearance-none cursor-pointer accent-[var(--accent-green)]"
           />
           <div className="flex gap-2 mt-2">
             {[5, 10, 25, 50, 100].map((lev) => (
@@ -139,8 +139,8 @@ export function TradingPanel({ tokenAddress, tokenSymbol, tokenPrice }: TradingP
                 onClick={() => setLeverage(lev)}
                 className={`flex-1 py-1 rounded text-xs transition-colors ${
                   leverage === lev
-                    ? "bg-[#00d26a] text-black"
-                    : "bg-[#0d0d0d] border border-[#2a2a2a] text-[#555] hover:border-[#00d26a] hover:text-white"
+                    ? "bg-[var(--accent-green)] text-black"
+                    : "bg-[var(--background)] border border-[var(--card-border)] text-[#555] hover:border-[var(--accent-green)] hover:text-white"
                 }`}
               >
                 {lev}x
@@ -165,7 +165,7 @@ export function TradingPanel({ tokenAddress, tokenSymbol, tokenPrice }: TradingP
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
               placeholder="0.00"
-              className="w-full px-3 py-2.5 pr-16 bg-[#0d0d0d] border border-[#2a2a2a] rounded-lg text-white text-sm placeholder-[#555] focus:outline-none focus:border-[#00d26a]"
+              className="w-full px-3 py-2.5 pr-16 bg-[var(--background)] border border-[var(--card-border)] rounded-lg text-white text-sm placeholder-[#555] focus:outline-none focus:border-[var(--accent-green)]"
             />
             <button
               onClick={() => {
@@ -175,7 +175,7 @@ export function TradingPanel({ tokenAddress, tokenSymbol, tokenPrice }: TradingP
                   setAmount(maxAmount.toFixed(6));
                 }
               }}
-              className="absolute right-2 top-1/2 -translate-y-1/2 px-2 py-1 bg-[#00d26a]/20 hover:bg-[#00d26a]/30 text-[#00d26a] text-xs font-medium rounded transition-colors"
+              className="absolute right-2 top-1/2 -translate-y-1/2 px-2 py-1 bg-[var(--accent-green)]/20 hover:bg-[var(--accent-green)]/30 text-[var(--accent-green)] text-xs font-medium rounded transition-colors"
             >
               MAX
             </button>
@@ -190,7 +190,7 @@ export function TradingPanel({ tokenAddress, tokenSymbol, tokenPrice }: TradingP
                     setAmount((maxAmount * pct / 100).toFixed(6));
                   }
                 }}
-                className="flex-1 py-1 bg-[#0d0d0d] border border-[#2a2a2a] rounded text-[#555] text-xs hover:border-[#00d26a] hover:text-white transition-colors"
+                className="flex-1 py-1 bg-[var(--background)] border border-[var(--card-border)] rounded text-[#555] text-xs hover:border-[var(--accent-green)] hover:text-white transition-colors"
               >
                 {pct}%
               </button>
@@ -200,7 +200,7 @@ export function TradingPanel({ tokenAddress, tokenSymbol, tokenPrice }: TradingP
 
         {/* Position Preview */}
         {amount && parseFloat(amount) > 0 && (
-          <div className="bg-[#0d0d0d] rounded-lg p-3 space-y-2">
+          <div className="bg-[var(--background)] rounded-lg p-3 space-y-2">
             <div className="flex justify-between text-sm">
               <span className="text-[#555]">Position Size</span>
               <span className="text-white font-medium">
@@ -213,7 +213,7 @@ export function TradingPanel({ tokenAddress, tokenSymbol, tokenPrice }: TradingP
             </div>
             <div className="flex justify-between text-sm">
               <span className="text-[#555]">Liquidation Price</span>
-              <span className="text-[#ff4757]">~{(100 / leverage).toFixed(1)}% from entry</span>
+              <span className="text-[var(--accent-red)]">~{(100 / leverage).toFixed(1)}% from entry</span>
             </div>
             <div className="flex justify-between text-sm">
               <span className="text-[#555]">Fee ({(TRADING.FEE_PERCENTAGE * 100).toFixed(2)}%)</span>
@@ -229,7 +229,7 @@ export function TradingPanel({ tokenAddress, tokenSymbol, tokenPrice }: TradingP
             <div
               onClick={() => setTpSlEnabled(!tpSlEnabled)}
               className={`w-4 h-4 rounded border-2 flex items-center justify-center transition-colors ${
-                tpSlEnabled ? 'bg-[#00d26a] border-[#00d26a]' : 'border-[#444] bg-transparent'
+                tpSlEnabled ? 'bg-[var(--accent-green)] border-[var(--accent-green)]' : 'border-[#444] bg-transparent'
               }`}
             >
               {tpSlEnabled && (
@@ -251,14 +251,14 @@ export function TradingPanel({ tokenAddress, tokenSymbol, tokenPrice }: TradingP
                   value={takeProfit}
                   onChange={(e) => setTakeProfit(e.target.value)}
                   placeholder="Price"
-                  className="flex-1 min-w-0 px-2 py-1.5 bg-[#0d0d0d] border border-[#2a2a2a] rounded text-white text-xs placeholder-[#555] focus:outline-none focus:border-[#00d26a]"
+                  className="flex-1 min-w-0 px-2 py-1.5 bg-[var(--background)] border border-[var(--card-border)] rounded text-white text-xs placeholder-[#555] focus:outline-none focus:border-[var(--accent-green)]"
                 />
                 <input
                   type="text"
                   value={tpGain}
                   onChange={(e) => setTpGain(e.target.value)}
                   placeholder="+$"
-                  className="w-16 px-2 py-1.5 bg-[#0d0d0d] border border-[#2a2a2a] rounded text-white text-xs placeholder-[#555] focus:outline-none focus:border-[#00d26a]"
+                  className="w-16 px-2 py-1.5 bg-[var(--background)] border border-[var(--card-border)] rounded text-white text-xs placeholder-[#555] focus:outline-none focus:border-[var(--accent-green)]"
                 />
               </div>
             </div>
@@ -270,14 +270,14 @@ export function TradingPanel({ tokenAddress, tokenSymbol, tokenPrice }: TradingP
                   value={stopLoss}
                   onChange={(e) => setStopLoss(e.target.value)}
                   placeholder="Price"
-                  className="flex-1 min-w-0 px-2 py-1.5 bg-[#0d0d0d] border border-[#2a2a2a] rounded text-white text-xs placeholder-[#555] focus:outline-none focus:border-[#ff4757]"
+                  className="flex-1 min-w-0 px-2 py-1.5 bg-[var(--background)] border border-[var(--card-border)] rounded text-white text-xs placeholder-[#555] focus:outline-none focus:border-[var(--accent-red)]"
                 />
                 <input
                   type="text"
                   value={slLoss}
                   onChange={(e) => setSlLoss(e.target.value)}
                   placeholder="-$"
-                  className="w-16 px-2 py-1.5 bg-[#0d0d0d] border border-[#2a2a2a] rounded text-white text-xs placeholder-[#555] focus:outline-none focus:border-[#ff4757]"
+                  className="w-16 px-2 py-1.5 bg-[var(--background)] border border-[var(--card-border)] rounded text-white text-xs placeholder-[#555] focus:outline-none focus:border-[var(--accent-red)]"
                 />
               </div>
             </div>
@@ -290,8 +290,8 @@ export function TradingPanel({ tokenAddress, tokenSymbol, tokenPrice }: TradingP
           disabled={isLoading || !address}
           className={`w-full py-2.5 rounded-lg font-bold text-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed ${
             positionType === "Long"
-              ? "bg-[#00d26a] hover:bg-[#00e676] text-black"
-              : "bg-[#ff4757] hover:bg-[#ff5a67] text-white"
+              ? "bg-[var(--accent-green)] hover:bg-[var(--accent-green)] text-black"
+              : "bg-[var(--accent-red)] hover:bg-[#ff5a67] text-white"
           }`}
         >
           {isLoading
@@ -300,14 +300,14 @@ export function TradingPanel({ tokenAddress, tokenSymbol, tokenPrice }: TradingP
         </button>
 
         {/* Position Stats */}
-        <div className="pt-3 border-t border-[#2a2a2a] space-y-2">
+        <div className="pt-3 border-t border-[var(--card-border)] space-y-2">
           <div className="flex justify-between text-xs">
             <span className="text-[#555]">Max Leverage</span>
             <span className="text-white">{TRADING.MAX_LEVERAGE}x</span>
           </div>
           <div className="flex justify-between text-xs">
             <span className="text-[#555]">Funding Rate</span>
-            <span className="text-[#00d26a]">0.01%/8h</span>
+            <span className="text-[var(--accent-green)]">0.01%/8h</span>
           </div>
           <div className="flex justify-between text-xs">
             <span className="text-[#555]">Open Interest</span>

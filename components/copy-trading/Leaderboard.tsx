@@ -46,7 +46,7 @@ export function Leaderboard({
 
   if (!isDeployed) {
     return (
-      <div className="bg-[#0d0d0d] border border-[#1a1a1a] rounded-lg p-8 text-center">
+      <div className="bg-[var(--background)] border border-[var(--card-bg)] rounded-lg p-8 text-center">
         <Trophy className="w-12 h-12 mx-auto text-gray-600 mb-4" />
         <h3 className="text-lg font-medium text-white mb-2">Copy Trading Coming Soon</h3>
         <p className="text-sm text-gray-400">
@@ -65,7 +65,7 @@ export function Leaderboard({
           <h2 className="text-lg font-semibold text-white">
             {onlyRegisteredLeaders ? "Copy Leaders" : "Top Traders"}
           </h2>
-          <span className="text-xs text-gray-500 bg-[#1a1a1a] px-2 py-0.5 rounded">
+          <span className="text-xs text-gray-500 bg-[var(--card-bg)] px-2 py-0.5 rounded">
             {stats.totalLeaders} {onlyRegisteredLeaders ? "leaders" : "traders"}
           </span>
         </div>
@@ -81,7 +81,7 @@ export function Leaderboard({
           <button
             onClick={() => setShowFilters(!showFilters)}
             className={`p-2 rounded transition-colors ${
-              showFilters ? "bg-[#1a1a1a] text-white" : "text-gray-400 hover:text-white"
+              showFilters ? "bg-[var(--card-bg)] text-white" : "text-gray-400 hover:text-white"
             }`}
           >
             <Filter className="w-4 h-4" />
@@ -91,7 +91,7 @@ export function Leaderboard({
 
       {/* Filters */}
       {showFilters && (
-        <div className="bg-[#0d0d0d] border border-[#1a1a1a] rounded-lg p-4 space-y-4">
+        <div className="bg-[var(--background)] border border-[var(--card-bg)] rounded-lg p-4 space-y-4">
           {/* Sort Options */}
           <div>
             <label className="text-xs text-gray-400 block mb-2">Sort By</label>
@@ -103,7 +103,7 @@ export function Leaderboard({
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded text-xs transition-colors ${
                     filters.sortBy === option.value
                       ? "bg-green-600 text-white"
-                      : "bg-[#1a1a1a] text-gray-400 hover:text-white"
+                      : "bg-[var(--card-bg)] text-gray-400 hover:text-white"
                   }`}
                 >
                   {option.icon}
@@ -136,24 +136,24 @@ export function Leaderboard({
       {isLoading && leaders.length === 0 ? (
         <div className="space-y-3">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="bg-[#0d0d0d] border border-[#1a1a1a] rounded-lg p-4 animate-pulse">
+            <div key={i} className="bg-[var(--background)] border border-[var(--card-bg)] rounded-lg p-4 animate-pulse">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-[#1a1a1a] rounded-full" />
+                <div className="w-10 h-10 bg-[var(--card-bg)] rounded-full" />
                 <div className="space-y-2 flex-1">
-                  <div className="h-4 bg-[#1a1a1a] rounded w-24" />
-                  <div className="h-3 bg-[#1a1a1a] rounded w-16" />
+                  <div className="h-4 bg-[var(--card-bg)] rounded w-24" />
+                  <div className="h-3 bg-[var(--card-bg)] rounded w-16" />
                 </div>
               </div>
             </div>
           ))}
         </div>
       ) : displayedLeaders.length === 0 ? (
-        <div className="bg-[#0d0d0d] border border-[#1a1a1a] rounded-lg p-6">
+        <div className="bg-[var(--background)] border border-[var(--card-bg)] rounded-lg p-6">
           <div className="flex items-start gap-6">
             {/* Left - Empty State */}
             <div className="flex-1">
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 bg-[#1a1a1a] rounded-full flex items-center justify-center">
+                <div className="w-12 h-12 bg-[var(--card-bg)] rounded-full flex items-center justify-center">
                   <Users className="w-6 h-6 text-gray-500" />
                 </div>
                 <div>
@@ -165,7 +165,7 @@ export function Leaderboard({
             </div>
 
             {/* Right - How It Works */}
-            <div className="w-72 bg-[#111] border border-[#1a1a1a] rounded-lg p-4">
+            <div className="w-72 bg-[var(--sidebar-bg)] border border-[var(--card-bg)] rounded-lg p-4">
               <h4 className="text-sm font-medium text-white mb-3">How It Works</h4>
               <div className="space-y-3">
                 <div className="flex items-start gap-3">
