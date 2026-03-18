@@ -82,14 +82,14 @@ export const Navbar = memo(function Navbar() {
         {/* Logo */}
         <Link href="/" onClick={() => setSelectedToken(null)} className="flex items-center gap-2 hover:opacity-80 transition-opacity group">
           <Image
-            src="/pickle-perps-logo.png"
-            alt="StellaPerps - Decentralized perpetual trading platform"
+            src="/pike-perps-logo.png"
+            alt="PicklePerps - Decentralized perpetual trading platform"
             width={36}
             height={36}
             className="object-contain transition-transform group-hover:scale-105 pt-1"
             priority
           />
-          <span className="text-white text-base lg:text-lg font-bold hidden sm:inline">StellaPerps</span>
+          <span className="text-white text-base lg:text-lg font-bold hidden sm:inline">PicklePerps</span>
         </Link>
 
         {/* Nav Links - hidden on mobile, visible on larger screens */}
