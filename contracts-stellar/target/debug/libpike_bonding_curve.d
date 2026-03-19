@@ -1,1 +1,0 @@
-/home/sounak/programming/stellar/pickleperps/PikePerps/contracts-stellar/target/debug/libpike_bonding_curve.so: /home/sounak/programming/stellar/pickleperps/PikePerps/contracts-stellar/bonding_curve/src/lib.rs

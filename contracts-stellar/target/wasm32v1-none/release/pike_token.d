@@ -1,1 +1,0 @@
-/home/sounak/programming/stellar/pickleperps/PikePerps/contracts-stellar/target/wasm32v1-none/release/pike_token.wasm: /home/sounak/programming/stellar/pickleperps/PikePerps/contracts-stellar/pike_token/src/lib.rs

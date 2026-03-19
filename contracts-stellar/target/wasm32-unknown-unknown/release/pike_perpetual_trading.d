@@ -1,1 +1,0 @@
-/home/debanjannn/Downloads/PikePerps/contracts-stellar/target/wasm32-unknown-unknown/release/pike_perpetual_trading.wasm: /home/debanjannn/Downloads/PikePerps/contracts-stellar/perpetual_trading/src/lib.rs

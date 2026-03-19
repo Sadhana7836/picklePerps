@@ -1,5 +1,0 @@
-/home/sounak/programming/stellar/pickleperps/PikePerps/contracts-stellar/target/debug/deps/darling_macro-a3ed7623c8512cec.d: /home/sounak/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/darling_macro-0.21.3/src/lib.rs
-
-/home/sounak/programming/stellar/pickleperps/PikePerps/contracts-stellar/target/debug/deps/libdarling_macro-a3ed7623c8512cec.so: /home/sounak/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/darling_macro-0.21.3/src/lib.rs
-
-/home/sounak/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/darling_macro-0.21.3/src/lib.rs:
