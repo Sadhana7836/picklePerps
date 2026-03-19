@@ -113,6 +113,11 @@ class TokenCreationService {
         telegram: event.value?.telegram || '',
       };
 
+      // Reject tokens with missing critical fields (event data incomplete)
+      if (!token.tokenAddress || !token.name || !token.symbol) {
+        return null;
+      }
+
       return token;
     } catch (error) {
       console.error("[TokenCreation] Failed to parse event:", error);

@@ -99,7 +99,7 @@ export function MintTokenForm() {
     return (
       <div className="flex flex-col items-center justify-center p-8 bg-[var(--sidebar-bg)] border border-[var(--card-bg)] rounded-lg">
         <div className="w-12 h-12 rounded-full bg-[var(--card-bg)] border border-[#222] flex items-center justify-center mb-4">
-          <span className="text-xl font-bold text-[var(--accent-green)]">+</span>
+          <span className="text-xl font-bold text-[var(--accent-primary)]">+</span>
         </div>
         <h3 className="text-base font-semibold text-white mb-1">Connect Wallet</h3>
         <p className="text-[#666] text-xs text-center">Connect wallet to create tokens</p>
@@ -112,8 +112,8 @@ export function MintTokenForm() {
     return (
       <div className="bg-[var(--sidebar-bg)] border border-[var(--card-bg)] rounded-lg p-8">
         <div className="flex flex-col items-center">
-          <div className="w-14 h-14 rounded-full bg-[var(--accent-green)]/20 flex items-center justify-center mb-4">
-            <CheckCircle2 className="w-7 h-7 text-[var(--accent-green)]" />
+          <div className="w-14 h-14 rounded-full bg-[var(--accent-primary)]/20 flex items-center justify-center mb-4">
+            <CheckCircle2 className="w-7 h-7 text-[var(--accent-primary)]" />
           </div>
           <h3 className="text-white font-semibold text-lg mb-1">Token Created!</h3>
           <p className="text-[#888] text-sm">{success}</p>
@@ -127,7 +127,7 @@ export function MintTokenForm() {
     return (
       <div className="bg-[var(--sidebar-bg)] border border-[var(--card-bg)] rounded-lg p-8">
         <div className="flex flex-col items-center">
-          <Loader2 className="w-10 h-10 text-[var(--accent-green)] animate-spin mb-4" />
+          <Loader2 className="w-10 h-10 text-[var(--accent-primary)] animate-spin mb-4" />
           <p className="text-white font-medium">
             {step === "uploading" ? "Uploading to IPFS..." : "Creating token..."}
           </p>
@@ -151,7 +151,7 @@ export function MintTokenForm() {
         </div>
         <div className="bg-[var(--sidebar-bg)] border border-[var(--card-bg)] rounded-lg p-4">
           <p className="text-xs text-[#666] mb-1">Your Tokens</p>
-          <p className="text-lg font-bold text-[var(--accent-green)]">{data.myTokens.length}</p>
+          <p className="text-lg font-bold text-[var(--accent-primary)]">{data.myTokens.length}</p>
         </div>
       </div>
 
@@ -167,7 +167,7 @@ export function MintTokenForm() {
             <input type="file" accept="image/*" onChange={handleImageChange} className="hidden" id="image-upload" />
             <label
               htmlFor="image-upload"
-              className="w-24 h-24 rounded-lg bg-[var(--background)] border-2 border-dashed border-[#222] flex items-center justify-center cursor-pointer hover:border-[var(--accent-green)]/50 overflow-hidden flex-shrink-0 transition-colors"
+              className="w-24 h-24 rounded-lg bg-[var(--background)] border-2 border-dashed border-[#222] flex items-center justify-center cursor-pointer hover:border-[var(--accent-primary)]/50 overflow-hidden flex-shrink-0 transition-colors"
             >
               {imagePreview ? (
                 <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
@@ -181,7 +181,7 @@ export function MintTokenForm() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Token Name"
-                className="w-full px-4 py-2.5 bg-[var(--background)] border border-[#222] rounded-lg text-sm text-white placeholder-[#444] focus:outline-none focus:border-[var(--accent-green)]/50"
+                className="w-full px-4 py-2.5 bg-[var(--background)] border border-[#222] rounded-lg text-sm text-white placeholder-[#444] focus:outline-none focus:border-[var(--accent-primary)]/50"
                 required
               />
               <input
@@ -190,7 +190,7 @@ export function MintTokenForm() {
                 onChange={(e) => setSymbol(e.target.value.toUpperCase())}
                 placeholder="SYMBOL"
                 maxLength={10}
-                className="w-full px-4 py-2.5 bg-[var(--background)] border border-[#222] rounded-lg text-sm text-white placeholder-[#444] focus:outline-none focus:border-[var(--accent-green)]/50"
+                className="w-full px-4 py-2.5 bg-[var(--background)] border border-[#222] rounded-lg text-sm text-white placeholder-[#444] focus:outline-none focus:border-[var(--accent-primary)]/50"
                 required
               />
             </div>
@@ -204,7 +204,7 @@ export function MintTokenForm() {
               value={totalSupply}
               onChange={(e) => setTotalSupply(e.target.value)}
               placeholder="1000000000"
-              className="w-full px-4 py-2.5 bg-[var(--background)] border border-[#222] rounded-lg text-sm text-white placeholder-[#444] focus:outline-none focus:border-[var(--accent-green)]/50"
+              className="w-full px-4 py-2.5 bg-[var(--background)] border border-[#222] rounded-lg text-sm text-white placeholder-[#444] focus:outline-none focus:border-[var(--accent-primary)]/50"
               required
             />
           </div>
@@ -221,7 +221,7 @@ export function MintTokenForm() {
                 value={website}
                 onChange={(e) => setWebsite(e.target.value)}
                 placeholder="https://yourtoken.com"
-                className="w-full pl-10 pr-4 py-2.5 bg-[var(--background)] border border-[#222] rounded-lg text-sm text-white placeholder-[#444] focus:outline-none focus:border-[var(--accent-green)]/50"
+                className="w-full pl-10 pr-4 py-2.5 bg-[var(--background)] border border-[#222] rounded-lg text-sm text-white placeholder-[#444] focus:outline-none focus:border-[var(--accent-primary)]/50"
               />
             </div>
 
@@ -235,7 +235,7 @@ export function MintTokenForm() {
                 value={twitter}
                 onChange={(e) => setTwitter(e.target.value)}
                 placeholder="@yourtoken or https://x.com/yourtoken"
-                className="w-full pl-10 pr-4 py-2.5 bg-[var(--background)] border border-[#222] rounded-lg text-sm text-white placeholder-[#444] focus:outline-none focus:border-[var(--accent-green)]/50"
+                className="w-full pl-10 pr-4 py-2.5 bg-[var(--background)] border border-[#222] rounded-lg text-sm text-white placeholder-[#444] focus:outline-none focus:border-[var(--accent-primary)]/50"
               />
             </div>
 
@@ -247,7 +247,7 @@ export function MintTokenForm() {
                 value={telegram}
                 onChange={(e) => setTelegram(e.target.value)}
                 placeholder="@yourtoken or https://t.me/yourtoken"
-                className="w-full pl-10 pr-4 py-2.5 bg-[var(--background)] border border-[#222] rounded-lg text-sm text-white placeholder-[#444] focus:outline-none focus:border-[var(--accent-green)]/50"
+                className="w-full pl-10 pr-4 py-2.5 bg-[var(--background)] border border-[#222] rounded-lg text-sm text-white placeholder-[#444] focus:outline-none focus:border-[var(--accent-primary)]/50"
               />
             </div>
           </div>
