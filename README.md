@@ -2,11 +2,23 @@
 
 A high-speed perpetual trading platform for tokens and real-world assets on Stellar Network. Web interface, CLI, and Terminal UI - built for traders who need speed.
 
+![Trenches - Token List](public/readme-image/image.png)
+
 ## Why PicklePerps
 
 Most DEXs are slow. Heavy frontends, laggy charts, delayed execution. By the time your trade goes through, the price has moved.
 
 PicklePerps fixes that. Fast execution, real-time charts, and a terminal UI for traders who need speed. You can wait 2 seconds to cross the road - but not when you're trading perps.
+
+## Screenshots
+
+| Token Trading | Token Creation |
+|:---:|:---:|
+| ![Trading](public/readme-image/image%20copy.png) | ![Create Token](public/readme-image/image%20copy%202.png) |
+
+| Portfolio | System Monitor |
+|:---:|:---:|
+| ![Portfolio](public/readme-image/image%20copy%204.png) | ![Monitor](public/readme-image/image%20copy%203.png) |
 
 ## Features
 
@@ -76,10 +88,10 @@ PnL = positionSize * leverage * (currentPrice - entryPrice) / entryPrice
 
 | Contract | Address |
 |----------|---------|
-| TokenFactory | `CASR366SHQINAHN4J5R6NYATEJFD2V6IPGVW5M5XWIBECHCOM2BIFBE7` |
-| BondingCurve | `CBHWDHR5KKV6QRSWNSUA37W4O3XO5LJGLONVHXHIPPNVXMBQAONPP6YU` |
-| PerpetualTrading | `CC6RDU5HIWOER4FIKL5QWD3TZWOBZRT7NQ2QSQAVPTBHQ5ZGA4PERIMP` |
-| PikeToken | `CBZATY6XAZ4FI6DHJT6IQDEKS6MJMUAIYBOMOYYQ2EWSTSRIAA47NWU3` |
+| TokenFactory | `CBE2O7ZNTL5YYDWA2DERTZZGLD2Y26DZPBS4UQG3AFKAKAHAYS7CIBC2` |
+| BondingCurve | `CAYFHHMOOUKN3TR7OUPNDA7HDVFURQY4BYB2UYWP3JSEHZXGKVTTU36E` |
+| PerpetualTrading | `CCPRQDXBRZYXNPLXAOEMXABMN6KCRRGNLL7FBRYNTKS576PEB35QXME5` |
+| PikeToken | `CBBLCH7N4QPAQZPSOOD3ECCV4UPFEGIUEEVSDWZA5OX6MDNJ5PE7S476` |
 
 See [CONTRACTS.md](CONTRACTS.md) for full details and explorer links.
 

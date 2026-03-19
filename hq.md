@@ -2,7 +2,7 @@
 
 ## Description
 
-PicklePerps is a high-speed perpetual trading platform on Stellar L2 that combines meme token creation with leveraged trading for both crypto and real-world assets. It provides bonding curve AMM for instant token liquidity, up to 100x leverage on perpetuals, RWA trading via Pyth oracles, and copy trading infrastructure - all accessible through web, CLI, and terminal UI.
+PicklePerps is a high-speed perpetual trading platform on Stellar Network (Soroban) that combines meme token creation with leveraged trading for both crypto and real-world assets. It provides bonding curve AMM for instant token liquidity, up to 100x leverage on perpetuals, RWA trading via Pyth oracles, and copy trading infrastructure - all accessible through web, CLI, and terminal UI.
 
 
 ## The Solution
@@ -61,15 +61,14 @@ Liquidation (Short) = entryPrice * (1 + 1/leverage)
 
 ## Smart Contracts
 
-Deployed on Stellar Testnet Testnet (Chain ID: 5003).
+Deployed on Stellar Testnet (Soroban).
 
 | Contract | Address | Explorer |
 |----------|---------|----------|
-| MemeTokenFactoryV3 | `0x083c920Eb055997a4becf51d9854dCd441a40b3E` | [View](https://explorer.sepolia.mantle.xyz/address/0x083c920Eb055997a4becf51d9854dCd441a40b3E) |
-| BondingCurveMarket | `0x93b268325A9862645c82b32229f3B52264750Ca2` | [View](https://explorer.sepolia.mantle.xyz/address/0x93b268325A9862645c82b32229f3B52264750Ca2) |
-| PerpetualTrading | `0x8081b646f349c049f2d5e8a400057d411dd657bd` | [View](https://explorer.sepolia.mantle.xyz/address/0x8081b646f349c049f2d5e8a400057d411dd657bd) |
-| CopyTrading | `0x03f0b1dd70d5ad5c46fa8084965ccb5f89d9242c` | [View](https://explorer.sepolia.mantle.xyz/address/0x03f0b1dd70d5ad5c46fa8084965ccb5f89d9242c) |
-| Protocol Treasury | `0x844dAea3090440468AC4B0654743ae10B99083cC` | [View](https://explorer.sepolia.mantle.xyz/address/0x844dAea3090440468AC4B0654743ae10B99083cC) |
+| TokenFactory | `CBE2O7ZNTL5YYDWA2DERTZZGLD2Y26DZPBS4UQG3AFKAKAHAYS7CIBC2` | [View](https://stellar.expert/explorer/testnet/contract/CBE2O7ZNTL5YYDWA2DERTZZGLD2Y26DZPBS4UQG3AFKAKAHAYS7CIBC2) |
+| BondingCurve | `CAYFHHMOOUKN3TR7OUPNDA7HDVFURQY4BYB2UYWP3JSEHZXGKVTTU36E` | [View](https://stellar.expert/explorer/testnet/contract/CAYFHHMOOUKN3TR7OUPNDA7HDVFURQY4BYB2UYWP3JSEHZXGKVTTU36E) |
+| PerpetualTrading | `CCPRQDXBRZYXNPLXAOEMXABMN6KCRRGNLL7FBRYNTKS576PEB35QXME5` | [View](https://stellar.expert/explorer/testnet/contract/CCPRQDXBRZYXNPLXAOEMXABMN6KCRRGNLL7FBRYNTKS576PEB35QXME5) |
+| PikeToken | `CBBLCH7N4QPAQZPSOOD3ECCV4UPFEGIUEEVSDWZA5OX6MDNJ5PE7S476` | [View](https://stellar.expert/explorer/testnet/contract/CBBLCH7N4QPAQZPSOOD3ECCV4UPFEGIUEEVSDWZA5OX6MDNJ5PE7S476) |
 
 
 ## Supported Assets
@@ -128,7 +127,7 @@ Full trading terminal rendered in the command line for traders who need speed an
 
 ## Progress During Hackathon
 
-A complete perpetual trading infrastructure for Stellar featuring five deployed smart contracts (MemeTokenFactoryV3, BondingCurveMarket, PerpetualTrading, RWAPerpetualTrading, CopyTrading), a Next.js 15 web application with real-time trading panels and candlestick charts, a globally installable CLI with encrypted wallet management, a terminal UI for keyboard-driven trading, Pyth Network oracle integration for 15+ RWA assets, and a Goldsky-indexed subgraph with GraphQL API for historical data and analytics.
+A complete perpetual trading infrastructure for Stellar featuring four deployed Soroban smart contracts (TokenFactory, BondingCurve, PerpetualTrading, PikeToken), a Next.js 15 web application with real-time trading panels and candlestick charts, a globally installable CLI with encrypted wallet management, a terminal UI for keyboard-driven trading, and Soroban RPC event polling for real-time data indexing.
 
 
 ## Fundraising Status
@@ -146,7 +145,4 @@ We are seeking seed funding to conduct professional security audits of our smart
 
 ## Contract Addresses
 
-0x083c920Eb055997a4becf51d9854dCd441a40b3E, 0x93b268325A9862645c82b32229f3B52264750Ca2, 0x8081b646f349c049f2d5e8a400057d411dd657bd, 0x03f0b1dd70d5ad5c46fa8084965ccb5f89d9242c, 0x844dAea3090440468AC4B0654743ae10B99083cC
-
-
-0xB27705342ACE73736AE490540Ea031cc06C3eF49
+CBE2O7ZNTL5YYDWA2DERTZZGLD2Y26DZPBS4UQG3AFKAKAHAYS7CIBC2, CAYFHHMOOUKN3TR7OUPNDA7HDVFURQY4BYB2UYWP3JSEHZXGKVTTU36E, CCPRQDXBRZYXNPLXAOEMXABMN6KCRRGNLL7FBRYNTKS576PEB35QXME5, CBBLCH7N4QPAQZPSOOD3ECCV4UPFEGIUEEVSDWZA5OX6MDNJ5PE7S476

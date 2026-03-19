@@ -1,31 +1,31 @@
 # Contract Addresses
 
-All contracts are deployed on **Stellar Testnet**.
+All contracts are deployed on **Stellar Testnet** (Soroban).
 
 ## Core Contracts
 
 ### TokenFactory
-**Address:** `CASR366SHQINAHN4J5R6NYATEJFD2V6IPGVW5M5XWIBECHCOM2BIFBE7`
+**Address:** `CBE2O7ZNTL5YYDWA2DERTZZGLD2Y26DZPBS4UQG3AFKAKAHAYS7CIBC2`
 **Network:** Stellar Testnet
-**Explorer:** https://stellar.expert/explorer/testnet/contract/CASR366SHQINAHN4J5R6NYATEJFD2V6IPGVW5M5XWIBECHCOM2BIFBE7
+**Explorer:** https://stellar.expert/explorer/testnet/contract/CBE2O7ZNTL5YYDWA2DERTZZGLD2Y26DZPBS4UQG3AFKAKAHAYS7CIBC2
 **Description:** Factory contract for creating meme tokens with bonding curve integration and social links support
 
 ### BondingCurve
-**Address:** `CBHWDHR5KKV6QRSWNSUA37W4O3XO5LJGLONVHXHIPPNVXMBQAONPP6YU`
+**Address:** `CAYFHHMOOUKN3TR7OUPNDA7HDVFURQY4BYB2UYWP3JSEHZXGKVTTU36E`
 **Network:** Stellar Testnet
-**Explorer:** https://stellar.expert/explorer/testnet/contract/CBHWDHR5KKV6QRSWNSUA37W4O3XO5LJGLONVHXHIPPNVXMBQAONPP6YU
+**Explorer:** https://stellar.expert/explorer/testnet/contract/CAYFHHMOOUKN3TR7OUPNDA7HDVFURQY4BYB2UYWP3JSEHZXGKVTTU36E
 **Description:** Bonding curve marketplace for meme tokens with automatic market-making
 
 ### PerpetualTrading
-**Address:** `CC6RDU5HIWOER4FIKL5QWD3TZWOBZRT7NQ2QSQAVPTBHQ5ZGA4PERIMP`
+**Address:** `CCPRQDXBRZYXNPLXAOEMXABMN6KCRRGNLL7FBRYNTKS576PEB35QXME5`
 **Network:** Stellar Testnet
-**Explorer:** https://stellar.expert/explorer/testnet/contract/CC6RDU5HIWOER4FIKL5QWD3TZWOBZRT7NQ2QSQAVPTBHQ5ZGA4PERIMP
+**Explorer:** https://stellar.expert/explorer/testnet/contract/CCPRQDXBRZYXNPLXAOEMXABMN6KCRRGNLL7FBRYNTKS576PEB35QXME5
 **Description:** Perpetual trading contract for long/short positions with leverage
 
 ### PikeToken
-**Address:** `CBZATY6XAZ4FI6DHJT6IQDEKS6MJMUAIYBOMOYYQ2EWSTSRIAA47NWU3`
+**Address:** `CBBLCH7N4QPAQZPSOOD3ECCV4UPFEGIUEEVSDWZA5OX6MDNJ5PE7S476`
 **Network:** Stellar Testnet
-**Explorer:** https://stellar.expert/explorer/testnet/contract/CBZATY6XAZ4FI6DHJT6IQDEKS6MJMUAIYBOMOYYQ2EWSTSRIAA47NWU3
+**Explorer:** https://stellar.expert/explorer/testnet/contract/CBBLCH7N4QPAQZPSOOD3ECCV4UPFEGIUEEVSDWZA5OX6MDNJ5PE7S476
 **Description:** Template token contract for meme tokens created via TokenFactory
 
 ## Network Information

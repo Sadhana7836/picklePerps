@@ -21,9 +21,9 @@
 
 ## Overview
 
-**PicklePerps** is a decentralized meme token platform built on **Stellar Network** that combines:
+**PicklePerps** is a decentralized meme token platform built on **Stellar Network (Soroban)** that combines:
 
-- **Meme Token Creation**: Users can mint custom ERC-20 meme tokens with IPFS-stored images
+- **Meme Token Creation**: Users can mint custom meme tokens with IPFS-stored images
 - **Bonding Curve Trading**: Automated market making with linear price curves
 - **Perpetual Trading**: Leveraged long/short positions (up to 100x) on meme tokens
 - **RWA Perpetuals**: Trade real-world assets (Gold, Silver, Oil, BTC, ETH, SOL) with Pyth Oracle price feeds
@@ -51,8 +51,8 @@
          |    |                                         |   |
          v    v                                         v   v
 +--------+----+----+     +-------------------+     +----+---+--------+
-|     Wagmi/Viem   |     |   Pyth Oracle     |     |   Event Indexer |
-|   (Web3 Client)  |     |   (Price Feeds)   |     |   (Blockchain)  |
+| Stellar SDK      |     |   Pyth Oracle     |     |   Event Poller  |
+| (Soroban Client) |     |   (Price Feeds)   |     |   (Soroban RPC) |
 +--------+---------+     +---------+---------+     +--------+--------+
          |                         |                        |
          +-----------+-------------+------------------------+
@@ -60,18 +60,16 @@
                      v
     +----------------+----------------+
     |                                 |
-    |   Stellar Testnet Blockchain    |
+    |   Stellar Testnet (Soroban)     |
     |                                 |
     |  +---------------------------+ |
-    |  | MemeTokenFactoryV3        | |
+    |  | TokenFactory              | |
     |  +---------------------------+ |
-    |  | BondingCurveMarket        | |
+    |  | BondingCurve              | |
     |  +---------------------------+ |
     |  | PerpetualTrading          | |
     |  +---------------------------+ |
-    |  | RWAPerpetualTrading       | |
-    |  +---------------------------+ |
-    |  | CopyTrading               | |
+    |  | PikeToken (template)      | |
     |  +---------------------------+ |
     |                                 |
     +---------------------------------+
@@ -81,73 +79,60 @@
 
 ## Smart Contracts
 
-### MemeTokenFactory
+### TokenFactory
 
-**File**: `contracts/MemeTokenFactoryV3.sol`
+**File**: `contracts-stellar/token_factory/src/lib.rs`
 
 The factory contract creates new meme tokens with automatic bonding curve integration.
 
 #### Token Creation Flow
 
-1. User calls `createToken()` with name, symbol, supply, image hash, and allocation
-2. Factory deploys a new `MemeTokenV2` contract
+1. User calls `create_token()` with name, symbol, supply, image hash, and allocation
+2. Factory deploys a new PikeToken contract via WASM
 3. Token supply is split:
-   - **Creator**: Gets 1-10% (configurable via `_creatorAllocationBps`)
+   - **Creator**: Gets 1-10% (configurable via `creator_allocation_bps`)
    - **Bonding Curve**: Gets the remaining 90-99%
-4. Factory calls `BondingCurveMarket.initializeCurve()` to list the token
+4. Factory calls BondingCurve to list the token
 
 #### Key Functions
 
-```solidity
-function createToken(
-    string memory _name,
-    string memory _symbol,
-    uint256 _totalSupply,
-    string memory _imageHash,
-    uint256 _creatorAllocationBps,  // 100-1000 (1%-10%)
-    string memory _website,
-    string memory _twitter,
-    string memory _telegram
-) public payable returns (address tokenAddress)
+```rust
+fn create_token(
+    env: Env,
+    creator: Address,
+    name: String,
+    symbol: String,
+    total_supply: i128,
+    image_hash: String,
+    creator_allocation_bps: u32,  // 100-1000 (1%-10%)
+    website: String,
+    twitter: String,
+    telegram: String,
+) -> Address
 ```
 
-#### Token Structure (MemeToken.sol)
+#### Token Structure (PikeToken)
 
-```solidity
-contract MemeToken {
-    string public name;
-    string public symbol;
-    uint8 public constant decimals = 18;
-    uint256 public totalSupply;
-    string public imageHash;      // IPFS CID
-    address public creator;
-    uint256 public createdAt;
-}
+```rust
+// Token with 7 decimals (Stellar standard)
+// Fields: name, symbol, total_supply, image_hash, creator, created_at
 ```
 
 ---
 
-### BondingCurveMarket
+### BondingCurve
 
-**File**: `contracts/BondingCurveMarket.sol`
+**File**: `contracts-stellar/bonding_curve/src/lib.rs`
 
 Implements automatic market making using a **linear bonding curve**.
 
 #### Curve Configuration
 
-```solidity
-struct CurveConfig {
-    address token;
-    address creator;
-    uint256 creatorAllocationBps;  // 100-1000 (1%-10%)
-    uint256 initialPrice;          // Starting price (1e8 precision)
-    uint256 curveCoefficient;      // Price growth rate
-    uint256 curveSupply;           // Total tokens on curve
-    uint256 soldFromCurve;         // Tokens sold so far
-    uint256 reserveBalance;        // ETH/XLM reserve
-    uint256 createdAt;
-    bool isActive;
-}
+```rust
+// Stored per-token in Soroban storage
+// token, creator, creator_allocation_bps (100-1000)
+// initial_price, curve_coefficient, curve_supply
+// sold_from_curve, reserve_balance, created_at, is_active
 ```
 
 #### Key Parameters
@@ -173,34 +158,25 @@ This is a **linear bonding curve** where:
 
 #### Buy/Sell Functions
 
-```solidity
-function buy(address _token, uint256 _minTokensOut) external payable returns (uint256 tokensOut)
-function sell(address _token, uint256 _tokenAmount, uint256 _minEthOut) external returns (uint256 ethOut)
+```rust
+fn buy(env: Env, buyer: Address, token: Address, xlm_amount: i128, min_tokens_out: i128) -> i128
+fn sell(env: Env, seller: Address, token: Address, token_amount: i128, min_xlm_out: i128) -> i128
 ```
 
 ---
 
 ### PerpetualTrading
 
-**File**: `contracts/PerpetualTrading.sol`
+**File**: `contracts-stellar/perpetual_trading/src/lib.rs`
 
 Enables leveraged perpetual futures trading on meme tokens.
 
 #### Position Structure
 
-```solidity
-struct Position {
-    address user;
-    address token;
-    bool isLong;
-    uint256 size;           // Position size in USD (scaled)
-    uint256 margin;         // Margin deposited
-    uint256 leverage;       // Leverage multiplier (1-100)
-    uint256 entryPrice;     // Entry price (1e8 precision)
-    uint256 entryTime;
-    uint256 lastFundingTime;
-    bool isOpen;
-}
+```rust
+// Stored per-position in Soroban storage
+// user, token, is_long, size (i128), margin (i128)
+// leverage (1-100), entry_price, entry_time, is_open
 ```
 
 #### Key Parameters
@@ -219,114 +195,34 @@ struct Position {
 
 #### Core Functions
 
-```solidity
-function openPosition(
-    address _token,
-    bool _isLong,
-    uint256 _margin,
-    uint256 _leverage
-) public payable returns (uint256 positionId)
-
-function closePosition(uint256 _positionId) public
-
-function liquidatePosition(uint256 _positionId) public
+```rust
+fn open_position(env: Env, user: Address, token: Address, is_long: bool, margin: i128) -> u64
+fn close_position(env: Env, user: Address, position_id: u64)
+fn liquidate_position(env: Env, liquidator: Address, position_id: u64)
 ```
 
 ---
 
-### RWAPerpetualTrading
+### RWAPerpetualTrading (Planned)
 
-**File**: `contracts/RWAPerpetualTrading.sol`
+RWA perpetual trading using Pyth Network oracle price feeds. Not yet deployed on Soroban.
 
-Perpetual trading for Real World Assets using **Pyth Network** oracle price feeds.
+#### Supported Assets (Planned)
 
-#### Supported Assets
-
-| Asset | Symbol | Pyth Feed ID |
+| Asset | Symbol | Max Leverage |
 |-------|--------|--------------|
-| Gold | XAU/USD | `0xfe650f...` |
-| Silver | XAG/USD | `0xf2fb02...` |
-| Crude Oil | WTI | `0xc7c600...` |
-| Bitcoin | BTC/USD | `0xe62df6...` |
-| Ethereum | ETH/USD | `0xff6149...` |
-| Solana | SOL/USD | `0xef0d8b...` |
-
-#### Asset Configuration
-
-```solidity
-struct AssetConfig {
-    bytes32 priceFeedId;    // Pyth price feed ID
-    uint256 maxLeverage;    // Asset-specific max leverage
-    uint256 minMargin;      // Asset-specific min margin
-    bool isActive;
-    string symbol;          // e.g., "XAU/USD"
-}
-```
-
-#### Key Parameters
-
-| Parameter | Value | Description |
-|-----------|-------|-------------|
-| `tradingFeeBps` | 10 (0.1%) | Trading fee |
-| `defaultMaxLeverage` | 50 | Default max leverage |
-| `MAX_LEVERAGE_CAP` | 200 | Absolute max leverage |
-| `LIQUIDATION_THRESHOLD` | 5% | Remaining margin for liquidation |
-| `PRICE_STALENESS` | 300s (5 min) | Max price age |
-
-#### Position Structure (Optimized)
-
-```solidity
-struct Position {
-    address user;
-    bytes32 assetId;
-    uint128 margin;         // Packed storage
-    uint128 size;
-    int64 entryPrice;       // Pyth price format
-    int32 entryExpo;        // Pyth exponent
-    uint32 leverage;
-    uint32 entryTime;
-    bool isLong;
-    bool isOpen;
-}
-```
+| Gold | XAU/USD | 20x |
+| Silver | XAG/USD | 20x |
+| Crude Oil | WTI | 20x |
+| Bitcoin | BTC/USD | 50x |
+| Ethereum | ETH/USD | 50x |
+| Solana | SOL/USD | 50x |
 
 ---
 
-### CopyTrading
+### CopyTrading (Planned)
 
-**File**: `contracts/CopyTrading.sol`
-
-Social trading system allowing users to automatically copy top traders.
-
-#### Leader Structure
-
-```solidity
-struct Leader {
-    address wallet;
-    uint256 profitShareBps;      // 100-3000 (1%-30%)
-    uint256 minFollowAmount;
-    uint256 totalFollowers;
-    uint256 totalCopiedVolume;
-    uint256 totalProfitEarned;
-    uint256 registeredAt;
-    bool isActive;
-}
-```
-
-#### Subscription Configuration
-
-```solidity
-struct SubscriptionConfig {
-    uint256 allocationAmount;    // Total allocation for copy trading
-    uint256 maxLeverage;         // Leverage cap (0 = no cap)
-    uint256 maxPositionSize;     // Max margin per position
-    bool copyLongs;              // Copy long positions
-    bool copyShorts;             // Copy short positions
-    bool copyMeme;               // Copy token perps
-    bool copyRWA;                // Copy RWA perps
-    bool useProportionalCopy;    // Percentage-based sizing
-}
-```
+Social trading system allowing users to automatically copy top traders. Not yet deployed on Soroban.
 
 #### Fee Structure
 
@@ -335,18 +231,6 @@ struct SubscriptionConfig {
 | Min Profit Share | 1% | Minimum leader profit share |
 | Max Profit Share | 30% | Maximum leader profit share |
 | Protocol Fee | 5% | Platform fee on profits |
-
-#### Copy Position Sizing
-
-**Proportional Mode** (`useProportionalCopy = true`):
-```
-followerMargin = (leaderMargin / leaderCapital) * followerAllocation
-```
-
-**Fixed Mode** (`useProportionalCopy = false`):
-```
-followerMargin = min(followerAllocation, leaderMargin)
-```
 
 ---
 
@@ -506,19 +390,19 @@ Example (10% leader share):
 
 ```
 1. CREATE TOKEN
-   User → MemeTokenFactoryV3.createToken()
+   User → TokenFactory.create_token()
                 ↓
-   Deploy new MemeTokenV2 contract
+   Deploy new PikeToken contract (via WASM)
                 ↓
-   Mint tokens: X% to creator, (100-X)% to BondingCurveMarket
+   Mint tokens: X% to creator, (100-X)% to BondingCurve
                 ↓
-   BondingCurveMarket.initializeCurve()
+   BondingCurve initializes curve for token
                 ↓
    Token is now tradeable!
 
 2. SPOT TRADING (Bonding Curve)
-   BUY:  User sends XLM → BondingCurveMarket.buy() → Receives tokens
-   SELL: User sends tokens → BondingCurveMarket.sell() → Receives XLM
+   BUY:  User sends XLM → BondingCurve.buy() → Receives tokens
+   SELL: User sends tokens → BondingCurve.sell() → Receives XLM
 
 3. PERPETUAL TRADING
    OPEN:  User deposits margin → PerpetualTrading.openPosition() → Position created
@@ -534,14 +418,14 @@ Example (10% leader share):
 ### Data Flow Diagram
 
 ```
-+-------------+    createToken()    +-------------------+
-|   User      | -----------------> |  MemeTokenFactory |
++-------------+    create_token()   +-------------------+
+|   User      | -----------------> |   TokenFactory    |
 +-------------+                     +-------------------+
       |                                     |
-      |                                     | initializeCurve()
+      |                                     | initialize curve
       |                                     v
       |    buy()/sell()           +-------------------+
-      +-------------------------> | BondingCurveMarket|
+      +-------------------------> |   BondingCurve    |
       |                           +-------------------+
       |                                     |
       |                                     | getCurrentPrice()
@@ -552,12 +436,12 @@ Example (10% leader share):
       |                                     |
       |                                     | Pyth Oracle
       |                                     v
-      |    openPosition()         +-------------------+
-      +-------------------------> | RWAPerpetualTrading|
+      |    (planned)              +-------------------+
+      +- - - - - - - - - - - - -> | RWAPerpetualTrading|
       |                           +-------------------+
       |
-      |    executeCopy()          +-------------------+
-      +-------------------------> |    CopyTrading    |
+      |    (planned)              +-------------------+
+      +- - - - - - - - - - - - -> |    CopyTrading    |
                                   +-------------------+
 ```
 
@@ -667,7 +551,7 @@ cli/
 
 ## Frontend Architecture
 
-**Stack**: Next.js 14, React, TypeScript, Tailwind CSS, Wagmi, Viem, RainbowKit
+**Stack**: Next.js 15, React 19, TypeScript, Tailwind CSS, @stellar/stellar-sdk, @stellar/freighter-api
 
 ### Directory Structure
 
@@ -735,110 +619,46 @@ quote.priceImpact  // Price impact %
 
 ---
 
-## Subgraph & Indexing
+## Event Indexing
 
-**Location**: `/subgraph/`
+Event monitoring via Soroban RPC polling (no subgraph needed).
 
-### Indexed Contracts
+### Event Services
 
-| Contract | Events Indexed |
-|----------|----------------|
-| MemeTokenFactoryV3 | TokenCreated |
-| BondingCurveMarket | CurveInitialized, TokenBought, TokenSold, FeesWithdrawn |
-| PerpetualTrading | PositionOpened, PositionClosed, PositionLiquidated |
-| CopyTrading | LeaderRegistered, FollowerSubscribed, CopyTradeExecuted, etc. |
+| Service | File | Poll Interval | Events |
+|---------|------|---------------|--------|
+| TokenCreationService | `lib/tokenCreationService.ts` | 5s | Token created |
+| TradeEventService | `lib/tradeEventService.ts` | 3s | Buy, Sell, Price updates |
+| CopyTradingService | `lib/copyTradingService.ts` | 3s | Position open/close (planned) |
 
-### Entities
+### How It Works
 
-```graphql
-type Token @entity {
-  id: ID!
-  address: Bytes!
-  name: String!
-  symbol: String!
-  totalSupply: BigInt!
-  imageHash: String!
-  creator: User!
-  createdAt: BigInt!
-  price: BigDecimal!
-  volume24h: BigDecimal!
-  trades: [Trade!]!
-}
-
-type Trade @entity {
-  id: ID!
-  token: Token!
-  user: User!
-  type: String!  # "buy" or "sell"
-  ethAmount: BigInt!
-  tokenAmount: BigInt!
-  price: BigDecimal!
-  timestamp: BigInt!
-}
-
-type Position @entity {
-  id: ID!
-  positionId: BigInt!
-  user: User!
-  token: Token!
-  isLong: Boolean!
-  size: BigInt!
-  margin: BigInt!
-  leverage: Int!
-  entryPrice: BigInt!
-  entryTime: BigInt!
-  isOpen: Boolean!
-  pnl: BigInt
-  exitPrice: BigInt
-  closedAt: BigInt
-}
-
-type Leader @entity {
-  id: ID!
-  wallet: Bytes!
-  profitShareBps: Int!
-  minFollowAmount: BigInt!
-  totalFollowers: Int!
-  totalCopiedVolume: BigInt!
-  totalProfitEarned: BigInt!
-  registeredAt: BigInt!
-  isActive: Boolean!
-}
-```
-
-### Subgraph Deployment
-
-```bash
-cd subgraph
-npm install
-npm run codegen
-npm run build
-npm run deploy
-```
+- Services poll Soroban RPC for contract events at fixed intervals
+- Events parsed from contract topics (e.g. `["created", creator_address]`)
+- In-memory cache of recent events (50 tokens, 100 trades)
+- Subscribe/unsubscribe pattern for React hooks
 
 ---
 
 ## Deployment Addresses
 
-**Network**: Stellar Testnet Testnet (Chain ID: 5003)
+**Network**: Stellar Testnet (Soroban)
 
 | Contract | Address |
 |----------|---------|
-| MemeTokenFactoryV3 | `0x083c920Eb055997a4becf51d9854dCd441a40b3E` |
-| BondingCurveMarket | `0x93b268325A9862645c82b32229f3B52264750Ca2` |
-| PerpetualTrading | `0x8081b646f349c049f2d5e8a400057d411dd657bd` |
-| CopyTrading | `0x03f0b1dd70d5ad5c46fa8084965ccb5f89d9242c` |
-| Will Contract | `0xf7ee5d6fdebdc25e08ebffc8f77ec3a59a1403da` |
-| Protocol Treasury | `0x844dAea3090440468AC4B0654743ae10B99083cC` |
+| TokenFactory | `CBE2O7ZNTL5YYDWA2DERTZZGLD2Y26DZPBS4UQG3AFKAKAHAYS7CIBC2` |
+| BondingCurve | `CAYFHHMOOUKN3TR7OUPNDA7HDVFURQY4BYB2UYWP3JSEHZXGKVTTU36E` |
+| PerpetualTrading | `CCPRQDXBRZYXNPLXAOEMXABMN6KCRRGNLL7FBRYNTKS576PEB35QXME5` |
+| PikeToken | `CBBLCH7N4QPAQZPSOOD3ECCV4UPFEGIUEEVSDWZA5OX6MDNJ5PE7S476` |
 
 ### Network Configuration
 
 | Parameter | Value |
 |-----------|-------|
-| Network Name | Stellar Testnet Testnet |
-| Chain ID | 5003 (0x138b) |
-| RPC URL | https://mantle-sepolia.drpc.org |
-| Block Explorer | https://explorer.sepolia.mantle.xyz |
+| Network Name | Stellar Testnet |
+| RPC URL | https://soroban-testnet.stellar.org |
+| Horizon URL | https://horizon-testnet.stellar.org |
+| Block Explorer | https://stellar.expert/explorer/testnet |
 | Native Currency | XLM |
 
 ---
