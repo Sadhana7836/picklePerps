@@ -3,7 +3,7 @@
 import { useEffect, useState, useCallback } from "react"
 import { server } from "@/lib/stellar"
 import { CONTRACT_IDS } from "@/lib/stellar"
-import { formatAmount } from "@/lib/soroban"
+import { formatAmount, decodeSorobanEvent } from "@/lib/soroban"
 import { getIntervalMs, getTimeRange } from "@/lib/utils"
 
 export interface CandleData {
@@ -109,9 +109,19 @@ export const useTokenPriceHistory = (tokenAddress: string | null, timeframe: str
         return
       }
 
-      // Fetch events from Soroban
+      // Get a recent starting ledger
+      let startLedger = 0
+      try {
+        const latest = await server.getLatestLedger()
+        startLedger = Math.max(0, latest.sequence - 5000)
+      } catch {
+        setCandleData([])
+        setIsLoading(false)
+        return
+      }
+
       const events = await server.getEvents({
-        startLedger: 0,
+        startLedger,
         filters: [
           {
             type: 'contract',
@@ -126,23 +136,30 @@ export const useTokenPriceHistory = (tokenAddress: string | null, timeframe: str
       if (events.events) {
         for (const event of events.events) {
           try {
+            const { topics, value } = decodeSorobanEvent(event)
+            if (!topics.length || !value) continue
+
+            const symbol = String(topics[0])
+            if (symbol !== 'bought' && symbol !== 'sold') continue
+
+            // topics[1] is the token address
+            const eventToken = String(topics[1] || '')
+            if (eventToken.toLowerCase() !== tokenAddress.toLowerCase()) continue
+
+            // value: bought=(xlm_amount, tokens, new_price, fee), sold=(token_amount, xlm_out, new_price, fee)
+            const vals = Array.isArray(value) ? value : [value]
+            const newPrice = BigInt(vals[2] || 0)
+            if (newPrice <= BigInt(0)) continue
+
+            const isBuy = symbol === 'bought'
+            const xlmAmount = isBuy ? BigInt(vals[0] || 0) : BigInt(vals[1] || 0)
+            const volume = Number(formatAmount(xlmAmount))
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            const args = event.value as any
-            if (!args) continue
+            const timestamp = (event as any).ledgerClosedAt
+              ? new Date((event as any).ledgerClosedAt).getTime()
+              : Date.now()
 
-            // Filter by token address
-            if (args.token && String(args.token).toLowerCase() !== tokenAddress.toLowerCase()) continue
-
-            const price = args.newPrice ? BigInt(String(args.newPrice)) : null
-            if (!price || price === BigInt(0)) continue
-
-            const volume = args.xlmAmount ? Number(formatAmount(BigInt(String(args.xlmAmount)))) : 0
-
-            allEvents.push({
-              price,
-              timestamp: Date.now() - ((events.events!.length - events.events!.indexOf(event)) * 60000),
-              volume,
-            })
+            allEvents.push({ price: newPrice, timestamp, volume })
           } catch {
             // Skip malformed events
           }
@@ -155,48 +172,7 @@ export const useTokenPriceHistory = (tokenAddress: string | null, timeframe: str
       const limitedEvents = validEvents.length > MAX_EVENTS ? validEvents.slice(-MAX_EVENTS) : validEvents
 
       if (limitedEvents.length === 0) {
-        // Try to get current price from contract
-        try {
-          const priceEvents = await server.getEvents({
-            startLedger: 0,
-            filters: [
-              {
-                type: 'contract',
-                contractIds: [contractId],
-              },
-            ],
-            limit: 1,
-          })
-
-          if (priceEvents.events && priceEvents.events.length > 0) {
-            const lastEvent = priceEvents.events[priceEvents.events.length - 1]
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            const args = lastEvent.value as any
-            if (args?.newPrice && BigInt(String(args.newPrice)) > BigInt(0)) {
-              const priceNum = convertPrice(BigInt(String(args.newPrice)))
-              const currentTime = Date.now()
-
-              const candles: CandleData[] = [{
-                open: priceNum,
-                close: priceNum,
-                high: priceNum,
-                low: priceNum,
-                volume: 0,
-                time: currentTime,
-              }]
-
-              setCandleData(candles)
-              cleanupCache()
-              priceHistoryCache.set(cacheKey, { data: candles, timestamp: Date.now() })
-            } else {
-              setCandleData([])
-            }
-          } else {
-            setCandleData([])
-          }
-        } catch {
-          setCandleData([])
-        }
+        setCandleData([])
         setIsLoading(false)
         return
       }

@@ -5,7 +5,7 @@
 
 import { server } from './stellar';
 import { CONTRACT_IDS } from './stellar';
-import { formatAmount } from './soroban';
+import { formatAmount, decodeSorobanEvent } from './soroban';
 
 export interface TokenCreatedEvent {
   tokenAddress: string;
@@ -96,29 +96,37 @@ class TokenCreationService {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private parseSorobanEvent(event: any): TokenCreatedEvent | null {
     try {
-      // Parse Soroban contract event
-      const token: TokenCreatedEvent = {
-        tokenAddress: event.value?.tokenAddress || '',
-        creator: event.value?.creator || '',
-        name: event.value?.name || '',
-        symbol: event.value?.symbol || '',
-        totalSupply: event.value?.totalSupply ? formatAmount(BigInt(event.value.totalSupply)) : '0',
-        imageHash: event.value?.imageHash || '',
-        creatorAllocationBps: Number(event.value?.creatorAllocationBps || 0),
-        timestamp: Date.now(),
+      const { topics, value } = decodeSorobanEvent(event);
+      if (!topics.length || !value) return null;
+
+      // Contract emits:
+      //   topics: [symbol("created"), creator_address]
+      //   value:  (token_address, name, symbol, total_supply)
+      const symbol = String(topics[0]);
+      if (symbol !== 'created') return null;
+
+      const creator = String(topics[1] || '');
+      const vals = Array.isArray(value) ? value : [value];
+
+      const tokenAddress = String(vals[0] || '');
+      const name = String(vals[1] || '');
+      const tokenSymbol = String(vals[2] || '');
+      const totalSupply = vals[3] ? formatAmount(BigInt(vals[3])) : '0';
+
+      if (!tokenAddress || !name || !tokenSymbol) return null;
+
+      return {
+        tokenAddress,
+        creator,
+        name,
+        symbol: tokenSymbol,
+        totalSupply,
+        imageHash: '',
+        creatorAllocationBps: 0,
+        timestamp: event.ledgerClosedAt ? new Date(event.ledgerClosedAt).getTime() : Date.now(),
         txHash: event.txHash || '',
         blockNumber: BigInt(event.ledger || 0),
-        website: event.value?.website || '',
-        twitter: event.value?.twitter || '',
-        telegram: event.value?.telegram || '',
       };
-
-      // Reject tokens with missing critical fields (event data incomplete)
-      if (!token.tokenAddress || !token.name || !token.symbol) {
-        return null;
-      }
-
-      return token;
     } catch (error) {
       console.error("[TokenCreation] Failed to parse event:", error);
       return null;

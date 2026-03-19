@@ -178,3 +178,17 @@ export function parseAmount(amount: string, decimals: number = 7): bigint {
   const fracPadded = frac.padEnd(decimals, '0').slice(0, decimals);
   return BigInt(whole + fracPadded);
 }
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function decodeSorobanEvent(event: any): { topics: any[]; value: any } {
+  const topics = Array.isArray(event.topic)
+    ? event.topic.map((t: StellarSdk.xdr.ScVal) => {
+        try { return scValToNative(t); } catch { return null; }
+      })
+    : [];
+  let value = null;
+  if (event.value) {
+    try { value = scValToNative(event.value); } catch { /* skip */ }
+  }
+  return { topics, value };
+}

@@ -255,6 +255,9 @@ export const useMemeTokens = () => {
         if (exists) return prevTokens
         return [newToken, ...prevTokens]
       })
+
+      // Refetch full data from contract to get image, social links, etc.
+      setTimeout(() => fetchTokens(), 2000)
     })
 
     return () => {

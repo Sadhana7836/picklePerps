@@ -32,6 +32,7 @@ const DEFAULT_CURVE_COEFFICIENT: i128 = 10_000; // 1e4
 pub enum DataKey {
     Admin,
     Factory,
+    NativeToken,
     TradingFeeBps,
     AccumulatedFees,
     ListedTokens,
@@ -96,13 +97,16 @@ impl BondingCurve {
     ///
     /// * `admin`   - contract administrator
     /// * `factory` - address of the token-factory (only it may call `initialize_curve`)
-    pub fn initialize(env: Env, admin: Address, factory: Address) {
+    pub fn initialize(env: Env, admin: Address, factory: Address, native_token: Address) {
         if env.storage().instance().has(&DataKey::Initialized) {
             panic!("already initialized");
         }
         env.storage().instance().set(&DataKey::Initialized, &true);
         env.storage().instance().set(&DataKey::Admin, &admin);
         env.storage().instance().set(&DataKey::Factory, &factory);
+        env.storage()
+            .instance()
+            .set(&DataKey::NativeToken, &native_token);
         env.storage()
             .instance()
             .set(&DataKey::TradingFeeBps, &DEFAULT_TRADING_FEE_BPS);
@@ -279,14 +283,6 @@ impl BondingCurve {
     // -----------------------------------------------------------------------
 
     /// Buy tokens from the bonding curve by sending XLM.
-    ///
-    /// * `buyer`          - the buyer (must authorize)
-    /// * `token_id`       - the pike_token address
-    /// * `xlm_amount`     - amount of XLM (stroops) to spend
-    /// * `min_tokens_out` - slippage protection
-    ///
-    /// The caller must transfer `xlm_amount` of native XLM to this contract
-    /// via the SAC before invoking `buy`, or as part of a batched transaction.
     pub fn buy(
         env: Env,
         buyer: Address,
@@ -296,6 +292,11 @@ impl BondingCurve {
     ) -> i128 {
         buyer.require_auth();
         assert!(xlm_amount > 0, "must send XLM");
+
+        // Transfer XLM from buyer to this contract
+        let native_addr: Address = env.storage().instance().get(&DataKey::NativeToken).unwrap();
+        let xlm_client = TokenClient::new(&env, &native_addr);
+        xlm_client.transfer(&buyer, &env.current_contract_address(), &xlm_amount);
 
         let key = DataKey::CurveConfig(token_id.clone());
         let mut config: CurveConfig = env
@@ -417,6 +418,11 @@ impl BondingCurve {
         let token_client = TokenClient::new(&env, &token_id);
         token_client.transfer(&seller, &env.current_contract_address(), &token_amount);
 
+        // Transfer XLM from contract to seller
+        let native_addr: Address = env.storage().instance().get(&DataKey::NativeToken).unwrap();
+        let xlm_client = TokenClient::new(&env, &native_addr);
+        xlm_client.transfer(&env.current_contract_address(), &seller, &xlm_out);
+
         // Update state
         config.sold_from_curve -= token_amount;
         config.reserve_balance -= xlm_before_fee;
@@ -505,6 +511,22 @@ impl BondingCurve {
 
         env.events()
             .publish((symbol_short!("fee_upd"),), new_fee_bps);
+    }
+
+    pub fn withdraw_fees(env: Env, caller: Address) -> i128 {
+        caller.require_auth();
+        let admin: Address = env.storage().instance().get(&DataKey::Admin).unwrap();
+        assert!(caller == admin, "only admin");
+
+        let fees: i128 = env.storage().instance().get(&DataKey::AccumulatedFees).unwrap();
+        assert!(fees > 0, "no fees");
+
+        let native_addr: Address = env.storage().instance().get(&DataKey::NativeToken).unwrap();
+        let xlm_client = TokenClient::new(&env, &native_addr);
+        xlm_client.transfer(&env.current_contract_address(), &admin, &fees);
+
+        env.storage().instance().set(&DataKey::AccumulatedFees, &0i128);
+        fees
     }
 
     pub fn set_factory(env: Env, caller: Address, new_factory: Address) {

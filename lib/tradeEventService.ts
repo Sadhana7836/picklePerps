@@ -5,7 +5,7 @@
 
 import { server } from './stellar';
 import { CONTRACT_IDS } from './stellar';
-import { formatAmount } from './soroban';
+import { formatAmount, decodeSorobanEvent } from './soroban';
 
 export interface TradeEvent {
   type: "BUY" | "SELL";
@@ -57,8 +57,16 @@ class TradeEventService {
 
     this.pollingInterval = setInterval(async () => {
       try {
+        // Get starting ledger on first poll
+        if (!this.lastLedger) {
+          try {
+            const latest = await server.getLatestLedger();
+            this.lastLedger = latest.sequence - 100;
+          } catch { return; }
+        }
+
         const events = await server.getEvents({
-          startLedger: this.lastLedger || undefined,
+          startLedger: this.lastLedger,
           filters: [
             {
               type: 'contract',
@@ -88,19 +96,35 @@ class TradeEventService {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private parseTradeEvent(event: any): TradeEvent | null {
     try {
-      const args = event.value;
-      if (!args) return null;
+      const { topics, value } = decodeSorobanEvent(event);
+      if (!topics.length || !value) return null;
 
-      const type = args.type === "sell" ? "SELL" : "BUY";
+      // Contract emits:
+      //   topics: [symbol("bought"|"sold"), token_id, trader]
+      //   value:  bought: (xlm_amount, tokens, new_price, fee)
+      //           sold:   (token_amount, xlm_out, new_price, fee)
+      const symbol = String(topics[0]);
+      if (symbol !== 'bought' && symbol !== 'sold') return null;
+
+      const isBuy = symbol === 'bought';
+      const token = String(topics[1] || '');
+      const trader = String(topics[2] || '');
+      if (!token) return null;
+
+      // value is decoded as an array from the tuple
+      const vals = Array.isArray(value) ? value : [value];
+      const xlmAmount = isBuy ? BigInt(vals[0] || 0) : BigInt(vals[1] || 0);
+      const tokenAmount = isBuy ? BigInt(vals[1] || 0) : BigInt(vals[0] || 0);
+      const newPrice = BigInt(vals[2] || 0);
 
       return {
-        type,
-        token: args.token || '',
-        trader: args.trader || args.buyer || args.seller || '',
-        ethAmount: args.xlmAmount ? formatAmount(BigInt(args.xlmAmount)) : "0",
-        tokenAmount: args.tokenAmount ? formatAmount(BigInt(args.tokenAmount)) : "0",
-        newPrice: args.newPrice ? formatAmount(BigInt(args.newPrice)) : "0",
-        timestamp: Date.now(),
+        type: isBuy ? "BUY" : "SELL",
+        token,
+        trader,
+        ethAmount: formatAmount(xlmAmount),
+        tokenAmount: formatAmount(tokenAmount),
+        newPrice: formatAmount(newPrice),
+        timestamp: event.ledgerClosedAt ? new Date(event.ledgerClosedAt).getTime() : Date.now(),
         txHash: event.txHash || '',
         blockNumber: BigInt(event.ledger || 0),
       };

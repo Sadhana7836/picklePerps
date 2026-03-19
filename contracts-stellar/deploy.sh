@@ -23,6 +23,10 @@ fi
 
 DEPLOYER=$(stellar keys address "$IDENTITY")
 echo "Deployer address: $DEPLOYER"
+
+# Get native XLM SAC (Stellar Asset Contract) address
+NATIVE_TOKEN=$(stellar contract id asset --asset native --network "$NETWORK")
+echo "Native XLM SAC: $NATIVE_TOKEN"
 echo ""
 
 # Build contracts
@@ -81,7 +85,8 @@ stellar contract invoke \
   --network "$NETWORK" \
   -- initialize \
   --admin "$DEPLOYER" \
-  --factory "$TOKEN_FACTORY"
+  --factory "$TOKEN_FACTORY" \
+  --native_token "$NATIVE_TOKEN"
 
 echo ""
 echo "--- Initializing TokenFactory ---"

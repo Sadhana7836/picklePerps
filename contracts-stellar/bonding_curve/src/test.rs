@@ -7,10 +7,11 @@ fn setup(env: &Env) -> (Address, Address, Address) {
     let contract_id = env.register(BondingCurve, ());
     let admin = Address::generate(env);
     let factory = Address::generate(env);
+    let native_token = Address::generate(env);
 
     let client = BondingCurveClient::new(env, &contract_id);
     env.mock_all_auths();
-    client.initialize(&admin, &factory);
+    client.initialize(&admin, &factory, &native_token);
 
     (contract_id, admin, factory)
 }
