@@ -15,6 +15,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  icons: {
+    icon: "/logo.svg",
+  },
   title: {
     default: "PicklePerps - Decentralized Perpetual Trading on Stellar Network",
     template: "%s | PicklePerps",
