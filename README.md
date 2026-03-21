@@ -167,10 +167,4 @@ bash deploy.sh
 - **Web App**: https://pickle-perps.vercel.app
 - **GitHub**: https://github.com/Sadhana7836/picklePerps
 - **Feedback Form**: https://docs.google.com/forms/d/e/1FAIpQLSeNZcu_mW7E3GTQF9nSORIMpUHx1KgjYbg2IHzLG_nIdhNUmg/viewform?usp=header
-## License
-
-MIT
-
----
-
-**PicklePerps. Built for degens, by degens.**
+- **Feedback Sheet**: https://docs.google.com/spreadsheets/d/1bwbo3vrIWtCngE36T7HYHfTFdtFy9lqeP0Q-CIAynr8/edit?usp=sharing
