@@ -167,4 +167,36 @@ bash deploy.sh
 - **Web App**: https://pickle-perps.vercel.app
 - **GitHub**: https://github.com/Sadhana7836/picklePerps
 - **Feedback Form**: https://docs.google.com/forms/d/e/1FAIpQLSeNZcu_mW7E3GTQF9nSORIMpUHx1KgjYbg2IHzLG_nIdhNUmg/viewform?usp=header
-- **Feedback Sheet**: https://docs.google.com/spreadsheets/d/1bwbo3vrIWtCngE36T7HYHfTFdtFy9lqeP0Q-CIAynr8/edit?usp=sharing
+- **Feedback Sheet**: https://forms.gle/KydeC7XXN9GxhCf87
+
+## User Feedback
+
+### Feedback Summary
+
+| ID | User | Bug/Issue | Status |
+|----|------|-----------|--------|
+| F1 | Arindam Chatterjee | Empty tokens appearing in token list | Done |
+| F2 | Priya Sharma | Error message showing during successful token creation | Done |
+| F3 | Souvik Banerjee | Spacing and font sizes inconsistent across pages | Done |
+| F4 | Ritwick Srimany | No loading indicator during token creation | Done |
+| F5 | Rahul Gupta | Token list has no sorting or filtering | In Progress |
+| F6 | Tania Ghosh | Navigation menu is flat, hard to find things | In Progress |
+
+### Fixes Applied
+
+| Commit | Feedback | Fix Description |
+|--------|----------|-----------------|
+| `baee45a6` | F1 | Filtered out empty/zero-balance tokens from token list |
+| `de40636b` | F2 | Fixed false error message during token creation |
+
+### Upcomming Fixes-
+
+| Feedback | Fix Description |
+|----------|-----------------|
+| F3 | Added UI themes, standardized styling across pages |
+| F3 | Fixed minor UI inconsistencies and URL issues |
+| F4 | General bug fixes including loading states |
+
+### Feedback Response Sheet
+
+[View all user feedback responses (Google Sheets)](https://forms.gle/KydeC7XXN9GxhCf87)
