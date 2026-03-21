@@ -50,4 +50,13 @@ next-env.d.ts
 # scripts
 /scripts
 
+# private testing / bot farm
 /private-testing
+
+# Rust / Soroban build artifacts
+contracts-stellar/target/
+contracts-stellar/.soroban/
+
+# EVM legacy artifacts
+/artifacts
+/cache

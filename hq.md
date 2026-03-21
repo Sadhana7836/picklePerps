@@ -2,7 +2,7 @@
 
 ## Description
 
-PicklePerps is a high-speed perpetual trading platform on Stellar Network (Soroban) that combines meme token creation with leveraged trading for both crypto and real-world assets. It provides bonding curve AMM for instant token liquidity, up to 100x leverage on perpetuals, RWA trading via Pyth oracles, and copy trading infrastructure - all accessible through web, CLI, and terminal UI.
+PicklePerps is a high-speed perpetual trading platform on Stellar Network (Soroban) that combines meme token creation with leveraged trading for both crypto and real-world assets. It provides bonding curve AMM for instant token liquidity, up to 100x leverage on perpetuals, RWA trading via Pyth oracles, and copy trading infrastructure.
 
 
 ## The Solution
@@ -87,28 +87,6 @@ Deployed on Stellar Testnet (Soroban).
 | Crypto | BTC/USD, ETH/USD, SOL/USD | 50x |
 
 
-## Pickle CLI
-
-Direct blockchain interaction from the terminal, eliminating browser latency and enabling automation for serious traders.
-
-- Execute trades without browser overhead or wallet popup delays
-- Wallet management with AES-256-GCM encryption stored locally
-- Full platform access: spot trading, perpetuals, RWA, and portfolio tracking
-- Scriptable commands for algorithmic trading strategies
-- Works on servers and headless environments
-
-
-## Pickle TUI
-
-Full trading terminal rendered in the command line for traders who need speed and visual market data without a browser.
-
-- Real-time candlestick charts directly in terminal
-- Live position tracking with PnL updates
-- Keyboard-driven execution with single keystrokes
-- Multi-panel layout for simultaneous market monitoring
-- No mouse clicks, no page loads, no confirmation popups
-
-
 ## Security Model
 
 | Property | Mechanism |
@@ -127,7 +105,7 @@ Full trading terminal rendered in the command line for traders who need speed an
 
 ## Progress During Hackathon
 
-A complete perpetual trading infrastructure for Stellar featuring four deployed Soroban smart contracts (TokenFactory, BondingCurve, PerpetualTrading, PikeToken), a Next.js 15 web application with real-time trading panels and candlestick charts, a globally installable CLI with encrypted wallet management, a terminal UI for keyboard-driven trading, and Soroban RPC event polling for real-time data indexing.
+A complete perpetual trading infrastructure for Stellar featuring four deployed Soroban smart contracts (TokenFactory, BondingCurve, PerpetualTrading, PikeToken), a Next.js 15 web application with real-time trading panels and candlestick charts, and Soroban RPC event polling for real-time data indexing.
 
 
 ## Fundraising Status
@@ -138,8 +116,7 @@ We are seeking seed funding to conduct professional security audits of our smart
 ## Links
 
 - Website: https://pickle-perps.vercel.app
-- NPM Package: https://www.npmjs.com/package/pickleperps
-- GitHub: https://github.com/debanjannnn/PicklePerps
+- GitHub: https://github.com/Sadhana7836/picklePerps
 - Subgraph API: https://api.goldsky.com/api/public/project_cmj709d6q6eqo01w6advl8q19/subgraphs/pickleperps/2.1.0/gn
 
 

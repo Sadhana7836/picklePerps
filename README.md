@@ -1,6 +1,6 @@
 # PicklePerps
 
-A high-speed perpetual trading platform for tokens and real-world assets on Stellar Network. Web interface, CLI, and Terminal UI - built for traders who need speed.
+A high-speed perpetual trading platform for tokens and real-world assets on Stellar Network.
 
 ![Trenches - Token List](public/readme-image/image.png)
 
@@ -8,7 +8,7 @@ A high-speed perpetual trading platform for tokens and real-world assets on Stel
 
 Most DEXs are slow. Heavy frontends, laggy charts, delayed execution. By the time your trade goes through, the price has moved.
 
-PicklePerps fixes that. Fast execution, real-time charts, and a terminal UI for traders who need speed. You can wait 2 seconds to cross the road - but not when you're trading perps.
+PicklePerps fixes that. Fast execution, real-time charts. You can wait 2 seconds to cross the road - but not when you're trading perps.
 
 ## Screenshots
 
@@ -49,13 +49,6 @@ All prices powered by Pyth Network - institutional-grade oracles with sub-second
 - **Leaderboard** - Rankings by PnL, win rate, and volume
 - **Follow Leaders** - Subscribe with your capital, positions copy proportionally
 - **On-chain Execution** - Smart contracts handle everything, no trust required
-
-### Terminal UI (TUI)
-Full trading terminal in your command line. No browser, no heavy frontend - just fast, keyboard-driven trading.
-
-```
-pickle terminal
-```
 
 ## The Math
 
@@ -118,81 +111,6 @@ npm run dev
 
 Open https://pickle-perps.vercel.app
 
-### CLI Installation
-
-```bash
-# Install globally
-npm install -g pickleperps
-
-# Or run from source
-cd cli
-npm install
-npm run build
-npm link
-```
-
-## CLI Usage
-
-### Wallet Management
-```bash
-pickle wallet create          # Create new wallet
-pickle wallet import          # Import from mnemonic
-pickle wallet list            # List all wallets
-pickle wallet set-active      # Set active wallet
-pickle wallet balance         # Check balance
-```
-
-### Token Trading
-```bash
-pickle tokens list            # List all tokens
-pickle tokens search <query>  # Search tokens
-pickle trade buy <token>      # Buy tokens
-pickle trade sell <token>     # Sell tokens
-```
-
-### Perpetual Trading
-```bash
-pickle perp open              # Open a position
-pickle perp close             # Close a position
-pickle perp positions         # View your positions
-```
-
-### RWA Trading
-```bash
-pickle rwa list               # List RWA assets
-pickle rwa open               # Open RWA position
-pickle rwa close              # Close RWA position
-pickle rwa positions          # View RWA positions
-```
-
-### Portfolio & History
-```bash
-pickle portfolio              # View portfolio
-pickle history                # Trade history
-pickle leaderboard            # View leaderboard
-```
-
-### Terminal UI
-```bash
-pickle terminal               # Launch full TUI
-pickle tui                    # Alias for terminal
-```
-
-## TUI Keybindings
-
-| Key | Action |
-|-----|--------|
-| `1-5` | Switch views |
-| `Tab` | Navigate between panels |
-| `b` | Buy token |
-| `s` | Sell token |
-| `l` | Open long position |
-| `h` | Open short position |
-| `c` | Close position |
-| `r` | Refresh data |
-| `/` | Search |
-| `q` | Quit |
-
 ## Tech Stack
 
 | Layer | Technology |
@@ -215,10 +133,6 @@ PicklePerps/
 │   ├── token_factory/
 │   ├── bonding_curve/
 │   └── perpetual_trading/
-├── cli/                    # CLI and TUI
-│   └── src/
-│       ├── commands/       # CLI commands
-│       └── tui/            # Terminal UI
 ├── hooks/                  # React hooks
 ├── lib/                    # Utilities
 └── subgraph/               # GraphQL indexing
@@ -251,9 +165,8 @@ bash deploy.sh
 ## Links
 
 - **Web App**: https://pickle-perps.vercel.app
-- **GitHub**: https://github.com/debanjannnn/PicklePerps
-- **NPM**: https://www.npmjs.com/package/pickleperps
-
+- **GitHub**: https://github.com/Sadhana7836/picklePerps
+- **Feedback Form**: https://docs.google.com/forms/d/e/1FAIpQLSeNZcu_mW7E3GTQF9nSORIMpUHx1KgjYbg2IHzLG_nIdhNUmg/viewform?usp=header
 ## License
 
 MIT

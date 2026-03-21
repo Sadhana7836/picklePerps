@@ -12,10 +12,9 @@
    - [CopyTrading](#copytrading)
 4. [DeFi Mathematics](#defi-mathematics)
 5. [Application Flow](#application-flow)
-6. [CLI Tool](#cli-tool)
-7. [Frontend Architecture](#frontend-architecture)
-8. [Subgraph & Indexing](#subgraph--indexing)
-9. [Deployment Addresses](#deployment-addresses)
+6. [Frontend Architecture](#frontend-architecture)
+7. [Subgraph & Indexing](#subgraph--indexing)
+8. [Deployment Addresses](#deployment-addresses)
 
 ---
 
@@ -35,25 +34,23 @@
 - Linear bonding curve for automatic price discovery
 - Up to 100x leverage on perpetual positions
 - Copy trading with profit sharing (1-30%)
-- Multi-platform: Web UI, CLI, and TUI (Terminal UI)
+- Web UI for trading and portfolio management
 
 ---
 
 ## Architecture
 
 ```
-+------------------+     +-------------------+     +------------------+
-|   Frontend       |     |   CLI / TUI       |     |   Subgraph       |
-|   (Next.js)      |     |   (Node.js)       |     |   (GraphQL)      |
-+--------+---------+     +---------+---------+     +--------+---------+
-         |                         |                        |
-         |    +--------------------+--------------------+   |
-         |    |                                         |   |
-         v    v                                         v   v
-+--------+----+----+     +-------------------+     +----+---+--------+
-| Stellar SDK      |     |   Pyth Oracle     |     |   Event Poller  |
-| (Soroban Client) |     |   (Price Feeds)   |     |   (Soroban RPC) |
-+--------+---------+     +---------+---------+     +--------+--------+
++------------------+                            +------------------+
+|   Frontend       |                            |   Subgraph       |
+|   (Next.js)      |                            |   (GraphQL)      |
++--------+---------+                            +--------+---------+
+         |                                               |
+         v                                               v
++--------+---------+     +-------------------+     +-----+----------+
+| Stellar SDK      |     |   Pyth Oracle     |     |   Event Poller |
+| (Soroban Client) |     |   (Price Feeds)   |     |   (Soroban RPC)|
++--------+---------+     +---------+---------+     +--------+-------+
          |                         |                        |
          +-----------+-------------+------------------------+
                      |
@@ -444,108 +441,6 @@ Example (10% leader share):
       +- - - - - - - - - - - - -> |    CopyTrading    |
                                   +-------------------+
 ```
-
----
-
-## CLI Tool
-
-**Location**: `/cli/`
-
-### Installation
-
-```bash
-npm install -g pickleperps
-```
-
-### Available Commands
-
-#### Wallet Management
-```bash
-pickle wallet setup       # Create or import a wallet
-pickle wallet show        # Display wallet address
-pickle wallet balance     # Check XLM and token balances
-pickle wallet export      # Export private key
-```
-
-#### Token Discovery
-```bash
-pickle tokens list              # List all available tokens
-pickle tokens trending          # Show trending tokens by volume
-pickle tokens search <query>    # Search tokens by name or symbol
-pickle tokens info <address>    # Get detailed token information
-```
-
-#### Spot Trading (Bonding Curve)
-```bash
-pickle trade buy <token> <amount>     # Buy tokens with XLM
-pickle trade sell <token> <amount>    # Sell tokens for XLM
-pickle trade quote <token> <amount>   # Get price quote
-```
-
-#### Perpetual Trading
-```bash
-pickle perp open <token>        # Open a leveraged position
-pickle perp close <positionId>  # Close a position
-pickle perp list                # List all open positions
-pickle perp pnl                 # View profit and loss
-```
-
-Options:
-- `-s, --side <side>` - Position side: long or short
-- `-m, --margin <amount>` - Margin amount in XLM
-- `-l, --leverage <number>` - Leverage multiplier (1-100)
-
-#### RWA Trading
-```bash
-pickle rwa list                 # List available RWA assets
-pickle rwa open <asset>         # Open RWA position
-pickle rwa close <positionId>   # Close RWA position
-pickle rwa positions            # View RWA positions
-```
-
-#### Terminal UI
-```bash
-pickle terminal    # Launch interactive TUI dashboard
-pickle tui         # Alias for terminal
-```
-
-### CLI Architecture
-
-```
-cli/
-├── src/
-│   ├── index.ts              # Entry point
-│   ├── types.ts              # TypeScript types
-│   ├── commands/             # CLI commands
-│   │   ├── wallet.ts         # Wallet management
-│   │   ├── tokens.ts         # Token listing
-│   │   ├── trade.ts          # Spot trading
-│   │   ├── perp.ts           # Perpetual trading
-│   │   ├── rwa.ts            # RWA trading
-│   │   ├── portfolio.ts      # Portfolio view
-│   │   ├── history.ts        # Transaction history
-│   │   ├── leaderboard.ts    # Top traders
-│   │   └── config.ts         # Configuration
-│   ├── lib/                  # Utilities
-│   │   ├── client.ts         # Viem client setup
-│   │   ├── contracts.ts      # Contract interactions
-│   │   ├── wallet.ts         # Wallet encryption
-│   │   ├── subgraph.ts       # GraphQL queries
-│   │   ├── prompts.ts        # User prompts
-│   │   └── ui.ts             # Terminal UI helpers
-│   └── tui/                  # Terminal UI
-│       ├── index.ts          # TUI entry point
-│       ├── components/       # blessed UI components
-│       │   ├── App.ts        # Main application
-│       │   └── Dialogs.ts    # Modal dialogs
-│       └── lib/              # TUI utilities
-```
-
-### Wallet Security
-
-- Private keys encrypted with **AES-256-GCM**
-- Stored at `~/.pickle/keystore.json`
-- Password required for every transaction
 
 ---
 

@@ -51,14 +51,14 @@ export const metadata: Metadata = {
   authors: [{ name: "PicklePerps Team" }],
   creator: "PicklePerps",
   publisher: "PicklePerps",
-  metadataBase: new URL("https://pickleperps.com"),
+  metadataBase: new URL("https://pickle-perps.vercel.app"),
   alternates: {
     canonical: "/",
   },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://pickleperps.com",
+    url: "https://pickle-perps.vercel.app",
     siteName: "PicklePerps",
     title: "PicklePerps - Decentralized Perpetual Trading on Stellar Network",
     description:
@@ -104,7 +104,7 @@ const jsonLd = {
   alternateName: ["Pickle Perps", "Pickle", "Perps"],
   description:
     "PicklePerps is the leading decentralized perpetual trading platform (DEX) on Stellar Network. Trade crypto with up to 100x leverage.",
-  url: "https://pickleperps.com",
+  url: "https://pickle-perps.vercel.app",
   applicationCategory: "FinanceApplication",
   operatingSystem: "Web",
   offers: {
@@ -120,8 +120,8 @@ const jsonLd = {
   provider: {
     "@type": "Organization",
     name: "PicklePerps",
-    url: "https://pickleperps.com",
-    logo: "https://pickleperps.com/pickle-perps-logo.png",
+    url: "https://pickle-perps.vercel.app",
+    logo: "https://pickle-perps.vercel.app/pickle-perps-logo.png",
     sameAs: [
       "https://twitter.com/PicklePerps",
       "https://discord.gg/pickleperps",
